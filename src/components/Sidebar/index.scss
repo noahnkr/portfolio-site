@@ -91,15 +91,21 @@
       }
     }
 
-    a.contact-link {
-      &:after {
-        content: 'CONTACT';
-      }
-    }
-
     a.portfolio-link {
       &:after {
         content: 'PORTFOLIO';
+      }
+    }
+
+    a.projects-link {
+      &:after {
+        content: 'PROJECTS';
+      }
+    }
+
+    a.contact-link {
+      &:after {
+        content: 'CONTACT';
       }
     }
 
