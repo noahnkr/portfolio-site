@@ -33,7 +33,7 @@
     
     h1 {
         color: #fff;
-        font-size: 53px;
+        font-size: 75px;
         margin: 0;
         font-family: 'Coolvetica';
         font-weight: 400;
@@ -42,7 +42,7 @@
         img {
             margin-left: 10px;
             margin-right: 2px;
-            width: 48px;
+            width: 65px;
             opacity: 0;
             height: auto;
             animation: rotateIn 1s linear both;
@@ -68,14 +68,14 @@
         font-family: sans-serif;
         text-decoration: none;
         padding: 10px 18px;
-        border: 1px solid #00a0af;
+        border: 1px solid #00d2e6;
         margin-top: 25px;
         float: left;
         animation: fadeIn 1s 1.8s backwards;
         white-space: nowrap;
 
         &:hover {
-            background: #00a0af;
+            background: #00d2e6;
             color: #333;
 
         }
@@ -83,6 +83,7 @@
 }
 
 .about-page,
+.resume-page,
 .contact-page {
     .text-zone {
         position: absolute;
@@ -95,9 +96,9 @@
         max-height: 90%;
 
         h1 {
-            font-size: 53px;
+            font-size: 75px;
             font-family: 'Coolvetica';
-            color: #00a0af;
+            color: #00d2e6;
             font-weight: 400;
             margin-top: 0;
             position: relative;
@@ -105,8 +106,12 @@
 
         }
 
+        h2 {
+            color: #fff;
+        }
+
         p {
-            font-style: 11px;
+            font-style: 24px;
             color: #fff;
             font-family: sans-serif;
             font-weight: 300;
@@ -125,14 +130,6 @@
                 animation-delay: 1.3s;
             }
         }
-
-        .text-animate-hover {
-            &:hover {
-                color: #fff;
-
-            }
-        }
-
     }
 }
 

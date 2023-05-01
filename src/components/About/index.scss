@@ -1,0 +1,23 @@
+.photo-zone {
+    position: absolute;
+    overflow: hidden;
+    right: 10%;
+    top: 25%;
+    width: 35%;
+
+    .me-photo {
+        position: relative;
+        opacity: 0%;
+        animation: fadeIn 1s ease-in-out forwards;
+        animation-delay: 1.5s;
+    }      
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
