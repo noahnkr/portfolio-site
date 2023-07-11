@@ -1,0 +1,15 @@
+.section-select {
+    display: flex;
+    flex-direction: row;
+
+    h2 {
+        margin-right: 10px;
+        margin-top: 0px;
+        cursor: pointer;
+    }
+}
+
+#section-2, #section-3 {
+    opacity: 50%;
+}
+

@@ -31,13 +31,13 @@ const About = () => {
                 </p>
                 <p>
                     My interest in this field was was sparked in 2012 when I went to a summer coding camp and created my first Java program. This inspired me 
-                    to build my first computer and to continue learning how to program so I could create my own game. Fast forward to today and I still haven't finished
-                    that game, however, I have found a new love for web design, creating applications, and turning any ideas into reality.
+                    to build my first computer and to continue learning how to program so I could eventually create my own game. Fast forward to today and I still haven't finished
+                    that game, however, I have a newfound love for creating applications, web design, and turning my ideas into reality.
                     My recent obsession has been working with artificial intelligence and machine learning.
                 </p>
 
                 <p>
-                    When i'm not studying or coding, you can usually find me at the gym, hanging with friends, or bartending at my local college bar. Time managemant is
+                    When i'm not studying or coding, you can usually find me at the gym, hanging with friends, or bartending, Time managemant is
                     a necessity for me in order to maintain a healthy school-work-life balance; A project that has been on my radar for some time now has been creating
                     a time management software specifically tailored towards students.
                 </p>
