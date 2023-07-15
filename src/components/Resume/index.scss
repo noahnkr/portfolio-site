@@ -1,15 +1,70 @@
-.section-select {
-    display: flex;
-    flex-direction: row;
+.experience,
+.skills,
+.coursework {
+    position: relative;
+    top: -40px;
+    animation: fadeIn 2s forwards;
 
     h2 {
-        margin-right: 10px;
-        margin-top: 0px;
-        cursor: pointer;
+        font-size: 32px;
+        margin: 0px;
+    }
+
+    h3 {
+        color: #8d8d8d;
+        margin: 0px;
+    }
+
+    p {
+        margin: 0px;
+        font-weight: 100;
     }
 }
 
-#section-2, #section-3 {
-    opacity: 50%;
+.mx {
+    width: 250px;
 }
+
+.skill-level {
+    position: relative;
+    left: 35px;
+    top: -14px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.beginner, .intermediate, .advanced, .expert {
+    background-color: #fff;
+    color: #00d2e6;
+    opacity: 50%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 80px;
+    height: 3px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.selected {
+    opacity: 100%;
+    background-color: #00d2e6;
+}
+
+
+.skill-icon {
+    font-size: 30px;
+}
+
+.languages {
+    ul {
+        position: relative;
+        right: 40px;
+        li {
+            list-style-type: none;
+        }
+    }
+
+}
+
 

@@ -23,7 +23,7 @@ const Home = () => {
         <>
         <div className="container home-page">
             <div className="text-zone">
-                <h1>
+                <h1 className='animated-letters'>
                     <span className={letterClass}>H</span>
                     <span className={`${letterClass} _12`}>i,</span>    
                     <br />
