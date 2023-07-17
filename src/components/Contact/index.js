@@ -48,10 +48,12 @@ const Contact = () => {
                     <AnimatedLetters letterClass={letterClass} strArray={['C','o','n','t','a','c','t',' ','m','e']} index={15} />
                 </h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                    Thank you for visiting my portfolio! I'm thrilled to have the opportunity to share my passion for technology and
+                    showcase my projects. Whether you're a potential employer, a fellow developer, or simply someone interested in my work
+                    please feel free to reach out using the contact form below, I look froward to hearing from you and starting a conversation!
                 </p>
+                
+
                 <div className='contact-form'>
                 <form ref={refForm} onSubmit={sendEmail}>
                     <ul>

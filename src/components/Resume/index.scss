@@ -2,8 +2,9 @@
 .skills,
 .coursework {
     position: relative;
-    top: -40px;
-    animation: fadeIn 2s forwards;
+    top: -50px;
+    animation: fadeIn 1s forwards;
+    display: flex;
 
     h2 {
         font-size: 32px;
@@ -14,24 +15,27 @@
         color: #8d8d8d;
         margin: 0px;
     }
+}
 
-    p {
-        margin: 0px;
-        font-weight: 100;
-    }
+.skills p {
+    margin: 0px;
+}
+
+.job-heading {
+    display: flex;
 }
 
 .mx {
-    width: 250px;
+    width: 125px;
+    margin-left: 10px;
 }
 
 .skill-level {
     position: relative;
-    left: 35px;
-    top: -14px;
+    left: 50px;
+    top: -28px;
     display: flex;
     flex-direction: row;
-
 }
 
 .beginner, .intermediate, .advanced, .expert {
@@ -46,25 +50,52 @@
     text-align: center;
 }
 
-.selected {
+.highlighted {
     opacity: 100%;
     background-color: #00d2e6;
 }
 
+.skill-icon-container {
+    width: 50px;
 
-.skill-icon {
-    font-size: 30px;
+    p {
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .skill-icon {
+        font-size: 32px;
+        margin-left: 10px;
+    }
 }
 
-.languages {
+.languages,
+.development {
+    margin-right: 75px;
     ul {
-        position: relative;
-        right: 40px;
+        margin-left: -50px;
+
         li {
             list-style-type: none;
         }
     }
-
 }
+
+.other h2 {
+    margin-bottom: 10px;
+}
+
+.courses-list {
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+    left: -20px;
+    top: -15px;
+}
+
+
+
+
+
 
 
