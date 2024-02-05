@@ -24,17 +24,16 @@ const Home = () => {
         <div className="container home-page">
             <div className="text-zone">
                 <h1 className='animated-letters'>
-                    <span className={letterClass}>H</span>
-                    <span className={`${letterClass} _12`}>i,</span>    
-                    <br />
-                    <span className={`${letterClass} _13`}>I</span>
-                    <span className={`${letterClass} _14`}>'m</span>       
+                <AnimatedLetters letterClass={letterClass} strArray={"Hi,".split('')} index={18} />     
+                <br />
+                <AnimatedLetters letterClass={letterClass} strArray={"I'm".split('')} index={18} />
                 <img src={Logo} alt="N"/>
                 <AnimatedLetters letterClass={letterClass} strArray={"oah".split('')} index={18} />
                 <br />
-                <AnimatedLetters letterClass={letterClass} strArray={"Student, Developer".split('')} index={18} />
+                <AnimatedLetters letterClass={letterClass} strArray={"Student, ".split('')} index={18} />
+                <AnimatedLetters letterClass={letterClass} strArray={"Developer".split('')} index={18} />
                 </h1>
-                <h2>Computer Science Student at Iowa State University</h2>
+                <h2>Computer & Data Science Undergrad at Iowa State University</h2>
                 <Link to="/contact" className='flat-button'>CONTACT ME</Link>
             </div>
         </div>

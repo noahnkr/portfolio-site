@@ -1,8 +1,6 @@
 .experience,
 .skills,
 .coursework {
-    position: relative;
-    top: -50px;
     animation: fadeIn 1s forwards;
     display: flex;
 
@@ -17,6 +15,12 @@
     }
 }
 
+.experience-select,
+.skills-select,
+.coursework-select {
+    white-space: nowrap;
+}
+
 .skills p {
     margin: 0px;
 }
@@ -26,7 +30,8 @@
 }
 
 .mx {
-    width: 125px;
+    width: 12px;
+    min-width: 125px;
     margin-left: 10px;
 }
 

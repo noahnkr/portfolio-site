@@ -2,7 +2,8 @@ import './index.scss';
 import AnimatedLetters from '../AnimatedLetters';
 import { useState, useEffect } from 'react';
 import Loader from 'react-loaders';
-import Me from '../../assets/images/me.JPG';
+import Headshot from '../../assets/images/headshot.JPG';
+import Deadlift from '../../assets/images/deadlift.PNG';
 
 
 const About = () => {
@@ -22,14 +23,14 @@ const About = () => {
     return (
         <>
         <div className='container about-page'>
-            <div className='text-zone'>
+            <div className='text-zone about'>
                 <h1 className='animated-letters'>
                     <AnimatedLetters letterClass={letterClass} strArray={['A','b','o','u','t',' ','m','e']} index={15} />
                 </h1>
                 <div className="biography">
                     <p>
-                        I'm Noah Roberts and I'm currently a sophomore studying Computer Science at Iowa State University. I'm a hardworking and dedicated person 
-                        who is passionate about anything technology related. I pride myself on being a fast learner and will strive to get a job done right. 
+                        I'm Noah Roberts and I'm currently a junior majoring in Computer Science and minoring in Data Science at Iowa State University. I'm a hardworking and dedicated 
+                        person who is passionate about anything technology related. I pride myself on being a fast learner and will strive to get a job done right. 
                     </p>
                     <p>
                         My interest in this field was was sparked in 2012 when I went to a summer coding camp and created my first Java program. This inspired me 
@@ -43,10 +44,12 @@ const About = () => {
                         a necessity for me in order to maintain a healthy school-work-life balance; A project that has been on my radar for some time now has been creating
                         a time management software specifically tailored towards students.
                     </p>
+                    <div className='photo-zone'>
+                    <img src={Headshot} className="headshot"/>
+                    <img src={Deadlift} className="deadlift" />
                 </div>
-            </div>
-            <div className='photo-zone'>
-                <img src={Me} className='me-photo'/>
+                </div>
+                
             </div>
         </div>
         <Loader type='ball-pulse-sync' />

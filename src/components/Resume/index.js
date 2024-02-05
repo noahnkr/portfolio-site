@@ -188,7 +188,7 @@ const Resume = () => {
                         <div className="skill-level">
                             <div className="beginner highlight"></div>
                             <div className="intermediate highlight"></div>
-                            <div className="advanced"></div>
+                            <div className="advanced highlight"></div>
                             <div className="expert"></div>
                         </div>
                     </li>

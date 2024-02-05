@@ -1,11 +1,40 @@
-.graphmath,
-.jchess,
-.jobcseeker {
-    position: relative;
-    top: -60px;
+.graphmath, .jchess, .weightclub {
+    display: flex;
+    flex-direction: column;
     animation: fadeIn 1s forwards;
 }
 
-.graph {
-    width: 475px;
+.graphmath-select, .jchess-select, .weightclub-select {
+    white-space: nowrap;
 }
+
+.project-link-icon {
+    font-size: 24px;
+}
+
+
+.project-links .flat-button {
+    display: flex;
+    font-size: 16px;
+    margin-top:  20px;
+    margin-right: 10px;
+    padding: 12px;
+}
+
+.preview {
+    margin-top: 10px;
+    width: 700px;
+    float: left;
+    opacity: 0%;
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: 2s;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
