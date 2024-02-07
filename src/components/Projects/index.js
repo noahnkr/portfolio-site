@@ -63,9 +63,9 @@ const Projects = () => {
         <div className="weightclub">
             <p>
                 My fellow members of the Iowa State Weight Club and I faced an issue with coordinating what times people can visit the weight club gym due 
-                to a new policy requiring 3 members at the club to be unlocked. Previously, we had been using GroupMe, but it not an effective solution. So
-                i took it upon myself to develop a check-in website allowing members to view a graph of which and how many members would be at the club throughout
-                the day. The frontend for the website was created using React, and the backend and hosting is through Google Firebase. 
+                to a new policy requiring three members at the club to be unlocked. Previously, we had been using GroupMe but it was not an effective solution. I proposed the idea
+                of a check-in website allowing members to view a graph of who and how many members would be at the club throughout the day and began working on it.
+                The frontend for the website was created using React, and the backend and hosting is through Google Firebase. 
             </p>
             <img src={WeightClubGraph} className='preview'/>
             <div className="project-links">
@@ -79,12 +79,13 @@ const Projects = () => {
     const graphMath = (
         <div className="graphmath">
             <p>
-                GraphMath is a project that I have been wanting to create for a long time. Ever since I discovered the graph function on my TI-84 
-                calculator, I was fascinated by how a computer could give a visualiztion of what a function looks like, no matter its complexity.
-                The inspiration for this project came largely from the website <a href='https://www.desmos.com/' target='blank'>Desmos</a>, 
+                Ever since I discovered the graph function on my TI-84 calculator, I was fascinated by how a computer could give a visualization 
+                of what a function looks like, no matter its complexity. The inspiration for this project came largely from the website <a href='https://www.desmos.com/' target='blank'>Desmos</a>, 
                 an online graphing calculator that turns math into art. Motived to create something similar, I initially started this project in 
                 2021 in Java, however, Java's deprecated Swing Framework made creating the GUI very challenging and I eventually decided to convert 
-                the project to Javascript using the Canvas API. I am planning on creating an API for graphmath after getting some minute details implemented.
+                the project to Javascript using the Canvas API. GraphMath is not only a graphing calculator, but also an expression evaluator. It works 
+                by tokenizing an expression, converting it to postfix, and building an expression tree which can be evaluated using variables. More 
+                information about how GraphMath works can be found on GitHub.
             </p>
             <img src={Graph} className='preview'/>
             <div className="project-links">
@@ -100,13 +101,13 @@ const Projects = () => {
         <div className="jchess">
             <p>
                 JChess is a simple chess engine I created in Java using the Swing framework. It features an AI that evaluates the best move using 
-                the Minimax algorithm. Each board position is given a score based on several factors including, but not limited to: material, mobilty, 
+                the Minimax algorithm. Each board position is given a score based on several factors including, but not limited to: material, mobility, 
                 piece position, and pawn structure. Many of the optimization strategies like Zobrist Hashing, Transposition Tables, and Quiescence Search
                 that I implemented to improve the AI's efficiency and performance would not have been possible without the <a href='https://www.chessprogramming.org/Main_Page' target='blank'>Chess Programming Wiki</a>.  
-                Some other features that I would like to implement in the future is an opening book for the AI from a large database of chess grandmaster 
+                Some other features that I would like to implement is an opening book for the AI from a large database of chess grandmaster 
                 games, and machine learning so I could train the AI through thousands of games by playing itself. One thing I have learned from this project 
-                though is that Chess Programming is an endless rabbit hole where you can get lost in your own code and measuring progress can be nearly impossible.
-                Before I take on that challenge I think i need to improve my own programming skills first.
+                though is that Chess Programming is an endless rabbit hole where you can get lost in your code and measuring progress can be very difficult.
+                I'm content with the AI's level of play (I still can't beat it) but will hopefully come back to this in the future.
             </p>
             <img src={Chess} className='preview' />
             <div className="project-links">

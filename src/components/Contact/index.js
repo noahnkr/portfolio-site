@@ -50,7 +50,7 @@ const Contact = () => {
                 <p>
                     Thank you for visiting my portfolio! I'm thrilled to have the opportunity to share my passion for technology and
                     showcase my projects. Whether you're a potential employer, a fellow developer, or simply someone interested in my work
-                    please feel free to reach out using the contact form below, I look froward to hearing from you and starting a conversation!
+                    please feel free to reach out using the contact form below.
                 </p>
                 
 
