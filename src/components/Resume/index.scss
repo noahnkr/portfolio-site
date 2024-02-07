@@ -3,6 +3,7 @@
 .coursework {
     animation: fadeIn 1s forwards;
     display: flex;
+    min-width: 165px;
 
     h2 {
         font-size: 32px;
@@ -13,7 +14,11 @@
         color: #8d8d8d;
         margin: 0px;
     }
+
+
 }
+
+
 
 .experience-select,
 .skills-select,
@@ -21,9 +26,18 @@
     white-space: nowrap;
 }
 
-.skills p {
-    margin: 0px;
+.skills {
+    width: 150%;
+    display: flex;
+    flex-direction: column;
+
+    p {
+        margin: 0px;
+    }
 }
+
+
+
 
 .job-heading {
     display: flex;
@@ -32,6 +46,7 @@
 .mx {
     width: 12px;
     min-width: 125px;
+    max-height: 110px;
     margin-left: 10px;
 }
 
@@ -86,8 +101,8 @@
     }
 }
 
-.other h2 {
-    margin-bottom: 10px;
+.other {
+    margin-bottom: 20px;    
 }
 
 .courses-list {
