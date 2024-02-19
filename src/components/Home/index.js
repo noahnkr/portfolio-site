@@ -7,6 +7,7 @@ import Loader from 'react-loaders';
 
 
 const Home = () => {
+    document.title = 'noahnkr | Portfolio';
     const [letterClass, setLetterClass] = useState('text-animate');
 
     useEffect(() => {

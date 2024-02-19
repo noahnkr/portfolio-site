@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 
 
 const Contact = () => {
+    document.title = 'noahnkr | Contact';
     const [letterClass, setLetterClass] = useState('text-animate');
     const refForm = useRef();
 

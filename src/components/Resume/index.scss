@@ -18,8 +18,6 @@
 
 }
 
-
-
 .experience-select,
 .skills-select,
 .coursework-select {
@@ -37,13 +35,15 @@
 }
 
 
-
+.job-description {
+    margin-bottom: 50px;
+}
 
 .job-heading {
     display: flex;
 }
 
-.mx {
+.mx, .paddys {
     width: 12px;
     min-width: 125px;
     max-height: 110px;
@@ -113,7 +113,17 @@
     top: -15px;
 }
 
-
+@media (max-width: 800px) {
+    .skills {
+        width: 100%;
+    }
+    .languages,
+    .development {
+        ul {
+            position: relative;
+        }
+    }
+}
 
 
 

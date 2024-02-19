@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import Loader from 'react-loaders';
 import Headshot from '../../assets/images/headshot.JPG';
 import Deadlift from '../../assets/images/deadlift.PNG';
+import Bartend from '../../assets/images/bartend.JPG';
 
 
 const About = () => {
+    document.title = 'noahnkr | About';
     const [letterClass, setLetterClass] = useState('text-animate');
 
 
@@ -28,25 +30,27 @@ const About = () => {
                     <AnimatedLetters letterClass={letterClass} strArray={['A','b','o','u','t',' ','m','e']} index={15} />
                 </h1>
                 <div className="biography">
+                    <h2>Biography</h2>
                     <p>
-                        I'm Noah Roberts and I'm currently a junior majoring in Computer Science and minoring in Data Science at Iowa State University. I'm a hardworking and dedicated 
-                        person who is passionate about anything technology related. I pride myself on being a fast learner and will strive to get a job done right. 
+                        Hello! I'm Noah Roberts, a junior at Iowa State University majoring in Computer Science and minoring in Data Science. My journey 
+                        into the world of technology began in 2012 at a summer coding camp, sparking an my interest in this field. From learning how to build
+                        my first computer to testing out new frameworks, I'm always trying to improve my skills. 
                     </p>
+                    <h2>Interests</h2>
                     <p>
-                        My interest in this field was was sparked in 2012 when I went to a summer coding camp and created my first Java program. This inspired me 
-                        to build my first computer and to continue learning how to program so I could eventually create my own game. Fast forward to today and I still haven't finished
-                        that game, however, I have a newfound love for creating applications, web design, and turning my ideas into reality.
-                        My recent obsession has been working with artificial intelligence and machine learning.
-                    </p>
-
+                        When im not immersed in my schoolwork or coding, I enjoy lifting at our weight club gym, watching football, bartending, and listening
+                        to music. Some of my favorite bands are Pink Floyd, Pearl Jam, and Metallica. I believe in the importance of maintaining a balanced 
+                        lifestyle. Time management is a personal necessity that allows me to juggle my academic responsibilities, personal projects, and social life. 
+                    </p>       
+                    <h2>Looking Ahead</h2>
                     <p>
-                        When i'm not studying or coding, you can usually find me at the gym, hanging out with friends, or bartending. Time managemant is
-                        a necessity for me in order to maintain a healthy school-work-life balance; A project that has been on my radar for some time now has been creating
-                        a time management software specifically tailored towards students.
+                        As I continue my journey in Computer Science, I am excited about the opportunities to innovate and make an impact. I am a fast learner,
+                        dedicated to my work, and always eager to take on new challenges.
                     </p>
                     <div className='photo-zone'>
                     <img src={Headshot} className="headshot"/>
                     <img src={Deadlift} className="deadlift" />
+                    <img src={Bartend} className="bartend" />
                 </div>
                 </div>
                 

@@ -5,8 +5,10 @@ import Loader from 'react-loaders';
 import { faJava, faHtml5, faCss3Alt, faSquareJs, faReact, faGitAlt, faGithub, faJira } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Mx from '../../assets/images/mx.png';
+import Paddys from '../../assets/images/paddys.png';
 
 const Resume = () => {
+    document.title = 'noahnkr | Resume';
     const [letterClass, setLetterClass] = useState('text-animate');
     const [section, setSection] = useState(0);
     
@@ -60,31 +62,48 @@ const Resume = () => {
 
     const experience = (
         <div className='experience'>
-            <div className="job-description">
-                <div className="job-heading">
-                    <div className="job-title">
-                        <h2>Front End Developer Intern</h2>
-                        <h3>The MX Group | Burr Ridge, IL</h3>
-                        <h4>May 2022 - Aug 2022</h4>
+            <div className="jobs">
+                <div className="job-description">
+                    <div className="job-heading">
+                        <div className="job-title">
+                            <h2>Front End Developer Intern</h2>
+                            <h3>The MX Group | Burr Ridge, IL</h3>
+                            <h4>May 2022 - Aug 2022</h4>
+                        </div>
+                        <img src={Mx} className='mx' />
                     </div>
-                    <img src={Mx} className='mx' />
+                    <p>
+                        As a front-end intern at The MX Group, I had the incredible opportunity to delve into the world of web development and user interface design in a 
+                        professional setting. Working within a B2B marketing firm exposed me to the dynamic nature of the industry and the importance of aligning design 
+                        and functionality with the specific needs and goals of business clients.
+                    </p>
+                    <p>
+                        At the beginning of my internship, I was introduced to Atlassian Jira, a powerful project management tool widely used in the industry. I quickly realized its importance in 
+                        organizing tasks, tracking progress, and ensuring efficient workflow management. In addition to Jira, I also gained experience working with Trello, another popular project 
+                        management tool that emphasizes visual organization and collaboration.
+                    </p>
+                    <p>
+                        Moreover, my time as a front-end intern allowed me to refine my communication and collaboration skills. I actively participated in meetings, 
+                        sharing progress updates and seeking feedback from the team. This collaborative environment provided me with invaluable insights into the 
+                        intricacies of teamwork within a professional setting.
+                    </p>
                 </div>
-                <p>
-                    As a front-end intern at The MX Group, I had the incredible opportunity to delve into the world of web development and user interface design in a 
-                    professional setting. Working within a B2B marketing firm exposed me to the dynamic nature of the industry and the importance of aligning design 
-                    and functionality with the specific needs and goals of business clients.
-                </p>
-                <p>
-                    At the beginning of my internship, I was introduced to Atlassian Jira, a powerful project management tool widely used in the industry. I quickly realized its importance in 
-                    organizing tasks, tracking progress, and ensuring efficient workflow management. In addition to Jira, I also gained experience working with Trello, another popular project 
-                    management tool that emphasizes visual organization and collaboration.
-                </p>
-                <p>
-                    Moreover, my time as a front-end intern allowed me to refine my communication and collaboration skills. I actively participated in meetings, 
-                    sharing progress updates and seeking feedback from the team. This collaborative environment provided me with invaluable insights into the 
-                    intricacies of teamwork within a professional setting.
-                </p>
+                <div className="job-description">
+                    <div className="job-heading">
+                        <div className="job-title">
+                            <h2>Bartender</h2>
+                            <h3>Paddy's Irish Pub | Ames, IA</h3>
+                            <h4>Mar 2022 - Present</h4>
+                        </div>
+                        <img src={Paddys} className='paddys' />
+                    </div>
+                    <p>
+                        At Paddy's, I serve drinks in a fast paced college bar environment. Working here as not only improved my multitasking skills but given me the opportunity to meet
+                        many other students like myself.
+                    </p>
+                </div>
             </div>
+            
             
         </div>
     );
@@ -239,6 +258,9 @@ const Resume = () => {
                 <li>Introduction to the Design and Analysis of Algorithms</li>
                 <li>Philosophy of Technology</li>
                 <li>Calculus I, II</li>
+                <li>Linear Algebra</li>
+                <li>Object-oriented Analysis and Design</li>
+                <li>Software Development Practices</li>
             </ul>
         </div>
     );

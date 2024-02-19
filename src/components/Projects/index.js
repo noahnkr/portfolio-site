@@ -9,7 +9,7 @@ import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import './index.scss';
 
 const Projects = () => {
-
+    document.title = 'noahnkr | Projects';
     const [letterClass, setLetterClass] = useState('text-animate');
     const [section, setSection] = useState(0);
 
