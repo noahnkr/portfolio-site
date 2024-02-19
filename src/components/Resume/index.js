@@ -11,6 +11,7 @@ const Resume = () => {
     document.title = 'noahnkr | Resume';
     const [letterClass, setLetterClass] = useState('text-animate');
     const [section, setSection] = useState(0);
+    const [animateSkills, setAnimateSkills] = useState(0);
     
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const Resume = () => {
                 break;
             case 1:
                 newSection = document.querySelector('.skills-select');
-                animateBoxes();
+                
                 break;
             case 2:
                 newSection = document.querySelector('.coursework-select');
@@ -39,6 +40,21 @@ const Resume = () => {
         }
         newSection.style.opacity = '100%';
     }, [section]);
+
+    useEffect(() => {
+        if (section === 1) { 
+            const skillBars = document.querySelectorAll('.skill-bar');
+            let skillLevels = [ 87.5, 67.5, 37.5, 75, 62.5, 50, 37.5, 42.5 ];
+            skillBars.forEach(bar => {
+                bar.style.width = '0%';
+            });
+
+            setTimeout(() => {
+                skillBars.forEach((bar, index) => bar.style.width = `${skillLevels[index]}%`);
+            }, 50)
+        }
+    }, [section]); 
+    
 
     function handleSectionChange(newSection) {
         let oldSection;
@@ -108,25 +124,6 @@ const Resume = () => {
         </div>
     );
     
-    function animateBoxes() {
-        const allBoxes = document.querySelectorAll('.highlight');
-        const beginner = Array.from(allBoxes).filter(b => b.classList.contains('beginner'));
-        const intermediate = Array.from(allBoxes).filter(i => i.classList.contains('intermediate'));
-        const advanced = Array.from(allBoxes).filter(a => a.classList.contains('advanced'));
-        const expert = Array.from(allBoxes).filter(e => e.classList.contains('expert'));
-
-        const boxesArray = [beginner, intermediate, advanced, expert];
-
-        setTimeout(() => { // wait for page to fade in
-            boxesArray.forEach((boxes, index) => {
-                setTimeout(() => {
-                    boxes.forEach(box => {
-                        box.classList.add('highlighted')
-                    });
-                }, index * 300);
-            });
-        }, 300);
-    }
    
     const skills = (
         <div className='skills'>
@@ -139,10 +136,12 @@ const Resume = () => {
                             <p>Java</p>
                         </div>
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced highlight"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                     <li>
@@ -151,10 +150,12 @@ const Resume = () => {
                             <p>HTML</p>
                         </div>
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                     <li>
@@ -163,10 +164,12 @@ const Resume = () => {
                             <p>CSS</p>
                         </div>
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                     <li>
@@ -175,10 +178,12 @@ const Resume = () => {
                             <p>JavaScript</p>
                         </div>
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced highlight"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                     <li>
@@ -187,10 +192,12 @@ const Resume = () => {
                             <p>React</p>
                         </div>
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                 </ul>
@@ -203,12 +210,13 @@ const Resume = () => {
                             <FontAwesomeIcon icon={faGitAlt} color='#fff' className='skill-icon' />
                             <p>Git</p>
                         </div>
-                        
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced highlight"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar" style={{width: '62.5%'}}></div>
                         </div>
                     </li>
                     <li>
@@ -216,12 +224,13 @@ const Resume = () => {
                             <FontAwesomeIcon icon={faGithub} color='#fff' className='skill-icon' />
                             <p>GitHub</p>
                         </div>
-                        
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate highlight"></div>
-                            <div className="advanced"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                     <li>
@@ -229,18 +238,19 @@ const Resume = () => {
                             <FontAwesomeIcon icon={faJira} color='#fff' className='skill-icon' />
                             <p>Jira</p>
                         </div>
-                        
                         <div className="skill-level">
-                            <div className="beginner highlight"></div>
-                            <div className="intermediate"></div>
-                            <div className="advanced"></div>
-                            <div className="expert"></div>
+                            <div className="seperators">
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                                <div className="seperator"></div>
+                            </div>
+                            <div className="skill-bar"></div>
                         </div>
                     </li>
                 </ul>
                 <div className="other">
                     <h2>Other</h2>
-                    <p>MongoDB, Express, Node.js, Sass, JSON</p>
+                    <p>MySQL, Spring Boot, Express, Node.js</p>
                 </div>
             </div>
             
