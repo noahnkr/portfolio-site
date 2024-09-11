@@ -1,45 +1,83 @@
-.graphmath, .jchess, .weightclub {
-    display: flex;
-    flex-direction: column;
-    animation: fadeIn 1s forwards;
+.project {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 1s forwards;
 }
 
-.graphmath-select, .jchess-select, .weightclub-select {
-    white-space: nowrap;
+.graphmath-select,
+.jchess-select,
+.weightclub-select,
+.ankr-select {
+  white-space: nowrap;
 }
 
 .project-link-icon {
-    font-size: 24px;
+  font-size: 24px;
 }
 
-
 .project-links .flat-button {
-    display: flex;
-    font-size: 16px;
-    margin-top:  20px;
-    margin-right: 10px;
-    padding: 12px;
+  display: flex;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 12px;
 }
 
 .preview {
-    margin-top: 10px;
-    width: 70%;
-    opacity: 0%;
-    animation: fadeIn 1s ease-in-out forwards;
-    animation-delay: 2s;
+  margin-top: 10px;
+  width: 70%;
+  opacity: 0%;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 2s;
+}
+
+.code-container {
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+  overflow-x: auto;
+
+  code {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: #f8f8f2;
+    line-height: 1.5;
+    white-space: pre-wrap;
+
+    .keyword {
+      color: #66d9ef;
+    }
+    .variable {
+      color: #a6e22e;
+    }
+    .string {
+      color: #e6db74;
+    }
+    .comment {
+      color: #75715e;
+      font-style: italic;
+    }
+    .number {
+      color: #ae81ff;
+    }
+    .function-name {
+      color: #fd971f;
+    }
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
 
-  @media (max-width: 800px) {
-    .preview {
-        width: 100%;
-    }
+@media (max-width: 800px) {
+  .preview {
+    width: 100%;
   }
+}

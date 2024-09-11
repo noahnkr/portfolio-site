@@ -1,145 +1,147 @@
 .experience,
 .skills,
 .coursework {
-    animation: fadeIn 1s forwards;
-    display: flex;
-    min-width: 165px;
+  animation: fadeIn 1s forwards;
+  display: flex;
+  min-width: 165px;
 
-    h2 {
-        font-size: 32px;
-        margin: 0px;
-    }
+  h2 {
+    font-size: 32px;
+    margin: 0px;
+  }
 
-    h3 {
-        color: #8d8d8d;
-        margin: 0px;
-    }
-
-
+  h3 {
+    color: #8d8d8d;
+    margin: 0px;
+  }
 }
 
 .experience-select,
 .skills-select,
 .coursework-select {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .skills {
-    width: 150%;
-    display: flex;
-    flex-direction: column;
+  width: 150%;
+  display: flex;
+  flex-direction: column;
 
-    p {
-        margin: 0px;
-    }
+  p {
+    margin: 0px;
+  }
 }
 
-
 .job-description {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .job-heading {
-    display: flex;
+  display: flex;
 }
 
-.mx, .paddys {
-    width: 12px;
-    min-width: 125px;
-    max-height: 110px;
-    margin-left: 10px;
+.mx,
+.paddys {
+  width: 12px;
+  min-width: 125px;
+  max-height: 110px;
+  margin-left: 10px;
 }
 
 .skill-icon-container {
-    width: 50px;
+  width: 50px;
 
-    p {
-        font-size: 10px;
-        text-align: center;
-    }
+  p {
+    font-size: 10px;
+    text-align: center;
+  }
 
-    .skill-icon {
-        font-size: 32px;
-        margin-left: 10px;
-    }
+  .skill-icon {
+    font-size: 32px;
+    margin-left: 10px;
+  }
 }
 
 .languages,
 .development {
-    margin-right: 75px;
-    ul {
-        margin-left: -50px;
+  margin-right: 75px;
+  ul {
+    margin-left: -50px;
 
-        li {
-            list-style-type: none;
+    li {
+      list-style-type: none;
 
-            .skill-level {
-                position: relative;
-                left: 50px;
-                top: -28px;
-                width: 30%;
-                max-width: 30%;
-                height: 3px;
-                background-color: #fff;
-            
-                .seperators {
-                    position: relative;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-evenly;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 3;
-            
-                    .seperator {
-                        width: 5px;
-                        background-color: #001e33;
-                    }
-                }
-            }
-            
-            .skill-bar {
-                position: relative;
-                top: -3px;
-                width: 0%;
-                height: 100%;
-                background-color: #00d2e6;
-                transition: width 1.5s ease;
-            }
+      .skill-level {
+        position: relative;
+        left: 50px;
+        top: -28px;
+        height: 3px;
+        max-width: 45%;
+        background-color: #fff;
+
+        .seperators {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+          width: 100%;
+          height: 100%;
+          z-index: 3;
+
+          .seperator {
+            width: 5px;
+            background-color: #001e33;
+          }
         }
+      }
+
+      .skill-bar {
+        position: relative;
+        top: -3px;
+        width: 0%;
+        height: 100%;
+        background-color: #00d2e6;
+        transition: width 1.5s ease;
+      }
     }
+  }
+}
+
+.devicon-mysql-original,
+.devicon-cplusplus-plain,
+.devicon-firebase-plain,
+.devicon-spring-original,
+.devicon-mongodb-plain {
+  color: #fff;
+  font-size: 32px;
+  margin-left: 8px;
 }
 
 .other {
-    margin-bottom: 20px;    
+  margin-bottom: 20px;
 }
 
 .courses-list {
-    color: #fff;
-    font-size: 18px;
-    position: relative;
-    left: -20px;
-    top: -15px;
+  color: #fff;
+  font-size: 18px;
+  position: relative;
+  left: -20px;
+  top: -15px;
 }
 
 @media (max-width: 800px) {
-    .skills {
-        width: 100%;
+  .skills {
+    width: 100%;
 
-        .skill-level {
-            min-width: 100%;
-            width: 100%;
-        }
+    .skill-level {
+      min-width: 100%;
+      width: 100%;
     }
-    .languages,
-    .development {
-        ul {
-            position: relative;
-        }
+  }
+  .languages,
+  .development {
+    ul {
+      position: relative;
     }
+  }
 }
-
-
-
-
-
