@@ -160,6 +160,7 @@
       font-weight: 300;
       min-width: fit-content;
       animation: pulse 1s;
+      margin: 5px 0px;
 
       &:nth-of-type(1) {
         animation-delay: 1.2s;
@@ -176,6 +177,23 @@
 
     a {
       color: #00d2e6;
+    }
+  }
+
+  .photo-zone {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 25px;
+    margin-top: 15px;
+
+    img {
+      height: auto;
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
     }
   }
 }

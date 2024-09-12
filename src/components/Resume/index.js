@@ -386,7 +386,7 @@ const Resume = () => {
 
   const coursework = (
     <div className="coursework">
-      <ul className="courses-list">
+      <ul className="course-list">
         <li>Object-Oriented Programming</li>
         <li>Data Structures</li>
         <li>Discrete Computational Structures</li>

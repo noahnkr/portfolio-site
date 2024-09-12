@@ -1,16 +1,30 @@
-import './index.scss';
-import Sidebar from '../Sidebar';
-import { Outlet }  from 'react-router-dom';
+import './index.scss'
+import Sidebar from '../Sidebar'
+import { useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 
-const Layout = () => {
-    return (
-        <div className="App">
-            <Sidebar />
-            <div className='page'>
-                <Outlet />
-            </div>
-        </div>
-    );
+const ScrollToTop = () => {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [pathname])
+
+  return null
 }
 
-export default Layout;
+const Layout = () => {
+  return (
+    <div className="App">
+      <ScrollToTop />
+      <Sidebar />
+      <div className="page">
+        <Outlet />
+      </div>
+    </div>
+  )
+}
+
+export default Layout

@@ -15,20 +15,15 @@
   font-size: 24px;
 }
 
-.project-links .flat-button {
-  display: flex;
-  font-size: 16px;
-  margin-top: 20px;
-  margin-right: 10px;
-  padding: 12px;
-}
-
-.preview {
-  margin-top: 10px;
-  width: 70%;
-  opacity: 0%;
-  animation: fadeIn 1s ease-in-out forwards;
-  animation-delay: 2s;
+.project-links {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  .flat-button {
+    display: flex;
+    font-size: 16px;
+    padding: 12px;
+    margin-right: 10px;
+  }
 }
 
 .code-container {
@@ -79,5 +74,19 @@
 @media (max-width: 800px) {
   .preview {
     width: 100%;
+  }
+}
+
+.list-header {
+  margin: 5px 0px;
+}
+.arbadillo-list {
+  color: #fff;
+  position: relative;
+  left: -20px;
+  top: -15px;
+
+  li {
+    font-weight: 100;
   }
 }

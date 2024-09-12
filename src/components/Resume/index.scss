@@ -107,6 +107,14 @@
   }
 }
 
+.course-list {
+  color: #fff;
+  font-size: 18px;
+  position: relative;
+  left: -20px;
+  top: -15px;
+}
+
 .devicon-mysql-original,
 .devicon-cplusplus-plain,
 .devicon-firebase-plain,
@@ -119,14 +127,6 @@
 
 .other {
   margin-bottom: 20px;
-}
-
-.courses-list {
-  color: #fff;
-  font-size: 18px;
-  position: relative;
-  left: -20px;
-  top: -15px;
 }
 
 @media (max-width: 800px) {

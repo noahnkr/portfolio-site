@@ -27,7 +27,7 @@ const About = () => {
           <h1 className="animated-letters">
             <AnimatedLetters
               letterClass={letterClass}
-              strArray={['A', 'b', 'o', 'u', 't', ' ', 'm', 'e']}
+              strArray={['A', 'b', 'o', 'u', 't']}
               index={15}
             />
           </h1>
@@ -38,8 +38,8 @@ const About = () => {
               majoring in Computer Science. My journey into the world of
               technology began in 2012 at a summer coding camp, sparking an my
               interest in this field. From learning how to build my first
-              computer to testing out new frameworks, I'm always trying to
-              improve my skills.
+              computer, coming up with new projects, to teaching myself a new
+              language or framework, I'm always trying to improve my skills.
             </p>
             <h2>Interests</h2>
             <p>
