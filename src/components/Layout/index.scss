@@ -175,6 +175,10 @@
       }
     }
 
+    strong {
+      font-weight: 700;
+    }
+
     a {
       color: #00d2e6;
     }
@@ -203,7 +207,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 10px;
 
   h2 {
     margin: 0 10px 0 0;
@@ -211,7 +214,7 @@
     cursor: pointer;
     white-space: nowrap;
     color: white;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.95s ease;
 
     &:hover {
       opacity: 0.75;

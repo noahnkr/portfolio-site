@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import Loader from 'react-loaders'
 
 const Home = () => {
-  document.title = 'noahnkr | Portfolio'
+  document.title = 'Noah Roberts | Portfolio'
   const [letterClass, setLetterClass] = useState('text-animate')
 
   useEffect(() => {
@@ -38,22 +38,22 @@ const Home = () => {
             <img src={Logo} alt="N" />
             <AnimatedLetters
               letterClass={letterClass}
-              strArray={'oah'.split('')}
+              strArray={'oah.'.split('')}
               index={18}
             />
             <br />
             <AnimatedLetters
               letterClass={letterClass}
-              strArray={'Student, '.split('')}
+              strArray={'Software '.split('')}
               index={18}
             />
             <AnimatedLetters
               letterClass={letterClass}
-              strArray={'Developer'.split('')}
+              strArray={'Developer.'.split('')}
               index={18}
             />
           </h1>
-          <h2>Computer Science Undergrad at Iowa State University</h2>
+          <h2>B.S Computer Science | Iowa State University</h2>
           <Link to="/contact" className="flat-button">
             CONTACT ME
           </Link>

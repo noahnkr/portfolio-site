@@ -7,7 +7,7 @@ import Deadlift from '../../assets/images/deadlift.jpg'
 import Bartend from '../../assets/images/bartend.jpg'
 
 const About = () => {
-  document.title = 'noahnkr | About'
+  document.title = 'Noah Roberts | About'
   const [letterClass, setLetterClass] = useState('text-animate')
 
   useEffect(() => {
@@ -34,8 +34,8 @@ const About = () => {
           <div className="biography">
             <h2>Biography</h2>
             <p>
-              Hello! I'm Noah Roberts, a senior at Iowa State University
-              majoring in Computer Science. My journey into the world of
+              Hello! I'm Noah Roberts, a Computer Science graduate from at Iowa
+              State University, class of 2025. My journey into the world of
               technology began in 2012 at a summer coding camp, sparking an my
               interest in this field. From learning how to build my first
               computer, coming up with new projects, to teaching myself a new
@@ -43,20 +43,18 @@ const About = () => {
             </p>
             <h2>Interests</h2>
             <p>
-              When im not immersed in my schoolwork or coding, I enjoy lifting
-              at our weight club gym, watching football, bartending, and
-              listening to music. Some of my favorite bands are Pink Floyd,
-              Pearl Jam, and Metallica. I believe in the importance of
-              maintaining a balanced lifestyle. Time management is a personal
-              necessity that allows me to juggle my academic responsibilities,
-              personal projects, and social life.
+              When im not immersed in my work or coding, I enjoy working out at
+              the gym, watching football, bartending, and listening to music.
+              Some of my favorite bands are Pink Floyd, Pearl Jam, and
+              Metallica. I believe in the importance of maintaining a balanced
+              lifestyle. Time management is a personal necessity that allows me
+              to juggle my personal responsibilities, projects, and social life.
             </p>
             <h2>Looking Ahead</h2>
             <p>
-              As I continue my journey in Computer Science, I am excited about
-              the opportunities to innovate and make an impact. I am a fast
-              learner, dedicated to my work, and always eager to take on new
-              challenges.
+              Now entering the next chapter of my journey, I’m seeking full-time
+              opportunities where I can apply my skills to solve meaningful
+              problems and continue growing as a developer.
             </p>
             <div className="photo-zone">
               <img src={Headshot} className="headshot" />

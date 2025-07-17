@@ -4,13 +4,14 @@ import Loader from 'react-loaders'
 import Graph from '../../assets/images/graph-math.png'
 import Chess from '../../assets/images/jchess.png'
 import WeightClubGraph from '../../assets/images/weightclub.png'
+import Tournament from '../../assets/images/tournament.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faUpRightFromSquare, faFilm } from '@fortawesome/free-solid-svg-icons'
 import { faGithub, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import './index.scss'
 
 const Projects = () => {
-  document.title = 'noahnkr | Projects'
+  document.title = 'Noah Roberts | Projects'
   const [letterClass, setLetterClass] = useState('text-animate')
   const [section, setSection] = useState(0)
 
@@ -41,6 +42,10 @@ const Projects = () => {
         break
       case 4:
         oldSection = document.querySelector('.arbadillo-select')
+        break
+      case 5:
+        oldSection = document.querySelector('.marchmadness-select')
+        break
     }
 
     if (oldSection) {
@@ -63,6 +68,10 @@ const Projects = () => {
         break
       case 4:
         newSectionElement = document.querySelector('.arbadillo-select')
+        break
+      case 5:
+        newSectionElement = document.querySelector('.marchmadness-select')
+        break
     }
 
     if (newSectionElement) {
@@ -76,32 +85,31 @@ const Projects = () => {
     <div className="project">
       <div className="text-zone"></div>
       <p>
-        The Iowa State Weight Club faced a recurring issue: coordinating lifting
-        sessions in the club gym. For safety reasons, we required at least three
-        members to be present at all times, but scheduling became a challenge as
-        students’ availability shifted frequently. Our previous method of using
-        GroupMe to organize meeting times was inefficient. Communication lagged
-        when schedules changed, cluttering the chat with messages and making it
-        hard to focus on more important club discussions. As both the events
-        coordinator and webmaster, I saw an opportunity to improve this process.
+        At the Iowa State Weight Club, coordinating gym sessions was an ongoing
+        challenge. For safety, at least three members were required to be
+        present during each workout, but fluctuating student schedules made it
+        difficult to organize. Relying on GroupMe led to cluttered communication
+        and scheduling conflicts. As both the events coordinator and webmaster,
+        I identified the need for a more efficient and scalable solution.
       </p>
       <p>
-        I developed a custom check-in website that streamlined scheduling and
-        made coordination more efficient. Using Chart.js, I implemented a live,
-        responsive graph to display member check-ins throughout the day. This
-        allowed club members to quickly see peak hours and plan accordingly. I
-        also designed features for easy updates, deletions, and automatic
-        recurring check-ins, catering to those with more structured schedules.
+        I designed and built a custom check-in web application to streamline
+        scheduling and improve visibility into gym usage. The frontend uses
+        Chart.js to render a live, responsive graph showing member check-ins in
+        15-minute intervals throughout the day. The backend, built with Node.js
+        and Firebase, stores attendance data in real-time and supports features
+        like automated recurring check-ins, easy deletions, and time validation
+        for structured scheduling.
       </p>
       <p>
-        As a result, the website significantly reduced scheduling confusion and
-        freed up our group chat from constant messages about availability. Now,
-        important club announcements can take priority, and members can organize
-        their gym time more easily. The system I built is designed to continue
-        supporting the club beyond my time at Iowa State, allowing future
-        members to benefit from a allowing future members to enjoy a more
-        efficient and organized scheduling process
+        The application significantly reduced scheduling confusion and
+        eliminated the need for manual coordination, allowing the club’s group
+        chat to focus on important announcements. The platform continues to
+        support club operations beyond my time at Iowa State, offering a
+        reliable and user-friendly system for future members to coordinate safe
+        and efficient gym sessions.
       </p>
+
       <img
         src={WeightClubGraph}
         style={{ maxWidth: 600, paddingBottom: 20, paddingTop: 10 }}
@@ -131,27 +139,39 @@ const Projects = () => {
   const graphMath = (
     <div className="project">
       <p>
-        My fascination with graphing functions began when I first explored the
-        graph feature on my TI-84 calculator. I was amazed at how a computer
-        could visually represent any function, regardless of its complexity.
-        This project was inspired by the online graphing calculator,{' '}
+        GraphMath is an interactive graphing calculator and mathematical
+        expression evaluator built in JavaScript using the Canvas API. Inspired
+        by{' '}
         <a href="https://www.desmos.com/" target="blank">
           Desmos
         </a>
-        , which beautifully transforms math into visual art. Motivated to create
-        something similar, I initially started developing this project in 2021
-        using Java. However, due to the limitations of Java's outdated Swing
-        framework, building the graphical interface became increasingly
-        difficult. Eventually, I transitioned the project to JavaScript,
-        leveraging the Canvas API to enhance functionality.
+        , it allows users to visualize mathematical functions in real time and
+        explore how algebraic expressions translate into graphical behavior. I
+        originally began the project in Java using Swing, but later transitioned
+        to JavaScript to improve UI responsiveness and rendering performance in
+        the browser.
       </p>
       <p>
-        GraphMath serves as both a graphing calculator and an expression
-        evaluator. It operates by tokenizing mathematical expressions,
-        converting them to postfix notation, and constructing an expression tree
-        for evaluation, with support for variables. For a deeper dive into how
-        GraphMath works, more information is available on GitHub.
+        The core engine is a custom-built parser that tokenizes user input
+        through lexical analysis, converts expressions to postfix notation using
+        the Shunting Yard algorithm, and builds an expression tree for
+        evaluation. The parser handles a wide range of mathematical functions,
+        including trigonometry, logarithms, and nested operations, while
+        supporting user-defined variables and multi-digit precision. To improve
+        accuracy and avoid floating-point errors, I implemented number
+        condensation and recursive function parsing.
       </p>
+      <p>
+        GraphMath emphasizes both functionality and user experience. The graph
+        is rendered using the HTML5 Canvas API, enabling smooth curve plotting
+        and responsive zooming and panning. Behind the scenes, the expression
+        evaluator performs postorder traversal of the expression tree to
+        calculate results in real time. This project deepened my understanding
+        of interpreters, data structures, and graphics programming, while also
+        reflecting my passion for building educational tools that make abstract
+        concepts more intuitive.
+      </p>
+
       <img
         src={Graph}
         className="preview"
@@ -182,28 +202,33 @@ const Projects = () => {
   const jchess = (
     <div className="project">
       <p>
-        JChess is a chess engine I developed in Java using the Swing framework.
-        It includes an AI that determines the best move through the Minimax
-        algorithm with alpha-beta pruning, evaluating each board position based
-        on various factors like material, mobility, piece positioning, and pawn
-        structure. To enhance the AI's efficiency and performance, I implemented
-        optimization strategies such as Zobrist Hashing, Transposition Tables,
-        and Quiescence Search, drawing heavily from resources like the{' '}
-        <a href="https://www.chessprogramming.org/Main_Page" target="blank">
-          Chess Programming Wiki
-        </a>
-        .
+        JChess is a Java-based chess engine featuring an AI opponent capable of
+        playing full games against a human user. The engine uses the Minimax
+        algorithm with alpha-beta pruning to evaluate board positions and select
+        optimal moves based on factors such as material balance, piece mobility,
+        positioning, and pawn structure. I built a graphical user interface
+        using the Java Swing framework to allow for interactive gameplay and
+        visual move tracking.
       </p>
       <p>
-        In the future, I plan to expand the AI's capabilities by incorporating
-        an opening book sourced from a database of grandmaster games and
-        exploring machine learning techniques to train the AI by having it play
-        thousands of games against itself. One of the key lessons I’ve learned
-        from this project is that chess programming is an incredibly deep and
-        intricate field, where progress can be hard to measure. Though I’m
-        satisfied with the AI’s current level of play (I still can't beat it), I
-        look forward to revisiting and improving the engine over time.
+        To optimize performance and reduce computation time, I implemented
+        advanced techniques like Zobrist Hashing for unique board state
+        representation, Transposition Tables for caching previously evaluated
+        positions, and Quiescence Search to avoid shallow tactical blunders in
+        volatile positions. These enhancements significantly increased the
+        engine’s search efficiency and helped it evaluate deeper positions
+        within a limited time window.
       </p>
+      <p>
+        Chess programming introduced me to the complexity of search algorithms,
+        evaluation heuristics, and game tree exploration. One of my goals is to
+        eventually integrate an opening book sourced from a database of
+        grandmaster games and experiment with reinforcement learning by having
+        the AI train through self-play. While I still can’t consistently beat
+        it, JChess has been one of the most rewarding and technically
+        challenging projects I’ve built to date.
+      </p>
+
       <img
         src={Chess}
         className="preview"
@@ -231,22 +256,30 @@ const Projects = () => {
   const ankr = (
     <div className="project">
       <p>
-        Ankr is a custom-built dynamically-typed toy programming language
-        designed to explore the fundamentals of language parsing, syntax, and
-        interpretation. The language features a basic syntax that allows for
-        variable declarations, arithmetic operations, control flow (such as
-        loops and conditionals), and function definitions. By building this
-        language from scratch, I gained deeper insights into compiler design,
-        lexing, and parsing techniques.
+        Ankr is a dynamically typed toy programming language I designed and
+        implemented in C++ to explore the fundamentals of compilers and
+        interpreters. The language supports variable declarations, arithmetic
+        operations, control flow structures (like loops and conditionals), and
+        user-defined functions, offering a simplified but expressive syntax for
+        writing basic programs.
       </p>
       <p>
-        The project is implemented in C++, and includes a working interpreter
-        capable of executing simple programs written in the language. This
-        endeavor helped strengthen my understanding of how high-level
-        programming languages work at a lower level and introduced me to various
-        concepts in compiler theory, such as abstract syntax trees and
-        tokenization.
+        I built a full interpreter from scratch, including a lexer for
+        tokenizing input, a recursive-descent parser to generate abstract syntax
+        trees (ASTs), and an evaluation engine that executes the resulting
+        program. Throughout this process, I implemented core compiler theory
+        concepts such as lexical analysis, syntax analysis, and tree-based
+        expression evaluation — without relying on external parsing libraries.
       </p>
+      <p>
+        Developing Ankr gave me hands-on experience with the inner workings of
+        programming languages and deepened my understanding of how high-level
+        code is processed and executed under the hood. This project pushed me to
+        think critically about language design, runtime behavior, and error
+        handling, and served as a foundational step toward building more complex
+        interpreters or compilers in the future.
+      </p>
+
       <div className="code-container">
         <code>
           <span className="keyword">function</span>{' '}
@@ -326,51 +359,136 @@ const Projects = () => {
   const arbadillo = (
     <div className="project">
       <p>
-        Arbadillo is a Python-based web scraping project that collects live
-        sportsbook data from multiple sources using Selenium and BeautifulSoup.
-        It is designed to retrieve real-time odds and betting markets from
-        popular sportsbooks like BetMGM and DraftKings, organizing this data for
-        easy integration and storage.
+        Arbadillo is a scalable, distributed sports betting data platform built
+        to collect, process, and serve live and historical sportsbook odds
+        across multiple leagues and markets. Designed with extensibility in
+        mind, Arbadillo powers a future-facing AI engine to identify high-value
+        betting opportunities.
       </p>
-      <h2 className="list-header">Key Features:</h2>
+
+      <h2 className="list-header">🔧 Stack & Architecture</h2>
       <ul className="arbadillo-list">
-        <li>
-          <p>
-            <strong>Data Scraping:</strong> Utilizes Selenium for navigating and
-            interacting with dynamic sportsbook web pages, and BeautifulSoup for
-            parsing the HTML content to extract betting data, such as player
-            props, game spreads, and moneylines.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Concurrency:</strong> Implements Python's{' '}
-            <em>ThreadPoolExecutor</em> for multi-threaded scraping, enabling
-            efficient collection of data from multiple sportsbooks concurrently,
-            reducing the overall execution time.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Django Backend:</strong> Integrates with Django to manage
-            data storage, using Django models to structure and save scraped
-            events, picks, and odds into a database for future analysis.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Error Handling and Logging:</strong> Robust error handling
-            and retry logic ensure consistent data collection even when websites
-            change or connection issues arise, with detailed logging for
-            monitoring performance.
-          </p>
-        </li>
+        <p>
+          <li>
+            <strong>Celery + Redis:</strong> Asynchronous scraping jobs run in
+            parallel using Celery, with Redis as both the task backend and
+            in-memory cache to reduce I/O and maintain fresh odds data.
+          </li>
+          <li>
+            <strong>Scrapy + Playwright:</strong> Reverse-engineered sportsbook
+            APIs and dynamic web content are accessed using Scrapy and headless
+            Playwright sessions with stealth techniques to bypass bot detection.
+          </li>
+          <li>
+            <strong>PostgreSQL Database:</strong> Odds and event data are
+            structured and deduplicated using smart upserts keyed on event,
+            market, sportsbook, and outcome identifiers to maintain consistency
+            and minimize bloat.
+          </li>
+          <li>
+            <strong>Data Normalization:</strong> Market names and outcomes are
+            cleaned and mapped across sportsbooks, ensuring uniform input for
+            analysis and ML training.
+          </li>
+        </p>
       </ul>
+
+      <h2 className="list-header">⚙️ Pipeline Overview</h2>
+      <ul className="arbadillo-list">
+        <p>
+          <li>
+            <strong>1. Bootstrap Schedule:</strong> ESPN API scrapes upcoming
+            events, team aliases, and rosters. Events are cached and used to
+            match sportsbook event IDs.
+          </li>
+          <li>
+            <strong>2. Scrape Odds:</strong> FanDuel, DraftKings, ESPNBet
+            clients collect moneylines, spreads, totals, and props. Data is
+            parsed, normalized, deduped, and cached.
+          </li>
+          <li>
+            <strong>3. Upsert to DB:</strong> Odds with changes in value, line,
+            or status are upserted into PostgreSQL. Outdated lines are
+            automatically dropped from cache.
+          </li>
+        </p>
+      </ul>
+
+      <h2 className="list-header">💡 Future Additions</h2>
+      <ul className="arbadillo-list">
+        <p>
+          <li>
+            Machine learning model to predict high-value bets using stats + odds
+            history
+          </li>
+          <li>
+            Natural language interface to query picks and insights (LLM wrapper)
+          </li>
+          <li>
+            API and frontend for user interaction, Discord integration, and
+            credit-based monetization
+          </li>
+        </p>
+      </ul>
+
       <div className="project-links">
         <a
           href="https://github.com/noahnkr/arbadillo/"
           className="flat-button"
           target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={faGithub} className="project-link-icon" />{' '}
+        </a>
+      </div>
+    </div>
+  )
+
+  const marchMadness = (
+    <div className="project">
+      <p>
+        This project aimed to predict NCAA March Madness outcomes using
+        historical tournament data and machine learning. I collected tournament
+        matchups from 2012 to 2025 (excluding 2020) and combined them with
+        advanced and basic team statistics from a variety of sources, writing
+        custom Python web scrapers to automate the data collection process.
+      </p>
+      <p>
+        After consolidating and cleaning the datasets, I engineered a rich set
+        of features capturing performance metrics, historical trends, and
+        seeding differences. These features were used to train and evaluate
+        several classification models, including Logistic Regression, SVM,
+        Random Forests, KNN, and Naive Bayes, in order to compare their
+        predictive accuracy.
+      </p>
+      <p>
+        To test the real-world applicability of the models, I simulated entire
+        NCAA tournament brackets year by year using the model outputs. This
+        revealed strengths and limitations of each algorithm and showed the
+        importance of balancing accuracy with variance in prediction. The
+        project also provided a valuable opportunity to implement and validate
+        machine learning pipelines manually, from preprocessing to evaluation,
+        without relying heavily on libraries.
+      </p>
+      <img
+        src={Tournament}
+        className="preview"
+        style={{ maxWidth: 800, paddingBottom: 20, paddingTop: 10 }}
+      />
+      <div className="project-links">
+        <a
+          href="https://docs.google.com/presentation/d/1G7-xcGmo5TE4j4LUpBRWjps8SdhHVABz0wmel8HrIao/edit?usp=sharing"
+          className="flat-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={faFilm} className="project-link-icon" />
+        </a>
+        <a
+          href="https://github.com/noahnkr/mlmm"
+          className="flat-button"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <FontAwesomeIcon icon={faGithub} className="project-link-icon" />
         </a>
@@ -417,12 +535,19 @@ const Projects = () => {
             >
               Arbadillo
             </h2>
+            <h2
+              className="marchmadness-select"
+              onClick={() => handleSectionChange(5)}
+            >
+              March Madness Predictions
+            </h2>
           </div>
           {section === 0 && weightClub}
           {section === 1 && graphMath}
           {section === 2 && jchess}
           {section === 3 && ankr}
           {section === 4 && arbadillo}
+          {section === 5 && marchMadness}
         </div>
       </div>
       <Loader type="ball-pulse-sync" />

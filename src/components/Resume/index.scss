@@ -1,6 +1,6 @@
 .experience,
 .skills,
-.coursework {
+.education {
   animation: fadeIn 1s forwards;
   display: flex;
   min-width: 165px;
@@ -18,7 +18,7 @@
 
 .experience-select,
 .skills-select,
-.coursework-select {
+.education-select {
   white-space: nowrap;
 }
 
@@ -41,7 +41,8 @@
 }
 
 .mx,
-.paddys {
+.paddys,
+.isu {
   width: 12px;
   min-width: 125px;
   max-height: 110px;
@@ -107,12 +108,24 @@
   }
 }
 
+.education-heading {
+  display: flex;
+}
+
+.education-description {
+  font-size: 36px;
+}
+.education {
+  display: flex;
+  flex-direction: column;
+}
+
 .course-list {
   color: #fff;
   font-size: 18px;
   position: relative;
-  left: -20px;
-  top: -15px;
+  left: -15px;
+  top: -5px;
 }
 
 .devicon-mysql-original,

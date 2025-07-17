@@ -13,9 +13,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Mx from '../../assets/images/mx.png'
 import Paddys from '../../assets/images/paddys.png'
+import Isu from '../../assets/images/isu.png'
 
 const Resume = () => {
-  document.title = 'noahnkr | Resume'
+  document.title = 'Noah Roberts | Resume'
   const [letterClass, setLetterClass] = useState('text-animate')
   const [section, setSection] = useState(0)
 
@@ -57,7 +58,7 @@ const Resume = () => {
         oldSection = document.querySelector('.skills-select')
         break
       case 2:
-        oldSection = document.querySelector('.coursework-select')
+        oldSection = document.querySelector('.education-select')
         break
     }
 
@@ -74,7 +75,7 @@ const Resume = () => {
         newSectionElement = document.querySelector('.skills-select')
         break
       case 2:
-        newSectionElement = document.querySelector('.coursework-select')
+        newSectionElement = document.querySelector('.education-select')
         break
     }
 
@@ -91,41 +92,6 @@ const Resume = () => {
         <div className="job-description">
           <div className="job-heading">
             <div className="job-title">
-              <h2>Front End Developer Intern</h2>
-              <h3>The MX Group | Burr Ridge, IL</h3>
-              <h4>May 2022 - Aug 2022</h4>
-            </div>
-            <img src={Mx} className="mx" />
-          </div>
-          <p>
-            As a front-end intern at The MX Group, I had the incredible
-            opportunity to delve into the world of web development and user
-            interface design in a professional setting. Working within a B2B
-            marketing firm exposed me to the dynamic nature of the industry and
-            the importance of aligning design and functionality with the
-            specific needs and goals of business clients.
-          </p>
-          <p>
-            At the beginning of my internship, I was introduced to Atlassian
-            Jira, a powerful project management tool widely used in the
-            industry. I quickly realized its importance in organizing tasks,
-            tracking progress, and ensuring efficient workflow management. In
-            addition to Jira, I also gained experience working with Trello,
-            another popular project management tool that emphasizes visual
-            organization and collaboration.
-          </p>
-          <p>
-            Moreover, my time as a front-end intern allowed me to refine my
-            communication and collaboration skills. I actively participated in
-            meetings, sharing progress updates and seeking feedback from the
-            team. This collaborative environment provided me with invaluable
-            insights into the intricacies of teamwork within a professional
-            setting.
-          </p>
-        </div>
-        <div className="job-description">
-          <div className="job-heading">
-            <div className="job-title">
               <h2>Data Analyst Intern</h2>
               <h3>The MX Group | Burr Ridge, IL</h3>
               <h4>May 2024 - Aug 2024</h4>
@@ -133,31 +99,56 @@ const Resume = () => {
             <img src={Mx} className="mx" />
           </div>
           <p>
-            During my second internship at The MX Group, I had the opportunity
-            to work closely on various client projects, gaining hands-on
-            experience in data analysis. I utilized tools like Salesforce
-            Datorama and Tableau to create reports for clients such as HF
-            Sinclair, providing insights through data visualization. This
-            experience allowed me to strengthen my ability to analyze and
-            present data effectively for business decisions.
+            During my second internship at The MX Group, I worked as a data
+            analyst on marketing and web performance projects for B2B clients,
+            including HF Sinclair. I developed interactive dashboards and
+            reports using Salesforce Datorama and Tableau, enabling stakeholders
+            to visualize key metrics and make informed strategic decisions.
           </p>
           <p>
-            I also gained experience with Microsoft SQL Server Management Studio
-            to audit large datasets. During this process, I faced challenges
-            associated with managing a vast amount of data, but I quickly
-            adapted by developing strategiees to efficiently handle and process
-            the data. Overcoming these issues not only helped ensure the
-            reliability of the company’s data but also enhanced my understanding
-            of data governance and best practices for maintaining data
-            integrity.
+            I cleaned, transformed, and audited large datasets using Microsoft
+            SQL Server Management Studio, implementing solutions to improve data
+            quality and ensure reporting accuracy. This experience deepened my
+            understanding of data governance, query optimization, and best
+            practices for maintaining data integrity at scale.
           </p>
           <p>
-            Additionally, I contributed to SEO efforts by writing automated
-            scripts to pull search engine data from SEMrush, enabling more
-            efficient tracking of the company’s web performance. I also played a
-            role in migrating old pages from an acquired WordPress website to
-            the company’s main site, ensuring a smooth transition and
-            integration of web content.
+            To support SEO initiatives, I wrote Python scripts to automate the
+            collection and processing of search engine data from SEMrush,
+            reducing manual overhead and streamlining reporting workflows. I
+            also collaborated with a newly acquired client to migrate and
+            standardize data from a legacy WordPress site into the company’s
+            centralized reporting infrastructure.
+          </p>
+        </div>
+        <div className="job-description">
+          <div className="job-heading">
+            <div className="job-title">
+              <h2>Front End Developer Intern</h2>
+              <h3>The MX Group | Burr Ridge, IL</h3>
+              <h4>May 2022 - Aug 2022</h4>
+            </div>
+            <img src={Mx} className="mx" />
+          </div>
+          <p>
+            As a Front End Development Intern at The MX Group, I worked on
+            enhancing B2B marketing websites for a range of clients. Using
+            React, Sass, and WordPress, I developed responsive, accessible
+            interfaces that aligned with each client’s brand identity and
+            improved the overall user experience across devices.
+          </p>
+          <p>
+            I collaborated with backend developers to integrate APIs and ensure
+            that dynamic, data-driven content rendered correctly. Throughout the
+            development process, I partnered closely with designers and QA
+            analysts to resolve UI/UX issues and deliver projects on schedule.
+          </p>
+          <p>
+            I also participated in daily Scrum standups and used tools like Jira
+            and Trello to manage tasks, track progress, and prioritize feature
+            development. This experience gave me valuable exposure to agile
+            workflows and strengthened my ability to contribute effectively
+            within a cross-functional team.
           </p>
         </div>
         <div className="job-description">
@@ -165,18 +156,24 @@ const Resume = () => {
             <div className="job-title">
               <h2>Bartender</h2>
               <h3>Paddy's Irish Pub | Ames, IA</h3>
-              <h4>Mar 2022 - Present</h4>
+              <h4>Mar 2022 - Apr 2025</h4>
             </div>
             <img src={Paddys} className="paddys" />
           </div>
           <p>
-            As a bartender at a busy college bar, I’ve honed my ability to work
-            in a fast-paced environment, serving drinks and handling multiple
-            tasks at once. I’ve become skilled at managing the bar during peak
-            hours, staying organized, and delivering great customer service.
-            Working in this setting has also given me the chance to meet and
-            connect with fellow students, which has been one of the highlights
-            of the job.
+            As a bartender at a high-traffic college bar, I developed the
+            ability to thrive under pressure while managing multiple
+            responsibilities simultaneously. I regularly handled large volumes
+            of drink orders during peak hours, maintained a clean and organized
+            workspace, and delivered fast, friendly customer service in a
+            dynamic environment.
+          </p>
+          <p>
+            This role sharpened my communication skills, taught me how to adapt
+            quickly to changing situations, and reinforced the importance of
+            efficiency, attention to detail, and teamwork. Working in this
+            setting has gave me the chance to meet and connect with fellow
+            students, which was one of the highlights of the job.
           </p>
         </div>
       </div>
@@ -384,20 +381,28 @@ const Resume = () => {
     </div>
   )
 
-  const coursework = (
-    <div className="coursework">
+  const education = (
+    <div className="education">
+      <div className="education-heading">
+        <div className="education-description">
+          <h2>Iowa State University</h2>
+          <h3>B.S. Computer Science</h3>
+          <h4>Aug 2021 - May 2025</h4>
+        </div>
+        <img src={Isu} className="isu" />
+      </div>
       <ul className="course-list">
-        <li>Object-Oriented Programming</li>
-        <li>Data Structures</li>
-        <li>Discrete Computational Structures</li>
         <li>Construction of User Interfaces</li>
         <li>Design and Analysis of Algorithms</li>
-        <li>Philosophy of Technology</li>
         <li>Object-Oriented Analysis and Design</li>
         <li>Software Development Practices</li>
         <li>Probability and Statistics for Computer Science</li>
         <li>Advanced Programming Techniques</li>
+        <li>Database Management Systems</li>
         <li>Theory of Computing</li>
+        <li>Operating Systems</li>
+        <li>Principles of Artificial Intelligence</li>
+        <li>Introduction to Machine Learning</li>
       </ul>
     </div>
   )
@@ -427,15 +432,15 @@ const Resume = () => {
               Skills
             </h2>
             <h2
-              className="coursework-select"
+              className="education-select"
               onClick={() => handleSectionChange(2)}
             >
-              Coursework
+              Education
             </h2>
           </div>
           {section === 0 && experience}
           {section === 1 && skills}
-          {section === 2 && coursework}
+          {section === 2 && education}
         </div>
       </div>
       <Loader type="ball-pulse-sync" />
