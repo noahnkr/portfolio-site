@@ -47,7 +47,7 @@
     position: absolute;
     height: 210px;
     top: 50%;
-    margin-top: -200px;
+    margin-top: -250px;
     width: 100%;
     z-index: -1;
 
@@ -124,6 +124,12 @@
     a.contact-link {
       &:after {
         content: 'CONTACT';
+      }
+    }
+
+    a.blog-link {
+      &:after {
+        content: 'BLOG';
       }
     }
 
@@ -232,6 +238,15 @@
           bottom: 0;
           right: 10px;
           content: 'CONTACT';
+        }
+      }
+
+      a.blog-link {
+        &:after {
+          position: absolute;
+          bottom: 0;
+          right: 10px;
+          content: 'BLOG';
         }
       }
     }

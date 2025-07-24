@@ -6,18 +6,7 @@ import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   document.title = 'Noah Roberts | Contact'
-  const [letterClass, setLetterClass] = useState('text-animate')
   const refForm = useRef()
-
-  useEffect(() => {
-    let timeoutId = setTimeout(() => {
-      setLetterClass('text-animate-hover')
-    }, 3000)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [])
 
   const sendEmail = (e) => {
     e.preventDefault()
@@ -45,11 +34,7 @@ const Contact = () => {
       <div className="container contact-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters
-              letterClass={letterClass}
-              strArray={['C', 'o', 'n', 't', 'a', 'c', 't']}
-              index={15}
-            />
+            <AnimatedLetters strArray={'Contact'.split('')} index={10} />
           </h1>
           <p>
             Thank you for visiting my portfolio! I'm thrilled to have the

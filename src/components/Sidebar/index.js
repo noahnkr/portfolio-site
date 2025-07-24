@@ -10,6 +10,7 @@ import {
   faEnvelope,
   faFileLines,
   faLayerGroup,
+  faSquareRss,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
@@ -74,6 +75,14 @@ export const Sidebar = () => {
             to="/projects"
           >
             <FontAwesomeIcon icon={faLayerGroup} color="4d4d4e" />
+          </NavLink>
+          <NavLink
+            exact="true"
+            activeclassname="active"
+            className="blog-link"
+            to="/blog"
+          >
+            <FontAwesomeIcon icon={faSquareRss} color="4d4d4e" />
           </NavLink>
           <NavLink
             exact="true"
