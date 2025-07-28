@@ -12,18 +12,7 @@ import './index.scss'
 
 const Projects = () => {
   document.title = 'Noah Roberts | Projects'
-  const [letterClass, setLetterClass] = useState('text-animate')
   const [section, setSection] = useState(0)
-
-  useEffect(() => {
-    let timeoutId = setTimeout(() => {
-      setLetterClass('text-animate-hover')
-    }, 3000)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [])
 
   function handleSectionChange(newSection) {
     let oldSection
@@ -84,7 +73,7 @@ const Projects = () => {
   const weightClub = (
     <div className="project">
       <div className="text-zone"></div>
-      <p>
+      <p className="paragraph-animate">
         At the Iowa State Weight Club, coordinating gym sessions was an ongoing
         challenge. For safety, at least three members were required to be
         present during each workout, but fluctuating student schedules made it
@@ -92,7 +81,7 @@ const Projects = () => {
         and scheduling conflicts. As both the events coordinator and webmaster,
         I identified the need for a more efficient and scalable solution.
       </p>
-      <p>
+      <p className="paragraph-animate">
         I designed and built a custom check-in web application to streamline
         scheduling and improve visibility into gym usage. The frontend uses
         Chart.js to render a live, responsive graph showing member check-ins in
@@ -101,7 +90,7 @@ const Projects = () => {
         like automated recurring check-ins, easy deletions, and time validation
         for structured scheduling.
       </p>
-      <p>
+      <p className="paragraph-animate">
         The application significantly reduced scheduling confusion and
         eliminated the need for manual coordination, allowing the club’s group
         chat to focus on important announcements. The platform continues to
@@ -138,7 +127,7 @@ const Projects = () => {
 
   const graphMath = (
     <div className="project">
-      <p>
+      <p className="paragraph-animate">
         GraphMath is an interactive graphing calculator and mathematical
         expression evaluator built in JavaScript using the Canvas API. Inspired
         by{' '}
@@ -151,7 +140,7 @@ const Projects = () => {
         to JavaScript to improve UI responsiveness and rendering performance in
         the browser.
       </p>
-      <p>
+      <p className="paragraph-animate">
         The core engine is a custom-built parser that tokenizes user input
         through lexical analysis, converts expressions to postfix notation using
         the Shunting Yard algorithm, and builds an expression tree for
@@ -161,7 +150,7 @@ const Projects = () => {
         accuracy and avoid floating-point errors, I implemented number
         condensation and recursive function parsing.
       </p>
-      <p>
+      <p className="paragraph-animate">
         GraphMath emphasizes both functionality and user experience. The graph
         is rendered using the HTML5 Canvas API, enabling smooth curve plotting
         and responsive zooming and panning. Behind the scenes, the expression
@@ -201,7 +190,7 @@ const Projects = () => {
 
   const jchess = (
     <div className="project">
-      <p>
+      <p className="paragraph-animate">
         JChess is a Java-based chess engine featuring an AI opponent capable of
         playing full games against a human user. The engine uses the Minimax
         algorithm with alpha-beta pruning to evaluate board positions and select
@@ -210,7 +199,7 @@ const Projects = () => {
         using the Java Swing framework to allow for interactive gameplay and
         visual move tracking.
       </p>
-      <p>
+      <p className="paragraph-animate">
         To optimize performance and reduce computation time, I implemented
         advanced techniques like Zobrist Hashing for unique board state
         representation, Transposition Tables for caching previously evaluated
@@ -219,7 +208,7 @@ const Projects = () => {
         engine’s search efficiency and helped it evaluate deeper positions
         within a limited time window.
       </p>
-      <p>
+      <p className="paragraph-animate">
         Chess programming introduced me to the complexity of search algorithms,
         evaluation heuristics, and game tree exploration. One of my goals is to
         eventually integrate an opening book sourced from a database of
@@ -255,7 +244,7 @@ const Projects = () => {
 
   const ankr = (
     <div className="project">
-      <p>
+      <p className="paragraph-animate">
         Ankr is a dynamically typed toy programming language I designed and
         implemented in C++ to explore the fundamentals of compilers and
         interpreters. The language supports variable declarations, arithmetic
@@ -263,7 +252,7 @@ const Projects = () => {
         user-defined functions, offering a simplified but expressive syntax for
         writing basic programs.
       </p>
-      <p>
+      <p className="paragraph-animate">
         I built a full interpreter from scratch, including a lexer for
         tokenizing input, a recursive-descent parser to generate abstract syntax
         trees (ASTs), and an evaluation engine that executes the resulting
@@ -271,7 +260,7 @@ const Projects = () => {
         concepts such as lexical analysis, syntax analysis, and tree-based
         expression evaluation — without relying on external parsing libraries.
       </p>
-      <p>
+      <p className="paragraph-animate">
         Developing Ankr gave me hands-on experience with the inner workings of
         programming languages and deepened my understanding of how high-level
         code is processed and executed under the hood. This project pushed me to
@@ -358,7 +347,7 @@ const Projects = () => {
 
   const arbadillo = (
     <div className="project">
-      <p>
+      <p className="paragraph-animate">
         Arbadillo is a scalable, distributed sports betting data platform built
         to collect, process, and serve live and historical sportsbook odds
         across multiple leagues and markets. Designed with extensibility in
@@ -368,7 +357,7 @@ const Projects = () => {
 
       <h2 className="list-header">🔧 Stack & Architecture</h2>
       <ul className="arbadillo-list">
-        <p>
+        <p className="paragraph-animate">
           <li>
             <strong>Celery + Redis:</strong> Asynchronous scraping jobs run in
             parallel using Celery, with Redis as both the task backend and
@@ -394,29 +383,29 @@ const Projects = () => {
       </ul>
 
       <h2 className="list-header">⚙️ Pipeline Overview</h2>
-      <ul className="arbadillo-list">
-        <p>
+      <ol className="arbadillo-list">
+        <p className="paragraph-animate">
           <li>
-            <strong>1. Bootstrap Schedule:</strong> ESPN API scrapes upcoming
+            <strong>Bootstrap Schedule:</strong> ESPN API scrapes upcoming
             events, team aliases, and rosters. Events are cached and used to
             match sportsbook event IDs.
           </li>
           <li>
-            <strong>2. Scrape Odds:</strong> FanDuel, DraftKings, ESPNBet
-            clients collect moneylines, spreads, totals, and props. Data is
-            parsed, normalized, deduped, and cached.
+            <strong>Scrape Odds:</strong> FanDuel, DraftKings, ESPNBet clients
+            collect moneylines, spreads, totals, and props. Data is parsed,
+            normalized, deduped, and cached.
           </li>
           <li>
-            <strong>3. Upsert to DB:</strong> Odds with changes in value, line,
-            or status are upserted into PostgreSQL. Outdated lines are
+            <strong>Upsert to DB:</strong> Odds with changes in value, line, or
+            status are upserted into PostgreSQL. Outdated lines are
             automatically dropped from cache.
           </li>
         </p>
-      </ul>
+      </ol>
 
       <h2 className="list-header">💡 Future Additions</h2>
       <ul className="arbadillo-list">
-        <p>
+        <p className="paragraph-animate">
           <li>
             Machine learning model to predict high-value bets using stats + odds
             history
@@ -446,14 +435,14 @@ const Projects = () => {
 
   const marchMadness = (
     <div className="project">
-      <p>
+      <p className="paragraph-animate">
         This project aimed to predict NCAA March Madness outcomes using
         historical tournament data and machine learning. I collected tournament
         matchups from 2012 to 2025 (excluding 2020) and combined them with
         advanced and basic team statistics from a variety of sources, writing
         custom Python web scrapers to automate the data collection process.
       </p>
-      <p>
+      <p className="paragraph-animate">
         After consolidating and cleaning the datasets, I engineered a rich set
         of features capturing performance metrics, historical trends, and
         seeding differences. These features were used to train and evaluate
@@ -461,7 +450,7 @@ const Projects = () => {
         Random Forests, KNN, and Naive Bayes, in order to compare their
         predictive accuracy.
       </p>
-      <p>
+      <p className="paragraph-animate">
         To test the real-world applicability of the models, I simulated entire
         NCAA tournament brackets year by year using the model outputs. This
         revealed strengths and limitations of each algorithm and showed the
@@ -501,11 +490,7 @@ const Projects = () => {
       <div className="container projects-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters
-              letterClass={letterClass}
-              strArray={'Projects'.split('')}
-              index={15}
-            />
+            <AnimatedLetters strArray={'Projects'.split('')} index={10} />
           </h1>
           <div className="section-select">
             <h2

@@ -17,18 +17,7 @@ import Isu from '../../assets/images/isu.png'
 
 const Resume = () => {
   document.title = 'Noah Roberts | Resume'
-  const [letterClass, setLetterClass] = useState('text-animate')
   const [section, setSection] = useState(0)
-
-  useEffect(() => {
-    let timeoutId = setTimeout(() => {
-      setLetterClass('text-animate-hover')
-    }, 3000)
-
-    return () => {
-      clearTimeout(timeoutId)
-    }
-  }, [])
 
   useEffect(() => {
     if (section === 1) {
@@ -98,21 +87,21 @@ const Resume = () => {
             </div>
             <img src={Mx} className="mx" />
           </div>
-          <p>
+          <p className="paragraph-animate">
             During my second internship at The MX Group, I worked as a data
             analyst on marketing and web performance projects for B2B clients,
             including HF Sinclair. I developed interactive dashboards and
             reports using Salesforce Datorama and Tableau, enabling stakeholders
             to visualize key metrics and make informed strategic decisions.
           </p>
-          <p>
+          <p className="paragraph-animate">
             I cleaned, transformed, and audited large datasets using Microsoft
             SQL Server Management Studio, implementing solutions to improve data
             quality and ensure reporting accuracy. This experience deepened my
             understanding of data governance, query optimization, and best
             practices for maintaining data integrity at scale.
           </p>
-          <p>
+          <p className="paragraph-animate">
             To support SEO initiatives, I wrote Python scripts to automate the
             collection and processing of search engine data from SEMrush,
             reducing manual overhead and streamlining reporting workflows. I
@@ -130,20 +119,20 @@ const Resume = () => {
             </div>
             <img src={Mx} className="mx" />
           </div>
-          <p>
+          <p className="paragraph-animate">
             As a Front End Development Intern at The MX Group, I worked on
             enhancing B2B marketing websites for a range of clients. Using
             React, Sass, and WordPress, I developed responsive, accessible
             interfaces that aligned with each client’s brand identity and
             improved the overall user experience across devices.
           </p>
-          <p>
+          <p className="paragraph-animate">
             I collaborated with backend developers to integrate APIs and ensure
             that dynamic, data-driven content rendered correctly. Throughout the
             development process, I partnered closely with designers and QA
             analysts to resolve UI/UX issues and deliver projects on schedule.
           </p>
-          <p>
+          <p className="paragraph-animate">
             I also participated in daily Scrum standups and used tools like Jira
             and Trello to manage tasks, track progress, and prioritize feature
             development. This experience gave me valuable exposure to agile
@@ -160,7 +149,7 @@ const Resume = () => {
             </div>
             <img src={Paddys} className="paddys" />
           </div>
-          <p>
+          <p className="paragraph-animate">
             As a bartender at a high-traffic college bar, I developed the
             ability to thrive under pressure while managing multiple
             responsibilities simultaneously. I regularly handled large volumes
@@ -168,7 +157,7 @@ const Resume = () => {
             workspace, and delivered fast, friendly customer service in a
             dynamic environment.
           </p>
-          <p>
+          <p className="paragraph-animate">
             This role sharpened my communication skills, taught me how to adapt
             quickly to changing situations, and reinforced the importance of
             efficiency, attention to detail, and teamwork. Working in this
@@ -192,7 +181,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>Java</p>
+              <p className="skill-name">Java</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -210,7 +199,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>Python</p>
+              <p className="skill-name">Python</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -228,7 +217,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>JavaScript</p>
+              <p className="skill-name">JavaScript</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -242,7 +231,7 @@ const Resume = () => {
           <li>
             <div className="skill-icon-container">
               <i class="devicon-cplusplus-plain" />
-              <p>C/C++</p>
+              <p className="skill-name">C/C++</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -260,7 +249,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>React</p>
+              <p className="skill-name">React</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -283,7 +272,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>Git</p>
+              <p className="skill-name">Git</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -301,7 +290,7 @@ const Resume = () => {
                 color="#fff"
                 className="skill-icon"
               />
-              <p>Jira</p>
+              <p className="skill-name">Jira</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -317,7 +306,7 @@ const Resume = () => {
               <div>
                 <i class="devicon-mysql-original" />
               </div>
-              <p>MySQL</p>
+              <p className="skill-name">MySQL</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -333,7 +322,7 @@ const Resume = () => {
               <div>
                 <i class="devicon-firebase-plain" />
               </div>
-              <p>Firebase</p>
+              <p className="skill-name">Firebase</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -349,7 +338,7 @@ const Resume = () => {
               <div>
                 <i class="devicon-spring-original" />
               </div>
-              <p>Spring</p>
+              <p className="skill-name">Spring</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -365,7 +354,7 @@ const Resume = () => {
               <div>
                 <i class="devicon-mongodb-plain" />
               </div>
-              <p>MongoDB</p>
+              <p className="skill-name">MongoDB</p>
             </div>
             <div className="skill-level">
               <div className="seperators">
@@ -385,8 +374,8 @@ const Resume = () => {
     <div className="education">
       <div className="education-heading">
         <div className="education-description">
-          <h2>Iowa State University</h2>
-          <h3>B.S. Computer Science</h3>
+          <h2>B.S. Computer Science</h2>
+          <h3>Iowa State University | Ames, IA</h3>
           <h4>Aug 2021 - May 2025</h4>
         </div>
         <img src={Isu} className="isu" />
@@ -412,11 +401,7 @@ const Resume = () => {
       <div className="container resume-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters
-              letterClass={letterClass}
-              strArray={'Resume'.split('')}
-              index={15}
-            />
+            <AnimatedLetters strArray={'Resume'.split('')} index={10} />
           </h1>
           <div className="section-select">
             <h2
