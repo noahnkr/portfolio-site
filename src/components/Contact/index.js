@@ -1,5 +1,5 @@
 import './index.scss'
-import { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import emailjs from '@emailjs/browser'

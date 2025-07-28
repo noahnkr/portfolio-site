@@ -4,7 +4,7 @@ Take machine learning, for example: it's one of the most talked-about technologi
 
 This applies beyond just machine learning. Whether I'm writing about code, design, data, or anything else I may be working on, the goal is to find a happy medium between technical depth and clarity.
 
-If you're someone who's curious or just trying to learn something new, then I hope you find some interest in my posts and I would appreciate any [feedback]('https://noahnkr.com/contact) you may have. So with that in mind, let's start at the beginning: What exactly _is_ machine learning, and _why_ does it matter?
+If you're someone who's curious or just trying to learn something new, then I hope you find some interest in my posts and I would appreciate any [feedback](../contact) you may have. So with that in mind, let's start at the beginning: What exactly _is_ machine learning, and _why_ does it matter?
 
 # What is Machine Learning?
 
@@ -53,9 +53,9 @@ In **unsupervised learning**, the data has no labels. The model tries to discove
 | Dimensionality Reduction | Reduce the number of input features | Data visualization (PCA)    |
 | Anomaly Detection        | Detect outliers or rare events      | Credit card fraud detection |
 
-## Semi-Supervised Learning
+## Reinforcement Learning
 
-Sometimes, labeling a full dataset is expensive or time-consuming. In **semi-supervised learning**, we use a **small labeled dataset** combined with a much larger **unlabeled dataset**. This helps the model learn patterns more efficiently while requiring fewer labeled examples.
+In **reinforcement learning**, an agent learns by recieving rewards or penalties for its actions. The agent makes decisions based on its environment and updates it's decision making policies based on the result of its actions. This is an iterative process and the agent learns through trial and error.
 
 # How Does the Model "Learn"?
 
@@ -102,6 +102,6 @@ In future posts, I’ll break down:
 - How to evaluate and improve model performance
 - And how you can build your own ML project
 
-I'll do my best to keep the math to a minimum, but if you're curious about how these models work under the hood, a basic understanding of linear algebra and calculus can be really helpful. If you would like a quick refresher I have written a [seperate post](https://www.noahnkr.com/blog/math-review) that walks through the core concepts and math used in machine learning.
+I'll do my best to keep the math to a minimum, but if you're curious about how these models work under the hood, a basic understanding of linear algebra and calculus can be really helpful. If you would like a quick refresher I have written a [seperate post](/blog/math-review) that walks through the core concepts and math used in machine learning.
 
 Follow me here or on [LinkedIn](https://www.linkedin.com/in/noah-roberts-3bb399234/) to stay updated as I publish more!
