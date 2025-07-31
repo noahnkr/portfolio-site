@@ -40,13 +40,13 @@ $$
 f(z) = \begin{cases} 1, & z \geq 0 \\ 0, & z < 0 \end{cases}
 $$
 
+![Step Function](/blog-images/linear-perceptron/step-function.png)
+
 Where the score, $z=w^Tx$, is our weighted sum of inputs. Without an activation function, our perceptron would just spit out numbers. The activation function is what turns those numbers into **decisions**.
 
 > What happens when $w^Tx=0$?
 >
 > By convention, ties that lie exactly on the decision boundary go the **positive** class.
-
-![Step Function](/blog-images/linear-perceptron/step-function.png)
 
 # Learning the Weights
 
@@ -98,7 +98,7 @@ Lets walk through an iteration of our training algorithm and see how the model a
 - **Inputs:** $x = \begin{bmatrix} 1, 1, 0 \end{bmatrix}$ _(bias = 1, searched "ice cream", not lactose intolerant)_
 - **Current Weights:** $w_t = \begin{bmatrix} -0.5, 0.3, 0.3 \end{bmatrix}$
 - **Correct Output:** $y = 1$ _(they clicked)_
-- **Prediction:** $\hat{y} = 0$ _(perceptron says no)_
+- **Initial Prediction:** $\hat{y}_t = 0$ _(perceptron says no)_
 - **Learning Rate:** $\alpha = 0.2$
 
 Update Step:
@@ -107,23 +107,25 @@ $$
 w_{t+1} = w_t + 0.2 \cdot (1 - 0)\begin{bmatrix} 1, 1, 0 \end{bmatrix} = \begin{bmatrix} -0.5, 0.3, 0.3 \end{bmatrix} + \begin{bmatrix} 0.2, 0.2, 0 \end{bmatrix} = \begin{bmatrix} -0.3, 0.5, 0.3 \end{bmatrix}
 $$
 
-### Comparing Our Predictions
+### Comparing Predictions
 
-Our initial prediction $\hat{y}_t$ with weights $w_t$ incorrectly concluded that the user would _not click_ on the ice cream ad:
+Before the weight update:
 
 $$
 \hat{y}_t = f(w_t^Tx) = f(1 \cdot -0.5 + 1 \cdot 0.3 + 0 \cdot 0.3) = f(-0.2) = 0
 $$
 
-Lets try testing our prediction again with our adjusted weights $w_{t+1}$:
+The model guessed wrong. After the update:
 
 $$
 \hat{y}_{t+1} = f(w_{t+1}^Tx) = f(1 \cdot -0.3 + 1 \cdot 0.5 + 0 \cdot 0.3) = f(0.2) = 1
 $$
 
+The perceptron now predicts correctly. This is learning in action, the model shifts its **decision boundary** a little closer to the right answer after each mistake.
+
 # Limitations of a Single Perceptron
 
-Our data points are **linearly seperable** if there exists a line that will cleanly seperate them into two classes.
+Our example shows a case where the data can be seperated by a straight line, the perceptron just had to learn where the put it. _But what if the data can't be split cleanly by any line at all?_
 
 <div className="inline-display">
 
@@ -141,13 +143,13 @@ Our data points are **linearly seperable** if there exists a line that will clea
 
 </div>
 
-If the data points **are linearly seperable**, our perceptron algorithm is **guaranteed** by the [Perceptron Convergence Theorem](https://www.geeksforgeeks.org/deep-learning/perceptron-convergence-theorem-in-neural-networks/) to find a set of weights $w$ that correctly classifies every point in a _finite_ number of steps.
+If the data points are **linearly seperable**, our perceptron algorithm is **_guaranteed_** by the [Perceptron Convergence Theorem](https://www.geeksforgeeks.org/deep-learning/perceptron-convergence-theorem-in-neural-networks/) to find a set of weights $w$ that correctly classifies every point in a _finite_ number of steps.
 
-If the data points **are not lineary seperable**, no straight-line classifier can perfectly seperate them. In this case, the perceptron will continue adjusting its weights indefinitely, oscilatting between solutions without every reaching a perfect classification. That's why we usually set a **maximum number of iterations** or another stopping condition to prevent infinite training.
+If the data points are **not lineary seperable**, no straight-line classifier can perfectly seperate them. In this case, the perceptron will continue adjusting its weights indefinitely, oscilatting between solutions without ever reaching a perfect classification. That's why we usually set a limit on the maximum number of iterations or another stopping condition to prevent infinite training.
 
 ## The XOR Problem
 
-The XOR (exclusive OR) is a logical operation that results in _true_ if and only if one of input is _true_ and the other is _false_. We can represent this behavior as both a truth table and a set of points on a 2D plane.
+The XOR (exclusive OR) is a logical operation that results in _true_ if and only if one of its input is _true_ and the other is _false_. We can represent this behavior as both a truth table and a set of points on a 2D plane.
 
 <div className="inline-display">
 
@@ -195,7 +197,7 @@ Each perceptron becomes an individual **node** inside a larger network. On its o
 ![Node](/blog-images/linear-perceptron/node.jpg)
 [Image Credit](https://gmongaras.medium.com/how-do-neural-networks-work-bfdd3ca6c23a)
 
-Over time, researchers improved training techniques ([backpropagation](/blog/backpropagation)) and computers got faster, enabling **deep learning**—networks with many layers and thousands or millions of nodes. These systems power everything from autonomous vehicles to large language models, but at their core, they're still built on the same fundamental principle [Rosenblatt](https://en.wikipedia.org/wiki/Frank_Rosenblatt) introduced back in 1958:
+Over time, researchers improved training techniques (with enhancements like [backpropagation](/blog/backpropagation)) and computers got faster, enabling **deep learning**—networks with many layers and thousands or millions of nodes. These systems power everything from autonomous vehicles to large language models, but at their core, they're still built on the same fundamental principle [Rosenblatt](https://en.wikipedia.org/wiki/Frank_Rosenblatt) introduced back in 1958:
 
 $$
 \text{Weighted Inputs} \rightarrow \text{Activation Function} \rightarrow \text{Output}
