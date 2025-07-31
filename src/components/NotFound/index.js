@@ -9,11 +9,13 @@ const NotFound = () => {
         <div className="text-zone">
           <h1 className="animated-letters">
             <AnimatedLetters text="Sorry!" index={10} delayFactor={0.07} />
+            <br />
             <AnimatedLetters
               text="This post doesn't exist."
               index={20}
               delayFactor={0.07}
             />
+            <br />
             <AnimatedLetters text="(Yet)" index={50} delayFactor={0.07} />
           </h1>
           <br />
