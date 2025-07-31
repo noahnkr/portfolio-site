@@ -2,7 +2,7 @@ If you're just starting to explore machine learning, it can be tempting to jump 
 
 **Linear Regression** is a type of **supervised learning algorithm**, which means in our dataset we know what the _expected_ result should be, and we can compare the model's _predictions_ with the expected result. In the case of linear regression, the expected result is some number. The goal of linear regression is to find some relationship between the inputs (_features_) and the output (_label_).
 
-For example, let's say we want to predict the price of a house given its size. We can collect housing data and plot a bunch of points on a graph of how the size of a house affect's its price. With enough data, we can start to draw a _line of best fit_ through those data points in order to predict future house prices.
+For example, let's say we want to predict the price of a house given its size. We can collect housing data and plot a bunch of points on a graph of how the size of a house affects its price. With enough data, we can start to draw a _line of best fit_ through those data points in order to predict future house prices.
 
 <div className="inline-display">
 
@@ -87,13 +87,13 @@ $$
 w = \begin{bmatrix} b \\ w_1 \\ \vdots \\ w_d \end{bmatrix}
 $$
 
-Then the prediction beomces:
+Then the prediction becomes:
 
 $$
 \hat{y} = w^Tx
 $$
 
-This form simplifies the math. In the future you may see me use this notation but for this post we'll keep $w$ and $b$ seperate for clarity.
+This form simplifies the math. In the future you may see me use this notation but for this post we'll keep $w$ and $b$ separate for clarity.
 
 # Measuring Error
 
@@ -109,7 +109,7 @@ To keep track of individual examples, we use a subscript $i$ to indicate which p
 
 ## Loss Functions
 
-Once our model is making predictions, we need a way to measure how well it's performing across _all_ data points This is where a **loss function** comes in. Just like choosing the right model for a task, picking the right loss function can make the difference between a model making accurate or misleading predictions. There are many different types of [loss functions](https://www.geeksforgeeks.org/machine-learning/ml-common-loss-functions/), but the most common one used in linear regression is **Mean Squared Error (MSE)**:
+Once our model is making predictions, we need a way to measure how well it's performing across _all_ data points. This is where a **loss function** comes in. Just like choosing the right model for a task, picking the right loss function can make the difference between a model making accurate or misleading predictions. There are many different types of [loss functions](https://www.geeksforgeeks.org/machine-learning/ml-common-loss-functions/), but the most common one used in linear regression is **Mean Squared Error (MSE)**:
 
 $$
 MSE = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - \hat{y}_i \right)^2
@@ -153,7 +153,7 @@ Another assumption we are making is that the residuals are independent of one an
 
 ## 3. Identically & Normally Distributed
 
-The last assumption we are making is that the residuals follow the same, normal distribution. This mean's that there should be a constant _variance_ across all data points. If the residuals start to fan out or shrink together, it's called [heteroscedasticity](https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity), and will negatively affect the accuracy of the model.
+The last assumption we are making is that the residuals follow the same, normal distribution. This means that there should be a constant _variance_ across all data points. If the residuals start to fan out or shrink together, it's called [heteroscedasticity](https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity), and will negatively affect the accuracy of the model.
 
 <div className="inline-display">
 
@@ -173,7 +173,7 @@ The last assumption we are making is that the residuals follow the same, normal 
 
 # Training the Model
 
-_Training_ simply means finding the best weights that allow the model to make accurate predictions on our data. Now that we can measure our model's performance via **Mean Squared Error**, we want to _minmize_ this function in order to achieve the lowest possible error. The model starts off with random weights. At first, it makes bad predictions. Our goal is to _adjust the weights_ so that the model makes better predictions (i.e., the error decreases). This is where **gradient descent** comes in.
+_Training_ simply means finding the best weights that allow the model to make accurate predictions on our data. Now that we can measure our model's performance via **Mean Squared Error**, we want to _minimize_ this function in order to achieve the lowest possible error. The model starts off with random weights. At first, it makes bad predictions. Our goal is to _adjust the weights_ so that the model makes better predictions (i.e., the error decreases). This is where **gradient descent** comes in.
 
 ## Gradient Descent
 
@@ -251,7 +251,7 @@ By plugging the computed gradient into this update rule, the model takes a small
 
 # Implementation
 
-So far, we’ve gone over how linear regression works under the hood, now lets implement a simple training routine.
+So far, we’ve gone over how linear regression works under the hood, now let's implement a simple training routine.
 
 ```python
 from sklearn.linear_model import LinearRegression

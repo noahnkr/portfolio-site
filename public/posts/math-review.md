@@ -14,7 +14,7 @@ The illustration below shows how a vector can be broken down into its **componen
 
 ![vector](/blog-images/math-review/vec.png)
 
-This idea is easy to visualize in two or three dimensions. But as we move into higher-dimensional-spaces, where each feature becomes its own axis, visualizing vectors becomes impossible. That's normal. Just keep in mind that the same principles apply, even if we can't "see" them.
+This idea is easy to visualize in two or three dimensions. But as we move into higher-dimensional spaces, where each feature becomes its own axis, visualizing vectors becomes impossible. That's normal. Just keep in mind that the same principles apply, even if we can't "see" them.
 
 ### Vector Operations
 
@@ -74,7 +74,7 @@ Tensors have three main properties:
 
 1. **Rank** — This just means how many dimensions the tensor has. A scalar has rank 0, a vector has rank 1, a matrix has rank 2, and so on. A rank-3 tensor might describe something like an RGB image, and rank-4 or higher is common in **deep learning**.
 
-2. **Shape** — The shape tells you size of the tensor along each dimension. For instance, the shape of the previous matrix example has shape $(3,3)$. A vector with 5 elements has shape $(5,)$ _(the trailing comma tells us it's a 1D shape, not just a plain number)_. A scalar, being just a single number, has shape $()$.
+2. **Shape** — The shape tells you the size of the tensor along each dimension. For instance, the shape of the previous matrix example has shape $(3,3)$. A vector with 5 elements has shape $(5,)$ _(the trailing comma tells us it's a 1D shape, not just a plain number)_. A scalar, being just a single number, has shape $()$.
 
 3. **Data Type** — Tensors usually store numbers (like integers or floats), but they can hold other types too, like strings or booleans.
 
@@ -111,7 +111,7 @@ $$
 
    > $A^T = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$
    >
-   > This flips the matrix, turning rows into columns. It's often used when aligning data for operations.
+   > This flips the matrix, turning rows into columns. It's often used when aligning the data for matrix operations.
 
 4. Identity Matrix
 
@@ -131,7 +131,7 @@ $$
 
 Many machine learning models are built on linear transformations, which are essentially functions that scale, rotate, or project data using matrix multiplication. So far, we've looked at matrices as just tables of numbers, but they actually describe **transformations of space**. Think of a matrix not just as a data container, but as a function that _reshapes_ or _moves_ vectors.
 
-A great tool to help visualize these transformations can be found [here](https://shad.io/MatVis/). The 3Blue1Brown video below is also a great reference to gain a better understanding how this works.
+A great tool to help visualize these transformations can be found [here](https://shad.io/MatVis/). The 3Blue1Brown video below is also a great reference to gain a better understanding of how this works.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/kYB8IZa5AuE?si=oWG1a41VldyVDKHJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -156,8 +156,8 @@ In machine learning, the gradient points in the direction of steepest increase o
 
 The chain rule lets us compute the derivative of functions that are made up of other functions. For instance, when one function’s output is the input to another. This is especially important in [neural networks](/blog/neural-networks), where each layer passes its output to the next. Using the chain rule, we can “chain together” derivatives from the final output all the way back to the first layer. This is the key idea behind [backpropagation](/blog/backpropagation), the algorithm used to train deep learning models.
 
-# Whats next?
+# What's next?
 
-If this post refreshed a few concepts for you, great. Understanding the math behind machine learning doesn't mean you need to be able to do matrix multiplication or calculate partial derivatives. Thanks to libraries like [TensorFlow](https://www.tensorflow.org/), [PyToch](https://pytorch.org/), and [Keras](https://keras.io/), you rarely need to do any math by hand. But having an intuition for concepts like vectors, matrices, gradients, and derivatives can help you see how these models work under the hood and understand why they behave the way they do.
+If this post refreshed a few concepts for you, great. Understanding the math behind machine learning doesn't mean you need to be able to do matrix multiplication or calculate partial derivatives. Thanks to libraries like [TensorFlow](https://www.tensorflow.org/), [PyTorch](https://pytorch.org/), and [Keras](https://keras.io/), you rarely need to do any math by hand. But having an intuition for concepts like vectors, matrices, gradients, and derivatives can help you see how these models work under the hood and understand why they behave the way they do.
 
-I belive the best way to learn is through trial and error. In future posts, I'll break down how these ideas apply directly to machine learning, and how build your own models and algorithms.
+I believe the best way to learn is through trial and error. In future posts, I'll break down how these ideas apply directly to machine learning, and how to build your own models and algorithms.

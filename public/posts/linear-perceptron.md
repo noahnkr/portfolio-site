@@ -1,4 +1,4 @@
-At its core, the linear perceptron is like a tiny **decision maker**. It takes a set of inputs, weighs how important each input is, and produces one of two outputs: _yes_ or _no_, 1 or 0, _apples_ or _oranges_. Imagine a straight line cutting through a 2D space: everything on one side is classified as one thing, everything on the other side is classifided as something else. Each example we test bceoms a data point in that space, and the perceptron decides which side of the line it belongs on.
+At its core, the linear perceptron is like a tiny **decision maker**. It takes a set of inputs, weighs how important each input is, and produces one of two outputs: _yes_ or _no_, 1 or 0, _apples_ or _oranges_. Imagine a straight line cutting through a 2D space: everything on one side is classified as one thing, everything on the other side is classified as something else. Each example we test becomes a data point in that space, and the perceptron decides which side of the line it belongs on.
 
 The linear perceptron is a **supervised learning algorithm** that is a **binary classifier**—meaning it tries to separate data into _two_ categories. It learns by comparing its predictions with the expected answers and adjusting its weights until it draws a line that correctly divides the two classes.
 
@@ -6,7 +6,7 @@ The linear perceptron is a **supervised learning algorithm** that is a **binary 
 
 # A Sweet Example
 
-Lets say we want to predict whether a user will click on an ad for ice cream. Naturally, most people don't click on ads, so we shift our **decision boundary** a bit to account for this tendency. This shift is called the **bias**. We also have other information about the user:
+Let's say we want to predict whether a user will click on an ad for ice cream. Naturally, most people don't click on ads, so we shift our **decision boundary** a bit to account for this tendency. This shift is called the **bias**. We also have other information about the user:
 
 - Searched for "ice cream"
 
@@ -93,7 +93,7 @@ Repeat steps 2-4 many times until the model either correctly predicts each data 
 
 ## Back to Our Ice Cream Example
 
-Lets walk through an iteration of our training algorithm and see how the model adjusts its weights to make better predictions.
+Let's walk through an iteration of our training algorithm and see how the model adjusts its weights to make better predictions.
 
 - **Inputs:** $x = \begin{bmatrix} 1, 1, 0 \end{bmatrix}$ _(bias = 1, searched "ice cream", not lactose intolerant)_
 - **Current Weights:** $w_t = \begin{bmatrix} -0.5, 0.3, 0.3 \end{bmatrix}$
@@ -125,31 +125,31 @@ The perceptron now predicts correctly. This is learning in action, the model shi
 
 # Limitations of a Single Perceptron
 
-Our example shows a case where the data can be seperated by a straight line, the perceptron just had to learn where the put it. _But what if the data can't be split cleanly by any line at all?_
+Our example shows a case where the data can be separated by a straight line, the perceptron just had to learn where to put it. _But what if the data can't be split cleanly by any line at all?_
 
 <div className="inline-display">
 
 <div className="inline-display-child">
 
-![Linearly Seperable](/blog-images/linear-perceptron/linearly-seperable.png)
+![Linearly separable](/blog-images/linear-perceptron/linearly-separable.png)
 
 </div>
 
 <div className="inline-display-child">
 
-![Not Linearly Seperable](/blog-images/linear-perceptron/not-linearly-seperable.png)
+![Not Linearly separable](/blog-images/linear-perceptron/not-linearly-separable.png)
 
 </div>
 
 </div>
 
-If the data points are **linearly seperable**, our perceptron algorithm is **_guaranteed_** by the [Perceptron Convergence Theorem](https://www.geeksforgeeks.org/deep-learning/perceptron-convergence-theorem-in-neural-networks/) to find a set of weights $w$ that correctly classifies every point in a _finite_ number of steps.
+If the data points are **linearly separable**, our perceptron algorithm is **_guaranteed_** by the [Perceptron Convergence Theorem](https://www.geeksforgeeks.org/deep-learning/perceptron-convergence-theorem-in-neural-networks/) to find a set of weights $w$ that correctly classifies every point in a _finite_ number of steps.
 
-If the data points are **not lineary seperable**, no straight-line classifier can perfectly seperate them. In this case, the perceptron will continue adjusting its weights indefinitely, oscilatting between solutions without ever reaching a perfect classification. That's why we usually set a limit on the maximum number of iterations or another stopping condition to prevent infinite training.
+If the data points are **not linearly separable**, no straight-line classifier can perfectly separate them. In this case, the perceptron will continue adjusting its weights indefinitely, oscillating between solutions without ever reaching a perfect classification. That's why we usually set a limit on the number of iterations or another stopping condition to prevent infinite training.
 
 ## The XOR Problem
 
-The XOR (exclusive OR) is a logical operation that results in _true_ if and only if one of its input is _true_ and the other is _false_. We can represent this behavior as both a truth table and a set of points on a 2D plane.
+The XOR (exclusive OR) is a logical operation that results in _true_ if and only if one of its inputs is _true_ and the other is _false_. We can represent this behavior as both a truth table and a set of points on a 2D plane.
 
 <div className="inline-display">
 
@@ -172,13 +172,13 @@ The XOR (exclusive OR) is a logical operation that results in _true_ if and only
 
 </div>
 
-You can clearly see no matter how you draw a single straight line, you can't perfectly seperate the two classes. Points in opposite corners belong to the same class, meaning you'd need at least two lines or a curved boundary to classify them correctly.
+You can clearly see no matter how you draw a single straight line, you can't perfectly separate the two classes. Points in opposite corners belong to the same class, meaning you'd need at least two lines or a curved boundary to classify them correctly.
 
 This is the **XOR Problem**, a classic example that shows the limitations of a single perceptron.
 
 ### Why This Was a Big Deal
 
-Back in the 1960s, this wasn't just a small inconvenience, it was a fundamental limitation of machine learning. After all, if we couldn't teach a model to seperate four points on a plane—_how could we expect it to solve complex real-world problems?_ This discovery led to the first [AI winter](<https://en.wikipedia.org/wiki/History_of_artificial_intelligence#First_AI_Winter_(1974%E2%80%931980)>), a period where funding and interest in AI dropped sharply.
+Back in the 1960s, this wasn't just a small inconvenience, it was a fundamental limitation of machine learning. After all, if we couldn't teach a model to separate four points on a plane—_how could we expect it to solve complex real-world problems?_ This discovery led to the first [AI winter](<https://en.wikipedia.org/wiki/History_of_artificial_intelligence#First_AI_Winter_(1974%E2%80%931980)>), a period where funding and interest in AI dropped sharply.
 
 ### The Solution: More Neurons
 

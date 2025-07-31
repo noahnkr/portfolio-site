@@ -55,7 +55,7 @@ In **unsupervised learning**, the data has no labels. The model tries to discove
 
 ## Reinforcement Learning
 
-In **reinforcement learning**, an agent learns by recieving rewards or penalties for its actions. The agent makes decisions based on its environment and updates it's decision making policies based on the result of its actions. This is an iterative process and the agent learns through trial and error.
+In **reinforcement learning**, an agent learns by receiving rewards or penalties for its actions. The agent makes decisions based on its environment and updates its decision-making policies based on the result of its actions. This is an iterative process and the agent learns through trial and error.
 
 # How Does the Model "Learn"?
 
@@ -102,6 +102,6 @@ In future posts, I’ll break down:
 - How to evaluate and improve model performance
 - And how you can build your own ML project
 
-I'll do my best to keep the math to a minimum, but if you're curious about how these models work under the hood, a basic understanding of linear algebra and calculus can be really helpful. If you would like a quick refresher I have written a [seperate post](/blog/math-review) that walks through the core concepts and math used in machine learning.
+I'll do my best to keep the math to a minimum, but if you're curious about how these models work under the hood, a basic understanding of linear algebra and calculus can be really helpful. If you would like a quick refresher I have written a [separate post](/blog/math-review) that walks through the core concepts and math used in machine learning.
 
 Follow me here or on [LinkedIn](https://www.linkedin.com/in/noah-roberts-3bb399234/) to stay updated as I publish more!
