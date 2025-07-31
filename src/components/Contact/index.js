@@ -34,7 +34,7 @@ const Contact = () => {
       <div className="container contact-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters strArray={'Contact'.split('')} index={10} />
+            <AnimatedLetters text="Contact" index={25} />
           </h1>
           <p>
             Thank you for visiting my portfolio! I'm thrilled to have the

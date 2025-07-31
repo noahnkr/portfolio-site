@@ -13,7 +13,7 @@ const About = () => {
       <div className="container about-page">
         <div className="text-zone about">
           <h1 className="animated-letters">
-            <AnimatedLetters strArray={'About'.split('')} index={10} />
+            <AnimatedLetters text="About" index={25} />
           </h1>
           <div className="biography">
             <h2>Biography</h2>

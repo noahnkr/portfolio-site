@@ -490,7 +490,7 @@ const Projects = () => {
       <div className="container projects-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters strArray={'Projects'.split('')} index={10} />
+            <AnimatedLetters text="Projects" index={25} />
           </h1>
           <div className="section-select">
             <h2

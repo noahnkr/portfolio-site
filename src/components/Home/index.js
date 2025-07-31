@@ -12,14 +12,15 @@ const Home = () => {
       <div className="container home-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters strArray={'Hi,'.split('')} index={10} />
+            <AnimatedLetters text="Hi," index={25} />
             <br />
-            <AnimatedLetters strArray={"I'm".split('')} index={12} />
-            <img src={Logo} alt="N" />
-            <AnimatedLetters strArray={'oah.'.split('')} index={15} />
+            <AnimatedLetters text="I'm" index={30} />
+            <span className="animated-word image-letter">
+              <img src={Logo} alt="N" className="logo-letter" />
+              <AnimatedLetters text="oah." index={35} />
+            </span>
             <br />
-            <AnimatedLetters strArray={'Software '.split('')} index={20} />
-            <AnimatedLetters strArray={'Developer.'.split('')} index={25} />
+            <AnimatedLetters text="Software Developer" index={40} />
           </h1>
           <h2>B.S Computer Science | Iowa State University</h2>
           <Link to="/contact" className="flat-button">

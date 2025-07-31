@@ -1,15 +1,19 @@
-.animated-letters {
-  display: block;
+.animated-letters-span {
+  display: inline;
   user-select: none;
   white-space: normal;
-  line-height: 1.1;
   word-break: break-word;
+}
+
+.animated-letters {
+  line-height: 1.1;
+  margin: 0;
 }
 
 .animated-word {
   display: inline-block;
+  vertical-align: baseline;
   white-space: nowrap;
-  margin-right: 0.5ch;
 }
 
 .text-animate {
@@ -19,7 +23,12 @@
   animation-name: fadeUp;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  min-width: 10px;
+  min-width: 0.5ch;
+}
+
+.word-space {
+  display: inline-block;
+  width: 0.4ch;
 }
 
 @keyframes fadeUp {
