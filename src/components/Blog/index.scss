@@ -143,12 +143,17 @@
     font-size: 18px;
   }
 
+  .katex {
+    user-select: none;
+  }
+
   .katex-display {
     display: flex;
     justify-content: center;
     margin: 1.5em 0;
     max-width: 100%;
     font-size: 1.5em;
+    user-select: none;
 
     .katex {
       display: block;
@@ -177,7 +182,6 @@
     justify-content: center;
     align-items: stretch;
     gap: 1.5rem;
-    margin: 1.5em 0;
 
     .inline-display-child {
       flex: 1 1 250px;
@@ -186,7 +190,7 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      height: 100%;
+      height: auto;
     }
 
     .inline-display-child img {
