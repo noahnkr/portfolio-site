@@ -20,7 +20,7 @@ For example, let's say we want to predict the price of a house given its size. W
 
 <div className="inline-display-child">
 
-![img](/blog-images/linear-regression/house-price-graph.png)
+![House Pricing Graph](/blog-images/linear-regression/house-price-graph.png)
 
 </div>
 
@@ -179,7 +179,7 @@ _Training_ simply means finding the best weights that allow the model to make ac
 
 **Gradient Descent** is an _optimization algorithm_, which is a method that iteratively adjusts the weights in order to reduce the error of a loss function. You can think of gradient descent as slowly traversing down a foggy mountain. You can't see the entire landscape, but you can see the slope beneath you and can take small steps downhill, eventually reaching flat ground.
 
-![gradient](/blog-images/linear-regression/gradient.png)
+![Gradient](/blog-images/linear-regression/gradient.png)
 
 ## How It Works
 

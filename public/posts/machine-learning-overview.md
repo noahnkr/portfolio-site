@@ -30,7 +30,7 @@ To solve our spam email example, we're trying to **classify** a new email into o
 
 Depending on the kind of data we have, we can apply different types of learning techniques.
 
-![map](/blog-images/machine-learning-overview/map.png)
+![Machine Learning Map](/blog-images/machine-learning-overview/map.png)
 [Image Credit](https://vitalflux.com/great-mind-maps-for-learning-machine-learning/)
 
 ## Supervised Learning
@@ -87,7 +87,7 @@ A typical ML process looks like this:
 
 This process can be repeated many times to get better results.
 
-![flow](/blog-images/machine-learning-overview/flow.png)
+![Machine Learning Flow](/blog-images/machine-learning-overview/flow.png)
 
 # Why Should You Care?
 
