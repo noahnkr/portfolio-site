@@ -133,9 +133,10 @@ const blogPosts = [
   },
   {
     slug: 'linear-regression',
-    title: 'How Linear Regression Works (and Why it's the Foundation of Machine Learning)',
-    preview: `In this post, I’ll break down what linear regression is, how it makes predictions, and how it learns from data. 
-              You’ll see how this one model introduces key ideas like feature vectors, model parameters, loss functions, and gradient 
+    title:
+      "How Linear Regression Works (and Why it's the Foundation of Machine Learning)",
+    preview: `In this post, I'll break down what linear regression is, how it makes predictions, and how it learns from data. 
+              You'll see how this one model introduces key ideas like feature vectors, model parameters, loss functions, and gradient 
               descent.`,
     date: 'July 21st, 2025',
     readTime: '15 min read',
@@ -143,7 +144,8 @@ const blogPosts = [
   },
   {
     slug: 'linear-perceptron',
-    title: 'From Lines to Layers: The Linear Perceptron and the Rise of Neural Networks',
+    title:
+      'From Lines to Layers: The Linear Perceptron and the Rise of Neural Networks',
     preview: `At the heart of today's neural networks lies a surprisingly simple idea—the perceptron.
               This post unpacks how this classic algorithm works, how it learns to seperate data, and how
               stacking these simple units leads to powerful models that drive today's AI.`,
