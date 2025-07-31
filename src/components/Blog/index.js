@@ -149,7 +149,7 @@ const blogPosts = [
     preview: `At the heart of today's neural networks lies a surprisingly simple idea—the perceptron.
               This post unpacks how this classic algorithm works, how it learns to seperate data, and how
               stacking these simple units leads to powerful models that drive today's AI.`,
-    date: 'July 29th, 2025',
+    date: 'July 30th, 2025',
     readTime: '15 min read',
     category: 'Data Science',
   },
