@@ -9,6 +9,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
+import NotFound from '../NotFound'
 import 'highlight.js/styles/github-dark.css'
 import 'katex/dist/katex.min.css'
 
@@ -17,6 +18,7 @@ import Headshot from '../../assets/images/headshot.jpg'
 export const BlogPost = () => {
   const { slug } = useParams()
   const [content, setContent] = useState('')
+  const markdownRef = useRef(null)
 
   useEffect(() => {
     fetch(`/posts/${slug}.md`)
@@ -28,24 +30,62 @@ export const BlogPost = () => {
       .catch(() => setContent('# 404\n\nThis post doesn’t exist.'))
   }, [slug])
 
+  useEffect(() => {
+    if (!markdownRef.current) return
+
+    const MIN_SCALE = 0.4
+
+    const scaleEquations = () => {
+      const katexBlocks = markdownRef.current.querySelectorAll(
+        '.katex-display .katex'
+      )
+      katexBlocks.forEach((block) => {
+        block.style.transform = 'scale(1)'
+        block.style.transformOrigin = 'left top'
+
+        const parentWidth = block.parentElement.offsetWidth
+        const actualWidth = block.scrollWidth
+
+        if (actualWidth > parentWidth) {
+          let scale = parentWidth / actualWidth
+
+          if (scale < MIN_SCALE) {
+            scale = MIN_SCALE
+            block.parentElement.style.overflowX = 'auto'
+          } else {
+            block.parentElement.style.overflowX = 'hidden'
+          }
+
+          block.style.transform = `scale(${scale})`
+        } else {
+          block.parentElement.style.overflowX = 'hidden'
+        }
+      })
+    }
+
+    scaleEquations()
+    window.addEventListener('resize', scaleEquations)
+    return () => window.removeEventListener('resize', scaleEquations)
+  }, [content])
+
   const postMeta = blogPosts.find((post) => post.slug === slug)
 
-  document.title = postMeta.title
+  if (!postMeta) {
+    return <NotFound />
+  } else {
+    document.title = postMeta.title
+  }
 
   return (
     <>
       <div className="container blog-page">
         <div className="text-zone">
           <h1 className="animated-letters blog-title">
-            {postMeta.title.split(' ').map((word, wordIndex) => (
-              <span className="animated-word" key={wordIndex}>
-                <AnimatedLetters
-                  strArray={word.split('')}
-                  index={25 + wordIndex * 5}
-                  delayFactor={0.03}
-                />
-              </span>
-            ))}
+            <AnimatedLetters
+              text={postMeta.title}
+              index={25}
+              delayFactor={0.03}
+            />
           </h1>
           <div className="blog-meta-wrapper">
             <img
@@ -61,7 +101,7 @@ export const BlogPost = () => {
               </span>
             </div>
           </div>
-          <div className="markdown-body">
+          <div className="markdown-body" ref={markdownRef}>
             <Markdown
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeKatex, rehypeHighlight, rehypeRaw]}
@@ -83,7 +123,7 @@ const Blog = () => {
       <div className="container blog-page">
         <div className="text-zone">
           <h1 className="animated-letters">
-            <AnimatedLetters strArray={'Blog'.split('')} index={10} />
+            <AnimatedLetters text="Blog" index={25} />
           </h1>
           <p className="paragraph-animate">
             Exploring ideas, building things, and writing down what I learn
