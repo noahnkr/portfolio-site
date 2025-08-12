@@ -190,6 +190,16 @@ const blogPosts = [
               This post unpacks how this classic algorithm works, how it learns to seperate data, and how
               stacking these simple units leads to powerful models that drive today's AI.`,
     date: 'July 30th, 2025',
+    readTime: '12 min read',
+    category: 'Data Science',
+  },
+  {
+    slug: 'logistic-regression',
+    title: 'Logistic Regression: Turning Probabilities into Predictions',
+    preview: `Beneath the math, logistic regression is a clever way to draw a straight line between two classes.
+              This post breaks down how we turn its inputs into probabilities and predictions, how it dffers from the linear perceptron,
+              and how it powers real-world decisions like sports preditions.`,
+    date: 'August 7th, 2025',
     readTime: '15 min read',
     category: 'Data Science',
   },

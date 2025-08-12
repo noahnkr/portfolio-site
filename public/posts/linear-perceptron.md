@@ -44,7 +44,7 @@ $$
 
 Where the score, $z=w^Tx$, is our weighted sum of inputs. Without an activation function, our perceptron would just spit out numbers. The activation function is what turns those numbers into **decisions**.
 
-> What happens when $w^Tx=0$?
+> **What happens when $w^Tx=0$?**
 >
 > By convention, ties that lie exactly on the decision boundary go the **positive** class.
 
