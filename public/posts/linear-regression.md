@@ -204,10 +204,10 @@ We'll assume:
 - $b$ is the **bias** term
 - $\hat{y}_i= w^Tx_i + b$ is the predicted output
 - $y_i$ is the actual label
-- Our loss function is **Mean Squared Error (MSE):**
+- $E$ is our loss function, **Mean Squared Error (MSE):**
 
 $$
-L(w) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
+E(w) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
 $$
 
 ### Taking the Derivative
@@ -216,7 +216,7 @@ First, we compute the gradient with respect to $w$:
 
 $$
 \begin{align*}
-\frac{\partial L}{\partial w} &= \frac{\partial}{\partial w} \left[ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)^2 \right] \\
+\frac{\partial E}{\partial w} &= \frac{\partial}{\partial w} \left[ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)^2 \right] \\
 &= \frac{1}{n} \sum_{i=1}^{n} 2 \left( \hat{y}_i - y_i \right) \cdot \frac{\partial \hat{y}_i}{\partial w} \\
 &= \frac{2}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right) \cdot x_i
 \end{align*}
@@ -226,7 +226,7 @@ We also compute the gradient of the loss with respect to $b$:
 
 $$
 \begin{align*}
-\frac{\partial L}{\partial b} &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial b} \\
+\frac{\partial E}{\partial b} &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial b} \\
 &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot 1 \\
 &= \frac{2}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)
 \end{align*}
@@ -237,7 +237,7 @@ $$
 Now we can update our weights:
 
 $$
-w_{t+1} = w_t - \alpha \cdot \frac{\partial L}{\partial w}
+w_{t+1} = w_t - \alpha \cdot \frac{\partial E}{\partial w}
 $$
 
 Where:
@@ -245,7 +245,7 @@ Where:
 - $w$ is the vector of weights we're updating
 - $t$ is the current iteration step
 - $\alpha$ is the **learning rate**, which controls how large each update step is
-- $L$ is the loss function we're trying to minimize
+- $E$ is the loss function we're trying to minimize
 
 By plugging the computed gradient into this update rule, the model takes a small step in the direction that reduces the error. Repeating this process over many iterations allows the model to "learn" by gradually improving its predictions. This is the core idea behind how most machine learning models are trained.
 
