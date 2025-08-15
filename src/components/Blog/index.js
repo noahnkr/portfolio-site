@@ -200,7 +200,7 @@ const blogPosts = [
               This post breaks down how we turn its inputs into probabilities and predictions, how it dffers from the linear perceptron,
               and how it powers real-world decisions like sports preditions.`,
     date: 'August 7th, 2025',
-    readTime: '15 min read',
+    readTime: '20 min read',
     category: 'Data Science',
   },
 ]

@@ -1,4 +1,4 @@
-_This post builds off the ideas and notation introuced in the following two posts:_
+_This post builds off the ideas and notation introuced in the previous two posts:_
 
 - [How Linear Regression Works (and Why it's the Foundation of Machine Learning)](/blog/linear-regression)
 - [From Lines to Layers: The Linear Perceptron and the Rise of Neural Networks](/blog/linear-perceptron)
@@ -41,7 +41,7 @@ Here, $z=w^Tx$ is the weighted sum of inputs.
 
 Probability answers the following question:
 
-> Given what I know about the world (my parameters), how likely is a certain event?
+> "Given what I know about the world (my parameters), how likely is a certain event?"
 
 $$
 P(\text{event} \mid \text{parameters})
@@ -67,7 +67,7 @@ Here, the parameters (spread, aim) are **known** and the event (whether you hit 
 
 Likelihood asks the opposite question:
 
-> Given that I already observed an event, which parameter values make that observation most probable?
+> "Given that I already observed an event, which parameter values make that observation most probable?"
 
 $$
 L(\text{parameters} \mid \text{event}) = P(\text{event} \mid \text{parameters})
@@ -84,7 +84,7 @@ Since **Guess B**'s distribution is _more dense_ where the arrow landed than **G
 
 ![Likelihood Probability Density Function](/blog-images/logistic-regression/pdf-likelihood.png)
 
-If you still aren't sure of the difference between **probability** and **likelihood**, i _highly_ recommend watching this short video:
+If you still aren't sure of the difference between **probability** and **likelihood**, I _highly_ recommend watching this short video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pYxNSUDSFH4?si=Qzw2aBYrVH1AKbqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -92,36 +92,46 @@ If you still aren't sure of the difference between **probability** and **likelih
 
 In logistic regression:
 
-- **Parameters** — the model's weights $w$
-- **Observations** — feature vectors $x_i$ and labels $y_i$ for each example $i$
+- **Parameters** — The model's weights $w$
+- **Observations** — Feature matrix $X$ and labels $y$. Each $x^{(i)}$ has $n$ features for $m$ examples.
 
 $$
-L(w \mid X, y) = \prod_{i=1}^n P(y_i \mid x_i, w)
+X = \begin{bmatrix} | & | & | & |\\ x^{(1)} & x^{(2)} & \dots & x^{(m)} \\| & | & | & | \end{bmatrix}^T
+
+\quad
+
+y = \begin{bmatrix} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)} \end{bmatrix}
+$$
+
+If we assume each example is independent of one another, then the probability of assigning each label $y^{(i)}$ to features $x^{(i)}$ under weights $w$ is the product of their individual probabilities.
+
+$$
+L(w \mid X, y) = P(y \mid X ; w) = \prod_{i=1}^m P(y^{(i)} \mid x^{(i)} ; w)
 $$
 
 Since we are dealing with _binary classification_, the probability of an example being in the positive class is the same as it _not_ being the negative class:
 
 $$
-P(y=1 \mid x) = 1 - P(y=0 \mid x)
+P(y^{(i)} = 1 \mid x^{(i)} ; w) = 1 - P(y^{(i)} = 0 \mid x^{(i)} ; w)
 $$
 
-To express _both cases_ ($y=1$ and $y=0$) in a single formula, we write:
+To express _both cases_ in a single formula, we write:
 
 $$
-P(y_i \mid x_i, w) = \hat{y}_i^{y_i} (1 - \hat{y}_i)^{1-y_i}
+P(y^{(i)} \mid x^{(i)} ; w) = (\hat{y}^{(i)})^{y^{(i)}} (1 - \hat{y}^{(i)})^{1 - y^{(i)}}
 $$
 
-This is just a clever algebra trick to succinctly merge the two cases into a single expression.
+where $\hat{y}^{(i)} = \sigma (w^Tx^{(i)})$ is the predicted probability from our sigmoid activation function. This is just a clever algebra trick to succinctly merge the two cases into a single expression.
 
-- If $y_i=1: P(y_i \mid x_i, w) = \hat{y}_i$
-- If $y_i=0: P(y_i \mid x_i, w) = 1 - \hat{y}_i$
+- If $y^{(i)} = 1: P(y^{(i)} \mid x^{(i)} ; w) = \hat{y}^{(i)}$
+- If $y^{(i)} = 0: P(y^{(i)} \mid x^{(i)} ; w) = 1 - \hat{y}^{(i)}$
 
 # Maximizing Likelihood
 
 In machine learning, our goal is to choose weights that **maximize the likelihood** of our observed data. This approach is called the **Maximum Likelihood Estimator (MLE)**. The MLE finds the _"optimal"_ weights $w^*$ that make the observed data most probable under our model.
 
 $$
-w^* = \underset{w}{\arg\max} \; L(w \mid X, y) = \underset{w}{\arg\max} \; \prod_{i=1}^n P(y_i \mid x_i, w)
+w^* = \underset{w}{\arg\max} \; L(w \mid X, y) = \underset{w}{\arg\max} \; \prod_{i=1}^m P(y^{(i)} \mid x^{(i)} ; w)
 $$
 
 However, computing this directly is challenging. Taking the product of many probabilities can cause [numerical underflow](https://www.geeksforgeeks.org/machine-learning/underflow-and-overflow-with-numerical-computation/), where values become too small for the computer to represent accurately. Additionally, differentiating a product of many terms is computationally expensive.
@@ -138,17 +148,15 @@ The core idea behind this is that we're replacing a difficult and expensive prod
 
 $$
 \begin{align*}
-\log L(w \mid X, y) &= \log \prod_{i=1}^n P(y_i \mid x_i, w)\\
-                    &= \sum_{i=1}^n \log P(y_i \mid x_i, w) \\
-                    &= \sum_{i=1}^n \left[ y_i \log \hat{y}_i + (1 - y_i) \log (1 - \hat{y}_i) \right]\\
+\log L(w \mid X, y) &= \log \prod_{i=1}^m P(y^{(i)} \mid x^{(i)} ; w)\\
+                    &= \sum_{i=1}^m \log P(y^{(i)} \mid x^{(i)} ; w)\\
+                    &= \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log (1 - \hat{y}^{(i)}) \right]\\
 \end{align*}
 $$
 
-where $\hat{y}_i = \sigma (w^Tx_i)$ is the predicted probability from our sigmoid activation function.
-
 > **Why can we take the log of the likelihood?**
 >
-> Because the logarithm function is a **monotonic** function and is always increasing in one direction. We are essentially just scaling the output values (_y-axis_) of the graph while the peaks and valleys location (_x-axis_) stay at the same value. Thus, the weights that maximize $\log L(w)$ also maximize $L(w)$.
+> Because the logarithm function is a **monotonic** function and is always increasing in one direction. We are essentially just scaling the output values (_y-axis_) of the graph while the peaks and valleys location (_x-axis_) stay at the same value. Thus, the weights that maximize the likelihood are the same as the ones that maximize log-likelihood.
 
 ![Log Likelihood Animation](/blog-images/logistic-regression/log-likelihood.gif)
 [Image Credit](https://towardsdatascience.com/cross-entropy-negative-log-likelihood-and-all-that-jazz-47a95bd2e81/)
@@ -158,11 +166,11 @@ where $\hat{y}_i = \sigma (w^Tx_i)$ is the predicted probability from our sigmoi
 **Binary Cross-entropy (BCE)** is simply **negative log-likelihood** for binary classification. It measures how well the predicted probabilities match the true labels:
 
 $$
-BCE = - \sum_{i=1}^n \left[ y_i \log \hat{y}_i + (1 - y_i) \log (1 - \hat{y}_i) \right]
+BCE = - \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log (1 - \hat{y}^{(i)}) \right]
 $$
 
-- If $y_i=1$: the second term is zero, and the loss penalizes a low predicted probability for the positive class.
-- If $y_i=0$: the first term is zero, and the loss penalizes a high predicted probability for the positive class.
+- If $y^{(i)} = 1$: the second term is zero, and the loss penalizes a low predicted probability for the positive class.
+- If $y^{(i)} = 0$: the first term is zero, and the loss penalizes a high predicted probability for the positive class.
 
 ### Examples
 
@@ -206,125 +214,164 @@ A lower BCE means better predictions. Confident and correct predictions yield sm
 
 ## Finding $w^*$
 
-Most optimization algorithms are designed to **minimize** functions rather than maximize them. Instead of maximizing $\log L(w)$, we minimize the **negative log-likelihood (BCE)**:
+Most optimization algorithms are designed to **minimize** functions rather than maximize them. Instead of maximizing log-likelihood, we minimize the **negative log-likelihood (BCE)**:
 
 $$
 w^* = \underset{w}{\arg\min} \; BCE(w)
 $$
 
-To find weights that minimize BCE, we use [gradient descent](/blog/gradient-descent). To gradient of BCE with respect to $w$ is:
+Since we cannot solve for $w^*$ analytically, we must use an iterative optimization algorithm like [gradient descent](/blog/gradient-descent). The gradient of **BCE** with respect to our weights is:
 
 $$
-\nabla_w J(w) = \sum_{i=1}^n \left( \hat{y}_i - y_i \right) x_i
+\nabla_w \; J(w) = X^T \left(\hat{y}^{(i)} - y^{(i)} \right)
 $$
 
 [Derivation](https://www.python-unleashed.com/post/derivation-of-the-binary-cross-entropy-loss-gradient)
 
-We then iteratively update:
+We then iteratively update our weights:
 
 $$
-w_{t+1} = w_t - \alpha \cdot \nabla E(w)
+w_{t+1} = w_t - \alpha \cdot \nabla_w J(w)
 $$
 
 where $\alpha$ is the learning rate. Over time, this process finds the $w$ that minimizes BCE, and equivalently, maximizes the likelihood of the observed data.
 
 # Multiclass Classification
 
-So far, we have been describing **binary classification**. In that setting, we had a set of examples where the labels were $y \in \{ 0, 1 \}$ and the sigmoid activation function gave us a single probability $\hat{y}$ for the positive class, and we implicitly defined the negative class as $1 - \hat{y}$.
+In **binary classification**, our model outputs a single probability for the positive class. For example, given an input $x^{(i)}$, we might predict $\hat{y}^{(i)} = 0.85$, meaning we believe there’s an 85% chance it belongs to class 1 (and a 15% chance it belongs to class 0).
 
-For **multiclass classification**, we now have $y \in \{ 1, 2, \dots, c \}$ _(we index the classes starting at 1, rather than 0)_ and have to estimate the probability of the class label belonging to each of the $c$ possible classes.
+When moving to **multiclass classification**, instead of just two outcomes, we have $K$ possible classes, and our model must output a **full probability distribution** over these classes. This means:
+
+- Each probability must be between 0 and 1.
+- All $K$ probabilities must sum to 1.
 
 ![Multiclass Classification](/blog-images/logistic-regression/multiclass.png)
 
-## Softmax Activation
+## Representing Model Parameters
 
-To have a valid probability distribution of our classes, we need to ensure that:
-
-- Each class probability must be _non-negative_ and between 0 and 1
-- All class probabilities must sum to 1
-
-Using the **softmax** activation function, we can calculate the predicted probability that example $i$ belongs to class label $k$:
+To seperate $K$ classes, we need $K$ decision boundaries. Each decision boundary has its own **weight vector** $w_k$. If each example $x^{(i)}$ has $n$ features, then the weights of our model becomes a matrix of shape $(n, K)$:
 
 $$
-\hat{y}_{i,k} = \frac{e^{z_{i,k}}}{\sum_{j=1}^c e^{z_{i,j}}}
+W = \begin{bmatrix} | & | & | & |\\ w_1 & w_2 & \dots & w_K\\| & | & | & | \end{bmatrix}
 $$
 
-> When $c=2$ softmax reduces to the sigmoid function. Try it out for yourself!
+### Logits
 
-Here, $z_{i,k} = w_k^Tx_i$ is the weighted sum of inputs (**logit**) for example $i$ belonging to class $k$. Since we are defining multiple decision boundaries, we will need a separate weight vector for each class. For convenience, we will denote the weights of our model $W$ as a matrix of shape $(n, c)$ obtained by combining $w_1, w_2, \dots, w_c$ into columns such that:
+For binary classification, the **logit** is $z = w^Tx$. In multiclass classification, we compute one logit per class:
 
 $$
-W = \begin{bmatrix} | & | & | & |\\ w_1 & w_2 & \dots & w_c\\| & | & | & | \end{bmatrix}
+z^{(i)}_k = w_k^Tx^{(i)}
 $$
 
-We can also store the predicted probability $\hat{y}_{i,k}$ for each example $i$ and class $k$ into a matrix $\hat{Y}$ of shape $(n,c)$.
+Instead of computing them one-by-one, we can get all logits at once:
 
-## Likelihood of Multiple Classes
+$$
+Z = XW
+$$
 
-Just like in the binary case, our goal is to **maximize the likelihood** of the observed data. The difference is that now our labels $Y$ are **one-hot encoded** in a matrix of shape $(n, c)$, where:
+### Softmax Activation
+
+To turn logits into valid probabilities, we use the **softmax activation function**:
+
+$$
+\hat{y}^{(i)}_l = \text{softmax}\left( z^{(i)}_k \right) = \frac{e^{z^{(i)}_k}}{\sum_{j=1}^K e^{z^{(i)}_j}}
+$$
+
+> Softmax guaruntees that all probabilities are positive and sum to 1. When $K=2$ softmax reduces to the sigmoid function. Try it out for yourself!
+
+We can store all predictions for all examples in:
+
+$$
+\hat{Y} = \text{softmax}(Z)
+$$
+
+### Representing True Labels
+
+We use **one-hot encoding** so that each label is a vector indicating the correct class:
+
+- $y^{(i)}_k = 1$ if example $i$ belongs to class $k$
+- $y^{(i)}_k = 0$ otherwise
 
 <div className="inline-display">
 
 <div className="inline-display-child">
 
-- $y_{i,k} = 1$ if example $i$ belongs to class $k$
-- $y_{i,k} = 0$ otherwise
+| Example   | Label |
+| :-------- | :---- |
+| Example 1 | $A$   |
+| Example 2 | $B$   |
+| Example 3 | $C$   |
 
 </div>
 
 <div className="inline-display-child">
 
-| Examples  | $A$ | $B$ | $C$ |
+| Example   | $A$ | $B$ | $C$ |
 | :-------- | :-- | :-- | :-- |
-| Example 1 | 0   | 1   | 0   |
-| Example 2 | 1   | 0   | 0   |
+| Example 1 | 1   | 0   | 0   |
+| Example 2 | 0   | 1   | 0   |
 | Example 3 | 0   | 0   | 1   |
 
 </div>
 
 </div>
 
-The likelihood becomes:
+## Likelihood Function
+
+In multiclass classification, we care only about the probability our model assigns to the **correct** class for each example. For a single example $i$, this is written as:
 
 $$
-\begin{align*}
-L(W \mid X, Y) &= \prod_{i=1}^n \prod_{k=1}^c P(y_{i,k} = 1 \mid w_k, x_i)\\
-               &= \prod_{i=1}^n \prod_{k=1}^c \hat{y}_{i,k}^{y_{i,k}}
-\end{align*}
+P(y^{(i)} \mid x^{(i)}; W) = \prod_{k=1}^K \left( \hat{y}^{(i)}_k \right)^{y^{(i)}_k}
 $$
 
-This form mirrors the binary formula $\hat{y}_i^{y_i}(1-\hat{y}_i)^{1-y_i}$, but extended to $c$ classes. Here, only the correct class contributes to the product because all incorrect class terms are raised to the power 0 (which equals 1).
+Why this works:
+
+- The label vector $y^{(i)}$ is **one-hot encoded**, so only the correct class has $y^{(i)}_k = 1$.
+- All incorrect classes have $y^{(i)}_k = 0$, which means their probabilities are raised to the power of zero and disappear from the product.
+- What’s left is just the predicted probability of the true class.
+
+Over all $m$ examples, the **total likelihood** becomes:
+
+$$
+L(W \mid X, Y) = \prod_{i=1}^m \prod_{k=1}^K \left( \hat{y}^{(i)}_k \right)^{y^{(i)}_k}
+$$
 
 ## Log-Likelihood and Cross-Entropy
 
-Taking the log converts the product into a sum:
+Just like before, we turn our products into sums by taking the log of the likelihood function:
 
 $$
-\log L(W \mid X, Y) = \sum_{i=1}^n \sum_{k=1}^c y_{i,k} \log \hat{y}_{i,k}
+\log L(W \mid X, Y) = \sum_{i=1}^m \sum_{k=1}^K y^{(i)}_k \log \hat{y}^{(i)}_k
 $$
 
-To find the optimal weights, $W^*$, we minimize the **negative log-likelihood (Cross Entropy)**:
+Our goal is to find the weights $W^*$ that **maximize** this log-likelihood. Equivalently, we can **minimize** the negative log-likelihood (i.e., **cross-entropy loss**):
 
 $$
-W^* = \underset{W}{\arg\min} \; \text{CE}(W) = - \sum_{i=1}^n \sum_{k=1}^c y_{i,k} \log \hat{y}_{i,k}
+W^* = \underset{W}{\arg\min} \; \text{CE}(W) = -\sum_{i=1}^m \sum_{k=1}^K y^{(i)}_k \log \hat{y}^{(i)}_k
 $$
 
-Since we cannot solve for $W^*$ analytically, we must again use an iterative optimization algorithm like **gradient descent**. The gradient for each class decision boundary with respect to our weight matrix $W$ is:
+## Optimization
+
+There’s no closed-form solution for $W^*$, so we **gradient descent** again to find the optimal weights. The gradient of the loss with respect to the weights is surprisingly clean:
 
 $$
 \nabla_W J(W) = X^T(\hat{Y} - Y)
 $$
 
-# Wrapping Up
+This tells us exactly how to adjust each weight to reduce the error.
 
-Logistic regression is just a way of asking, “Given what I’ve seen, what’s the most likely answer?”. Everything else is the math that lets a computer answer that question.
+## Wrapping Up
 
-In binary classification, the story is simple: one curve, two outcomes, and if you’re not one class, you must be the other. Multiclass expands on this: now we’ve got a set of scores, one for each class, which are turned into probabilities using softmax, with the highest probability winning.
+At its heart, logistic regression, binary or multiclass, is about answering:
 
-By now, this is the third **supervised** learning algorithm we've covered, and you should start to notice a pattern with how these models learn from data.
+> “Given the data I’ve seen, which class is most likely?”
 
-1. Decide what counts as a _good predictions_ versus a _bad one_
-2. Define a number that measures how bad we did (our loss)
-3. Adjust the weights to make that number smaller next time.
+Binary classification is a simple yes/no decision. Multiclass extends the idea: we compute a score for each class, transform those scores into probabilities with softmax, and pick the highest.
 
-It's the same cycle every time: ask the question, measure the answer, and learn from the mistakes.
+This is the third **supervised learning algorithm** we have covered, and you should start to notice a pattern with how these models learn from data.
+
+1. **Define what “good” means** (probability of the correct class).
+2. **Measure how bad we did** (loss function).
+3. **Adjust the weights** to do better next time (gradient descent).
+
+The cycle repeats: **predict $\rightarrow$ measure $\rightarrow$ improve**.
