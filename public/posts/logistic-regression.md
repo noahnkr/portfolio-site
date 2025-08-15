@@ -274,7 +274,7 @@ $$
 To turn logits into valid probabilities, we use the **softmax activation function**:
 
 $$
-\hat{y}^{(i)}_l = \text{softmax}\left( z^{(i)}_k \right) = \frac{e^{z^{(i)}_k}}{\sum_{j=1}^K e^{z^{(i)}_j}}
+\hat{y}^{(i)}_k = \text{softmax}\left( z^{(i)}_k \right) = \frac{e^{z^{(i)}_k}}{\sum_{j=1}^K e^{z^{(i)}_j}}
 $$
 
 > Softmax guaruntees that all probabilities are positive and sum to 1. When $K=2$ softmax reduces to the sigmoid function. Try it out for yourself!
@@ -352,7 +352,7 @@ $$
 
 ## Optimization
 
-There’s no closed-form solution for $W^*$, so we **gradient descent** again to find the optimal weights. The gradient of the loss with respect to the weights is surprisingly clean:
+There’s no closed-form solution for $W^*$, so we use **gradient descent** again to find the optimal weights. The gradient of the loss with respect to the weights is surprisingly clean:
 
 $$
 \nabla_W J(W) = X^T(\hat{Y} - Y)
