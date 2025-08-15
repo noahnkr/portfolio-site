@@ -66,7 +66,7 @@ Each weight tells us how strongly that feature influences the prediction. The mo
 So far, we've described a single prediction for one input. But machine learning models are trained on _many examples_ at once. If we have $n$ training examples, each with $d$ features, we can stack all our input vectors into a matrix:
 
 $$
-X = \begin{bmatrix} x^{(1)} \\ x^{(2)} \\ \vdots \\ x^{(n)} \\\end{bmatrix} = \begin{bmatrix} x^{(1)}_1 & x^{(1)}_2 & \dots & x^{(1)}_d \\ x^{(2)}_1 & x^{(2)}_2 & \dots & x^{(2)}_d \\ \vdots & \vdots & \ddots & \vdots \\ x^{(n)}_1 & x^{(n)}_2 & \dots & x^{(n)}_d \end{bmatrix}
+X = \begin{bmatrix} | & | & | & | \\ x^{(1)} & x^{(2)} & \dots & x^{(n)} \\ | & | & | & | \end{bmatrix}^T = \begin{bmatrix} x^{(1)}_1 & x^{(1)}_2 & \dots & x^{(1)}_d \\ x^{(2)}_1 & x^{(2)}_2 & \dots & x^{(2)}_d \\ \vdots & \vdots & \ddots & \vdots \\ x^{(n)}_1 & x^{(n)}_2 & \dots & x^{(n)}_d \end{bmatrix}
 $$
 
 This matrix is called the **design matrix**, where each row is an example and each column is a feature. This is pretty useful because we can make predictions for all examples with just one matrix operation:
@@ -204,10 +204,10 @@ We'll assume:
 - $b$ is the **bias** term
 - $\hat{y}_i= w^Tx_i + b$ is the predicted output
 - $y_i$ is the actual label
-- $E$ is our loss function, **Mean Squared Error (MSE):**
+- $J$ is our loss function, **Mean Squared Error (MSE):**
 
 $$
-E(w) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
+J(w) = \frac{1}{n}\sum_{i=1}^{n}(\hat{y}_i - y_i)^2
 $$
 
 ### Taking the Derivative
@@ -216,7 +216,7 @@ First, we compute the gradient with respect to $w$:
 
 $$
 \begin{align*}
-\frac{\partial E}{\partial w} &= \frac{\partial}{\partial w} \left[ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)^2 \right] \\
+\frac{\partial J}{\partial w} &= \frac{\partial}{\partial w} \left[ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)^2 \right] \\
 &= \frac{1}{n} \sum_{i=1}^{n} 2 \left( \hat{y}_i - y_i \right) \cdot \frac{\partial \hat{y}_i}{\partial w} \\
 &= \frac{2}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right) \cdot x_i
 \end{align*}
@@ -226,7 +226,7 @@ We also compute the gradient of the loss with respect to $b$:
 
 $$
 \begin{align*}
-\frac{\partial E}{\partial b} &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial b} \\
+\frac{\partial J}{\partial b} &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot \frac{\partial \hat{y}_i}{\partial b} \\
 &= \frac{1}{n} \sum_{i=1}^{n} 2 (\hat{y}_i - y_i) \cdot 1 \\
 &= \frac{2}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)
 \end{align*}
@@ -237,7 +237,7 @@ $$
 Now we can update our weights:
 
 $$
-w_{t+1} = w_t - \alpha \cdot \frac{\partial E}{\partial w}
+w_{t+1} = w_t - \alpha \cdot \frac{\partial J}{\partial w}
 $$
 
 Where:

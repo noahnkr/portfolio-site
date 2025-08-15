@@ -74,7 +74,7 @@ Tensors have three main properties:
 
 1. **Rank** — This just means how many dimensions the tensor has. A scalar has rank 0, a vector has rank 1, a matrix has rank 2, and so on. A rank-3 tensor might describe something like an RGB image, and rank-4 or higher is common in **deep learning**.
 
-2. **Shape** — The shape tells you the size of the tensor along each dimension. For instance, the shape of the previous matrix example has shape $(3,3)$. A vector with 5 elements has shape $(5,)$ _(the trailing comma tells us it's a 1D shape, not just a plain number)_. A scalar, being just a single number, has shape $()$.
+2. **Shape** — The shape tells you the size of the tensor along each dimension. For instance, the shape of the previous matrix example has shape $(3,3)$. A vector with 5 elements has shape $(5,)$ _(the trailing comma tells us it's a 1D shape, not just a plain number)_. A scalar, being just a single number, has shape $()$. You may also see the shape of a matrix defined as $\mathbb{R}^{n \times m}$, which defines the set of values the matrix can take (set of real numbers in this case), and then the number of rows, columns, ... ($n$ and $m$).
 
 3. **Data Type** — Tensors usually store numbers (like integers or floats), but they can hold other types too, like strings or booleans.
 
