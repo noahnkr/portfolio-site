@@ -47,20 +47,21 @@ $$
 P(\text{event} \mid \text{parameters})
 $$
 
-Suppose I know:
+Imagine you're shooting arrows at a target. The target's size, your skill level, wind speed, etc. are all your parameters. If those parameters are **fixed**, you can calculate the chance that your arrow lands in the bullseye. For example:
 
-- $P(\text{rain}) = 0.5$
-- $P(\text{cloudy}) = 0.75$
-- $P(\text{windy}) = 0.25$
+- Your shooting pattern follows a certain spread (say, a Gaussian Distribution centered on the bullseye).
+- The **height** of the curve at any point tells you how _dense_ the probability is there i.e., how likely arrows are to land around that point compared to others.
+- The _actual probability_ of hitting the bullseye is the **area under the curve** covering the bullseye region.
 
-The probability that it will **rain and be cloudy** tomorrow is:
+If the bullseye covers 10% of the total area under your shooting distribution, then:
 
 $$
-P(\text{rain}, \text{cloudy} \mid \text{parameters})
-= 0.5 \times 0.75 = 0.375
+P(\text{bullseye} \mid \text{parameters}) = 0.10
 $$
 
-Here, the parameters are **fixed** and the event is **unknown**.
+![Probability Density Function](/blog-images/logistic-regression/pdf.png)
+
+Here, the parameters (spread, aim) are **known** and the event (whether you hit the bullseye) is **unknown**.
 
 ### Likelihood
 
@@ -68,20 +69,24 @@ Likelihood asks the opposite question:
 
 > Given that I already observed an event, which parameter values make that observation most probable?
 
-Mathematically, the **likelihood function** is:
-
 $$
 L(\text{parameters} \mid \text{event}) = P(\text{event} \mid \text{parameters})
 $$
 
-Here the event is **fixed** (we observed it), and the parameters are **unknown**.
+Now imagine that the arrow has already hit the target. The question then becomes: _Which shooting pattern would make this hit seem most natural?_
 
-Imagine it **did** rain and it **was** cloudy. To determine the likelihood, we compare parameter guesses by seeing how well each parameter explains what we saw:
+For example:
 
-- **Guess A**: $P(\text{rain}) = 0.5, \; P(\text{cloudy}) = 0.75 \Rightarrow \text{Likelihood} =  0.375$
-- **Guess B**: $P(\text{rain}) = 0.8, \; P(\text{cloudy}) = 0.9 \Rightarrow \text{Likelihood} = 0.72$
+- **Guess A**: Your shots usually spread widely, hitting this exact spot would be rare.
+- **Guess B**: Your shots cluster tightly around this spot, hitting here would be very likely.
 
-Since $0.72 > 0.375$, **Guess B** makes the observed outcome more _likely_, meaning those parameters are more consistent with what we saw.
+Since **Guess B**'s distribution is _more dense_ where the arrow landed than **Guess A**'s, **Guess B** is more consistent with the observation.
+
+![Likelihood Probability Density Function](/blog-images/logistic-regression/pdf-likelihood.png)
+
+If you still aren't sure of the difference between **probability** and **likelihood**, i _highly_ recommend watching this short video:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pYxNSUDSFH4?si=Qzw2aBYrVH1AKbqE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## From Statistics to Machine Learning
 
