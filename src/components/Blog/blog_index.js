@@ -55,7 +55,7 @@ const BlogIndex = [
     preview: `What makes a good decision boundary? Points that lie far away from the boundary can be classified with confidence, while those close to it sit in a gray area. SVMs aim to maximize this distance from the decision boundary. With the help of 
               kernels, they can even reshape the coordinate space to make accurate predictions with complex data.`,
     date: 'August 25th, 2025',
-    readTime: '15 min read',
+    readTime: '25 min read',
     category: 'Data Science',
   },
 ]
