@@ -103,7 +103,11 @@ X = \begin{bmatrix} | & | & | & |\\ x^{(1)} & x^{(2)} & \dots & x^{(m)} \\| & | 
 y = \begin{bmatrix} y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(m)} \end{bmatrix}
 $$
 
-If we assume each example is independent of one another, then the probability of assigning each label $y^{(i)}$ to features $x^{(i)}$ under weights $w$ is the product of their individual probabilities.
+> **Why is $X$ a matrix?**
+>
+> When you first learn about logistic regression or cross-entropy loss, it’s tempting to work through everything with just a single example. That makes the math easier to see, but it’s not how these algorithms are actually used in practice. In reality, we almost always deal with **many examples** at once. Libraries like [PyTorch](https://pytorch.org/) or [TensorFlow](https://www.tensorflow.org/) all expect you to feed in batches of examples at a time. They rely on vectorized matrix operations under the hood because it’s massively faster than looping through one example at a time. Once you’re comfortable thinking in terms of batches and matrix operations, moving into practical ML work feels much more natural.
+
+If we assume each example is independent of one another, then the probability of assigning each label $y^{(i)}$ to feature $x^{(i)}$ under weights $w$ is the product of their individual probabilities.
 
 $$
 L(w \mid X, y) = P(y \mid X ; w) = \prod_{i=1}^m P(y^{(i)} \mid x^{(i)} ; w)
@@ -166,11 +170,13 @@ $$
 **Binary Cross-entropy (BCE)** is simply **negative log-likelihood** for binary classification. It measures how well the predicted probabilities match the true labels:
 
 $$
-BCE = - \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log (1 - \hat{y}^{(i)}) \right]
+BCE(w) = - \frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1 - y^{(i)}) \log (1 - \hat{y}^{(i)}) \right]
 $$
 
 - If $y^{(i)} = 1$: the second term is zero, and the loss penalizes a low predicted probability for the positive class.
 - If $y^{(i)} = 0$: the first term is zero, and the loss penalizes a high predicted probability for the positive class.
+
+> **Note:** we usually scale the loss by the number of examples $m$. In [batch training](/blog/batch-training), we may have different batch sizes, and want our loss to be at a consistent scale across batches.
 
 ### Examples
 
@@ -223,7 +229,7 @@ $$
 Since we cannot solve for $w^*$ analytically, we must use an iterative optimization algorithm like [gradient descent](/blog/gradient-descent). The gradient of **BCE** with respect to our weights is:
 
 $$
-\nabla_w \; J(w) = X^T \left(\hat{y}^{(i)} - y^{(i)} \right)
+\nabla_w \; J(w) = \frac{1}{m} X^T \left(\hat{y}^{(i)} - y^{(i)} \right)
 $$
 
 [Derivation](https://www.python-unleashed.com/post/derivation-of-the-binary-cross-entropy-loss-gradient)
@@ -249,10 +255,10 @@ When moving to **multiclass classification**, instead of just two outcomes, we h
 
 ## Representing Model Parameters
 
-To seperate $K$ classes, we need $K$ decision boundaries. Each decision boundary has its own **weight vector** $w_k$. If each example $x^{(i)}$ has $n$ features, then the weights of our model becomes a matrix of shape $(n, K)$:
+To seperate $K$ classes, we need $K$ decision boundaries. Each decision boundary has its own **weight vector** $w_k$. If each example $x^{(i)}$ has $n$ features, then the weights of our model becomes a matrix:
 
 $$
-W = \begin{bmatrix} | & | & | & |\\ w_1 & w_2 & \dots & w_K\\| & | & | & | \end{bmatrix}
+W = \begin{bmatrix} | & | & | & |\\ w_1 & w_2 & \dots & w_K\\| & | & | & | \end{bmatrix} \in \mathbb{R}^{n \times K}
 $$
 
 ### Logits
@@ -347,15 +353,15 @@ $$
 Our goal is to find the weights $W^*$ that **maximize** this log-likelihood. Equivalently, we can **minimize** the negative log-likelihood (i.e., **cross-entropy loss**):
 
 $$
-W^* = \underset{W}{\arg\min} \; \text{CE}(W) = -\sum_{i=1}^m \sum_{k=1}^K y^{(i)}_k \log \hat{y}^{(i)}_k
+W^* = \underset{W}{\arg\min} \; \text{CE}(W) = - \frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K y^{(i)}_k \log \hat{y}^{(i)}_k
 $$
 
 ## Optimization
 
-There’s no closed-form solution for $W^*$, so we use **gradient descent** again to find the optimal weights. The gradient of the loss with respect to the weights is surprisingly clean:
+There’s no closed-form solution for $W^*$, so we use **gradient descent** again to find the optimal weights. The gradient of **CE** with respect to the weights is nearly identical to the binary case:
 
 $$
-\nabla_W J(W) = X^T(\hat{Y} - Y)
+\nabla_W J(W) = \frac{1}{m} X^T(\hat{Y} - Y)
 $$
 
 This tells us exactly how to adjust each weight to reduce the error.
