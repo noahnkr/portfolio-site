@@ -22,6 +22,7 @@ A **vector** is just an ordered list of numbers, often used to represent a point
 The illustration below shows how a vector can be broken down into its **component vectors**, with each component having a length (or _magnitude_) along an axis. These components stack together, starting from the origin and extending through each axis direction.
 
 ![vector](/blog-images/math-review/vec.png)
+The vector $\vec{v} = (3, 2)$ as the sum of its horizontal and vertical components.
 
 This idea is easy to visualize in two or three dimensions. But as we move into higher-dimensional spaces, where each feature becomes its own axis, visualizing vectors becomes impossible. That's normal. Just keep in mind that the same principles apply, even if we can't "see" them.
 
@@ -92,7 +93,7 @@ Tensors with more than two dimensions are useful for representing more complex d
 While we won’t go too deep into high-rank tensors here, it's helpful to know that scalars, vectors, and matrices are just special cases of tensors. The concept of shape becomes especially important when doing operations on tensors. If the shapes don’t match in the right way, the operation won’t work.
 
 ![tensor](/blog-images/math-review/tensor.jpg)
-[Image Credit](https://www.kdnuggets.com/2018/05/wtf-tensor.html)
+Scalars, vectors, and matrices are tensors of rank 0, 1, and 2; a tensor can have any rank. Source: [KDnuggets](https://www.kdnuggets.com/2018/05/wtf-tensor.html)
 
 ### Matrix Operations
 
@@ -159,7 +160,7 @@ A **gradient** is a generalization of the derivative for functions with multiple
 In machine learning, the gradient points in the direction of steepest increase of the loss function. To improve the model, we move in the opposite direction, called the **negative gradient**, which reduces the loss. This process is called [gradient descent](/blog/gradient-descent), and it's one of the core techniques behind training models.
 
 ![gradient](/blog-images/math-review/gradient.jpg)
-[Image Credit](https://blog.paperspace.com/part-4-generic-python-implementation-of-gradient-descent-for-nn-optimization/)
+Following the negative gradient downhill on a loss surface. Source: [Paperspace Blog](https://blog.paperspace.com/part-4-generic-python-implementation-of-gradient-descent-for-nn-optimization/)
 
 ## 3. Chain Rule
 

@@ -4,6 +4,8 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkNormalizeHeadings from './src/lib/remark-normalize-headings.mjs';
+import rehypeThemeImages from './src/lib/rehype-theme-images.mjs';
+import rehypeFigures from './src/lib/rehype-figures.mjs';
 
 export default defineConfig({
   // Production domain: used for absolute canonical and Open Graph URLs.
@@ -22,7 +24,7 @@ export default defineConfig({
     // because the posts depend on remark-math + rehype-katex for LaTeX.
     processor: unified({
       remarkPlugins: [remarkMath, remarkNormalizeHeadings],
-      rehypePlugins: [rehypeKatex],
+      rehypePlugins: [rehypeKatex, rehypeThemeImages, rehypeFigures],
     }),
     shikiConfig: {
       themes: { light: 'github-light', dark: 'github-dark' },

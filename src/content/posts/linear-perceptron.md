@@ -12,6 +12,7 @@ At its core, the linear perceptron is like a tiny **decision maker**. It takes a
 The linear perceptron is a **supervised learning algorithm** that is a **binary classifier**—meaning it tries to separate data into _two_ categories. It learns by comparing its predictions with the expected answers and adjusting its weights until it draws a line that correctly divides the two classes.
 
 ![Linear Perceptron](/blog-images/linear-perceptron/perceptron.png)
+A perceptron separates two classes with the boundary $w^Tx$.
 
 # A Sweet Example
 
@@ -50,6 +51,7 @@ f(z) = \begin{cases} 1, & z \geq 0 \\ 0, & z < 0 \end{cases}
 $$
 
 ![Step Function](/blog-images/linear-perceptron/step-function.png)
+The step function outputs 1 when $z \geq 0$ and 0 otherwise.
 
 Where the score, $z=w^Tx$, is our weighted sum of inputs. Without an activation function, our perceptron would just spit out numbers. The activation function is what turns those numbers into **decisions**.
 
@@ -141,12 +143,14 @@ Our example shows a case where the data can be separated by a straight line, the
 <div class="inline-display-child">
 
 ![Linearly separable](/blog-images/linear-perceptron/linearly-separable.png)
+A single straight line can separate these classes.
 
 </div>
 
 <div class="inline-display-child">
 
 ![Not Linearly separable](/blog-images/linear-perceptron/not-linearly-separable.png)
+No straight line can separate a cluster from the ring around it.
 
 </div>
 
@@ -176,6 +180,7 @@ The XOR (exclusive OR) is a logical operation that results in _true_ if and only
 <div class="inline-display-child">
 
 ![XOR Problem](/blog-images/linear-perceptron/xor-problem.png)
+XOR: no single line separates $(0,0)$ and $(1,1)$ from $(0,1)$ and $(1,0)$.
 
 </div>
 
@@ -204,7 +209,7 @@ This is the foundation of [neural networks](/blog/neural-networks)
 Each perceptron becomes an individual **node** inside a larger network. On its own, it draws one line. But together, in layers, these nodes can learn highly flexible decision boundaries.
 
 ![Node](/blog-images/linear-perceptron/node.jpg)
-[Image Credit](https://gmongaras.medium.com/how-do-neural-networks-work-bfdd3ca6c23a)
+A single node: weighted inputs are summed, then passed through an activation function. Source: [@gmongaras on Medium](https://gmongaras.medium.com/how-do-neural-networks-work-bfdd3ca6c23a)
 
 Over time, researchers improved training techniques (with enhancements like [backpropagation](/blog/backpropagation)) and computers got faster, enabling **deep learning**—networks with many layers and thousands or millions of nodes. These systems power everything from autonomous vehicles to large language models, but at their core, they're still built on the same fundamental principle [Rosenblatt](https://en.wikipedia.org/wiki/Frank_Rosenblatt) introduced back in 1958:
 

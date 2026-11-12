@@ -33,6 +33,7 @@ $$
 - Convenient derivative: $\sigma'(x)=\sigma(x)(1-\sigma(x))$, which makes optimization simpler
 
 ![Bounded Linear Regression](/blog-images/logistic-regression/bounded-regression.png)
+Linear regression is unbounded; the sigmoid keeps predictions between 0 and 1.
 
 ## Turning Output into Decisions
 
@@ -45,6 +46,7 @@ $$
 Here, $z=w^Tx$ is the weighted sum of inputs.
 
 ![Logistic Regression Classifier](/blog-images/logistic-regression/logistic-regression-classifier.png)
+Thresholding the sigmoid at 0.5 turns probabilities into class predictions.
 
 # Probability vs. Likelihood
 
@@ -69,6 +71,7 @@ P(\text{bullseye} \mid \text{parameters}) = 0.10
 $$
 
 ![Probability Density Function](/blog-images/logistic-regression/pdf.png)
+A probability density over where your shots land.
 
 Here, the parameters (spread, aim) are **known** and the event (whether you hit the bullseye) is **unknown**.
 
@@ -92,6 +95,7 @@ For example:
 Since **Guess B**'s distribution is _more dense_ where the arrow landed than **Guess A**'s, **Guess B** is more consistent with the observation.
 
 ![Likelihood Probability Density Function](/blog-images/logistic-regression/pdf-likelihood.png)
+For the same shot, Guess B assigns a higher density than Guess A, so it is more likely.
 
 If you still aren't sure of the difference between **probability** and **likelihood**, I _highly_ recommend watching this short video:
 
@@ -171,8 +175,8 @@ $$
 >
 > Because the logarithm function is a **monotonic** function and is always increasing in one direction. We are essentially just scaling the output values (_y-axis_) of the graph while the peaks and valleys location (_x-axis_) stay at the same value. Thus, the weights that maximize the likelihood are the same as the ones that maximize log-likelihood.
 
-![Log Likelihood Animation](/blog-images/logistic-regression/log-likelihood.gif)
-[Image Credit](https://towardsdatascience.com/cross-entropy-negative-log-likelihood-and-all-that-jazz-47a95bd2e81/)
+![Log Likelihood Animation](/blog-images/logistic-regression/log-likelihood.webp)
+Each label selects $\log \hat{y}$ or $\log(1-\hat{y})$, and the selected values sum to the log-likelihood.
 
 ## Binary Cross-Entropy (a.k.a Negative Log-Likelihood)
 
@@ -261,6 +265,7 @@ When moving to **multiclass classification**, instead of just two outcomes, we h
 - All $K$ probabilities must sum to 1.
 
 ![Multiclass Classification](/blog-images/logistic-regression/multiclass.png)
+One-vs-rest: one binary classifier per class.
 
 ## Representing Model Parameters
 
