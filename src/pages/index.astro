@@ -2,7 +2,8 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
-import { site, about, experience } from '../data/site';
+import Icon from '../components/Icon.astro';
+import { site, about, experience, contacts } from '../data/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
@@ -16,6 +17,15 @@ const sections = [
   { id: 'writing', label: 'Writing' },
   { id: 'contact', label: 'Contact' },
 ];
+
+// Small text helpers for the About section: escape, then allow *emphasis* (as in PEP 20)
+// and link the first mention of "The Zen of Python".
+const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const inlineEm = (s: string) => escape(s).replace(/\*(.+?)\*/g, '<em>$1</em>');
+const introHtml = inlineEm(about.intro).replace(
+  'The Zen of Python',
+  `<a href="${about.zenUrl}" target="_blank" rel="noopener">The Zen of Python</a>`,
+);
 ---
 
 <Base>
@@ -23,7 +33,10 @@ const sections = [
     <header class="side">
       <span class="eyebrow">{site.role}</span>
       <h1>{site.name}</h1>
-      <p class="tagline">{site.tagline}</p>
+      <figure class="tagline">
+        <blockquote>“{site.tagline.quote}”</blockquote>
+        <figcaption>{site.tagline.author}</figcaption>
+      </figure>
 
       <nav class="nav" aria-label="Sections">
         {sections.map((s) => <a href={`#${s.id}`} data-sec={s.id}>{s.label}</a>)}
@@ -39,8 +52,18 @@ const sections = [
     <main id="content">
       <section id="about" data-glow aria-labelledby="about-h">
         <h2 id="about-h">About</h2>
-        <p class="lede">{about.lede}</p>
-        {about.paragraphs.map((p) => <p class="muted">{p}</p>)}
+        <p class="lede" set:html={introHtml} />
+        <ol class="zen">
+          {
+            about.zen.map((z) => (
+              <li>
+                <p class="zen-line" set:html={inlineEm(z.line)} />
+                <p class="zen-meaning">{z.meaning}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="muted">{about.outro}</p>
       </section>
 
       <section id="experience" data-glow aria-labelledby="experience-h">
@@ -104,11 +127,39 @@ const sections = [
 
       <section id="contact" data-glow aria-labelledby="contact-h" class="contact">
         <h2 id="contact-h">Contact</h2>
-        <p class="muted">Open to conversations about healthcare technology, AI tooling, and software engineering.</p>
-        {site.email && <a class="email" href={`mailto:${site.email}`}>{site.email}</a>}
-        <p class="links">
-          {site.links.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>)}
-        </p>
+        <p class="muted">Questions about a post or a project? Feel free to reach out.</p>
+        <div class="reach">
+          <ul class="links" aria-label="Contact links">
+            {
+              contacts.map((c) => {
+                const tip = c.copy ? `${c.label}: ${c.copy}` : c.label;
+                const external = c.href && !c.href.startsWith('mailto:');
+                return (
+                  <li>
+                    {c.href ? (
+                      <a
+                        href={c.href}
+                        target={external ? '_blank' : undefined}
+                        rel={external ? 'noopener' : undefined}
+                        aria-label={tip}
+                        title={tip}
+                        data-copy={c.copy}
+                        data-label={c.label}
+                      >
+                        <Icon name={c.icon} />
+                      </a>
+                    ) : (
+                      <button type="button" aria-label={`Copy ${tip}`} title={tip} data-copy={c.copy} data-label={c.label}>
+                        <Icon name={c.icon} />
+                      </button>
+                    )}
+                  </li>
+                );
+              })
+            }
+          </ul>
+          <span class="copied" role="status" aria-live="polite"></span>
+        </div>
       </section>
     </main>
   </div>
@@ -143,10 +194,51 @@ const sections = [
     letter-spacing: -0.02em;
   }
   .tagline {
-    margin: 6px 0 0;
+    margin: 8px 0 0;
+    max-width: 30ch;
+    display: grid;
+    gap: 6px;
+  }
+  .tagline blockquote {
+    margin: 0;
+    font: italic 400 20px/1.35 var(--f-serif);
+    font-variation-settings: 'opsz' 24;
+    text-indent: -0.4em; /* hang the opening quote mark */
+  }
+  .tagline figcaption {
+    font-size: 13px;
     color: var(--muted);
-    max-width: 32ch;
-    font-size: 17px;
+  }
+  .tagline figcaption::before {
+    content: '— ';
+  }
+
+  /* About: lines from PEP 20, each with what it means to me */
+  .zen {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 22px;
+    max-width: 52ch;
+  }
+  .zen li {
+    display: grid;
+    gap: 4px;
+  }
+  .zen-line {
+    font: 400 21px/1.35 var(--f-serif);
+    font-variation-settings: 'opsz' 24;
+  }
+  .zen-meaning {
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .lede :global(a) {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    text-decoration-color: oklch(var(--glow-l) var(--glow-c) var(--h));
   }
 
   .nav {
@@ -273,27 +365,47 @@ const sections = [
     font-size: 15px;
   }
 
-  .contact .email {
-    font: 400 30px/1.2 var(--f-serif);
-    text-decoration: none;
-    overflow-wrap: anywhere;
-  }
-  .contact .email:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 5px;
+  .reach {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-left: -8px; /* optical alignment: the icons' padding lines up with the text edge */
   }
   .contact .links {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .contact .links a {
-    text-decoration: none;
+  .contact .links a,
+  .contact .links button {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
     color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
   }
-  .contact .links a:hover {
+  .contact .links a:hover,
+  .contact .links button:hover {
     color: var(--fg);
+    background: var(--surface);
+  }
+  .copied {
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .copied.show {
+    opacity: 1;
   }
 
   @media (max-width: 860px) {
@@ -330,10 +442,76 @@ const sections = [
   // Nav marks follow the section in view.
   const links = [...document.querySelectorAll<HTMLAnchorElement>('.nav a')];
   const setOn = (id: string) => links.forEach((a) => a.classList.toggle('on', a.dataset.sec === id));
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach((en) => en.isIntersecting && setOn(en.target.id)),
-    { rootMargin: '-25% 0px -60% 0px' },
+  const sections = [...document.querySelectorAll<HTMLElement>('main section')];
+  const lastId = sections[sections.length - 1]?.id;
+  const atBottom = () => scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
+
+  // While a nav click's smooth scroll runs, keep the clicked link marked instead of
+  // flickering through every section the page scrolls past.
+  let clicked = false;
+  let releaseTimer = 0;
+  const release = () => {
+    if (!clicked) return;
+    clicked = false;
+    clearTimeout(releaseTimer);
+    schedule(); // re-sync with where the page actually landed
+  };
+
+  // The current section is the last one whose top has passed a line 35% down the viewport.
+  // Computed from positions on every scroll, so it's the same whichever way you scroll.
+  // At the very bottom the last section wins: it's often too short to reach that line.
+  const update = () => {
+    if (clicked) return;
+    if (atBottom() && lastId) return setOn(lastId);
+    const line = innerHeight * 0.35;
+    let current = sections[0]?.id;
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= line) current = s.id;
+    }
+    if (current) setOn(current);
+  };
+  let frame = 0;
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(() => ((frame = 0), update()));
+  };
+  addEventListener('scroll', schedule, { passive: true });
+  addEventListener('resize', schedule);
+
+  links.forEach((a) =>
+    a.addEventListener('click', () => {
+      setOn(a.dataset.sec!);
+      clicked = true;
+      clearTimeout(releaseTimer);
+      releaseTimer = window.setTimeout(release, 2000); // fallback where `scrollend` isn't supported
+    }),
   );
-  document.querySelectorAll('main section').forEach((s) => io.observe(s));
-  setOn(location.hash.slice(1) || 'about');
+  addEventListener('scrollend', release);
+  for (const type of ['wheel', 'touchstart', 'keydown'] as const) {
+    addEventListener(type, release, { passive: true });
+  }
+
+  update();
+
+  // Contact icons with data-copy put their text on the clipboard (email still opens the mail
+  // app if there is one). If the clipboard is unavailable, show the text so it can be copied.
+  const status = document.querySelector<HTMLElement>('.copied');
+  let hideTimer = 0;
+  const say = (msg: string) => {
+    if (!status) return;
+    status.textContent = msg;
+    status.classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(() => status.classList.remove('show'), 2500);
+  };
+  document.querySelectorAll<HTMLElement>('.links [data-copy]').forEach((el) =>
+    el.addEventListener('click', async () => {
+      const text = el.dataset.copy!;
+      try {
+        await navigator.clipboard.writeText(text);
+        say(`Copied ${text}`);
+      } catch {
+        say(`${el.dataset.label}: ${text}`);
+      }
+    }),
+  );
 </script>

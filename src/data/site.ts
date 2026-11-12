@@ -3,26 +3,67 @@
 export const site = {
   name: 'Noah Roberts',
   role: 'Software Engineer',
-  tagline: 'I build AI tools, data pipelines, and the occasional chess engine.',
+  /** Shown under the name in the sidebar. */
+  tagline: {
+    quote: 'What I cannot create, I do not understand.',
+    author: 'Richard Feynman',
+  },
   description:
-    'Noah Roberts is a software engineer building AI tooling and data systems, most recently in healthcare.',
-  /** Shown in the Contact section. Leave null to hide it. */
-  email: 'noahkrob97@gmail.com' as string | null,
+    'Noah Roberts is a software engineer. Projects, experience, and a from-scratch series on machine learning.',
   /** Path to a résumé PDF placed in /public. Leave null to hide the link. */
   resume: '/Noah-Roberts-Resume.pdf' as string | null,
+  /** Text links in the sidebar. */
   links: [
     { label: 'GitHub', href: 'https://github.com/noahnkr' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/noah-roberts-3bb399234/' },
   ],
 };
 
+export type Contact = {
+  label: string;
+  icon: 'mail' | 'github' | 'linkedin' | 'discord';
+  /** Where the icon links to, if anywhere. */
+  href?: string;
+  /** Text copied to the clipboard on click (shown in the tooltip too). */
+  copy?: string;
+};
+
+/** Icon row in the Contact section, in display order. */
+export const contacts: Contact[] = [
+  { label: 'Email', icon: 'mail', href: 'mailto:noahkrob97@gmail.com', copy: 'noahkrob97@gmail.com' },
+  { label: 'GitHub', icon: 'github', href: 'https://github.com/noahnkr' },
+  { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/noah-roberts-3bb399234/' },
+  { label: 'Discord', icon: 'discord', href: 'https://discord.com/users/234490399693996035', copy: 'noahnkr' },
+];
+
+/**
+ * About: a few lines from PEP 20, "The Zen of Python" (public domain), and what each one
+ * means off the keyboard. Keep the lines in PEP 20's order.
+ */
 export const about = {
-  lede: 'Software engineer building AI tooling and data systems, most recently in healthcare.',
-  paragraphs: [
-    "I graduated from Iowa State University in 2025 with a B.S. in Computer Science. Since then I've worked in healthcare IT: deploying Epic workstations and clinical hardware at Lurie Children's Hospital, and building an operations platform and AI agent for a home care agency. Getting the technology right there has a direct effect on patients and the people caring for them.",
-    'On my own time I build things like a distributed sportsbook odds platform, an NCAA tournament model, a chess engine, and a small programming language. I also write a from-scratch series on machine learning fundamentals, because explaining something clearly is the best test of whether I understand it.',
-    'Outside of work you will find me at the gym, watching football, or listening to Pink Floyd, Pearl Jam, and Metallica.',
+  intro: 'A few lines from The Zen of Python I try to live by.',
+  zenUrl: 'https://peps.python.org/pep-0020/',
+  zen: [
+    {
+      line: 'Simple is better than complex.',
+      meaning:
+        "When I start overcomplicating things, and I will, I come back to the basics. They're what actually count.",
+    },
+    {
+      line: 'Complex is better than complicated.',
+      meaning:
+        'But some problems really are hard, and those take time. The trick is not burying what matters under everything else.',
+    },
+    {
+      line: 'Now is better than never.',
+      meaning: 'Either way, I try not to wait for tomorrow to start.',
+    },
+    {
+      line: 'Although never is often better than *right* now.',
+      meaning: "Then again, I don't have to build Rome in a day.",
+    },
   ],
+  outro: "The rest of the time: lifting, Chicago sports, and whatever I've had on repeat lately.",
 };
 
 export type Job = {
