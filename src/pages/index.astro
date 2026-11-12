@@ -1,0 +1,339 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { site, about, experience } from '../data/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => (a.data.part ?? 0) - (b.data.part ?? 0) || a.data.date.valueOf() - b.data.date.valueOf(),
+);
+
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'writing', label: 'Writing' },
+  { id: 'contact', label: 'Contact' },
+];
+---
+
+<Base>
+  <div class="page">
+    <header class="side">
+      <span class="eyebrow">{site.role}</span>
+      <h1>{site.name}</h1>
+      <p class="tagline">{site.tagline}</p>
+
+      <nav class="nav" aria-label="Sections">
+        {sections.map((s) => <a href={`#${s.id}`} data-sec={s.id}>{s.label}</a>)}
+      </nav>
+
+      <div class="foot">
+        {site.links.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>)}
+        {site.resume && <a href={site.resume} target="_blank" rel="noopener">Résumé ↗</a>}
+        <ThemeToggle />
+      </div>
+    </header>
+
+    <main id="content">
+      <section id="about" data-glow aria-labelledby="about-h">
+        <h2 id="about-h">About</h2>
+        <p class="lede">{about.lede}</p>
+        {about.paragraphs.map((p) => <p class="muted">{p}</p>)}
+      </section>
+
+      <section id="experience" data-glow aria-labelledby="experience-h">
+        <h2 id="experience-h">Experience</h2>
+        <ol class="jobs">
+          {
+            experience.map((job) => (
+              <li class="job">
+                <span class="job-dates">{job.dates}</span>
+                <div>
+                  <h3>
+                    {job.title} <span class="muted">· {job.org}</span>
+                  </h3>
+                  <p class="muted">{job.summary}</p>
+                  {job.tags && (
+                    <ul class="row-tags">
+                      {job.tags.map((t) => <li>{t}</li>)}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section id="projects" data-glow aria-labelledby="projects-h">
+        <h2 id="projects-h">Selected projects <small>{projects.length}</small></h2>
+        <div class="list">
+          {
+            projects.map((p) => (
+              <a class="row" href={`/projects/${p.id}/`}>
+                <span class="row-title">
+                  {p.data.title}
+                  <span class="arrow" aria-hidden="true">↗</span>
+                </span>
+                <span class="row-meta">{p.data.kind}</span>
+                <span class="row-desc">{p.data.summary}</span>
+                <ul class="row-tags">
+                  {p.data.stack.map((t) => <li>{t}</li>)}
+                </ul>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="writing" data-glow aria-labelledby="writing-h">
+        <h2 id="writing-h">Writing <small>{posts[0]?.data.series ?? 'Notes'}</small></h2>
+        <div class="list">
+          {
+            posts.map((p) => (
+              <a class="row post" href={`/blog/${p.id}/`}>
+                <span class="row-title">{p.data.title}</span>
+                <span class="row-meta">{p.data.readTime.replace(' read', '')}</span>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="contact" data-glow aria-labelledby="contact-h" class="contact">
+        <h2 id="contact-h">Contact</h2>
+        <p class="muted">Open to conversations about healthcare technology, AI tooling, and software engineering.</p>
+        {site.email && <a class="email" href={`mailto:${site.email}`}>{site.email}</a>}
+        <p class="links">
+          {site.links.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>)}
+        </p>
+      </section>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter-r);
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr);
+    gap: 72px;
+  }
+
+  /* Sticky identity column */
+  .side {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    padding-block: calc(88px + env(safe-area-inset-top, 0px)) 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  h1 {
+    margin: 0;
+    font: 400 60px/1 var(--f-serif);
+    font-variation-settings: 'opsz' 72;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    margin: 6px 0 0;
+    color: var(--muted);
+    max-width: 32ch;
+    font-size: 17px;
+  }
+
+  .nav {
+    display: grid;
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: max-content;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 0;
+    transition: color 0.25s;
+  }
+  .nav a::before {
+    content: '';
+    height: 1px;
+    width: 32px;
+    background: currentColor;
+    transition: width 0.35s var(--ease);
+  }
+  .nav a:hover,
+  .nav a.on {
+    color: var(--fg);
+  }
+  .nav a:hover::before,
+  .nav a.on::before {
+    width: 72px;
+  }
+
+  .foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .foot a {
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .foot a:hover {
+    color: var(--fg);
+  }
+  .foot :global(.theme-toggle) {
+    margin-left: auto;
+  }
+
+  /* Content column */
+  main {
+    padding-block: calc(88px + env(safe-area-inset-top, 0px)) 30vh;
+    display: grid;
+    gap: 96px;
+    min-width: 0;
+  }
+  section {
+    display: grid;
+    gap: 20px;
+    scroll-margin-top: 72px;
+    min-width: 0;
+  }
+  h2 {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font: 400 32px/1.1 var(--f-serif);
+    font-variation-settings: 'opsz' 48;
+    letter-spacing: -0.01em;
+  }
+  h2 small {
+    font: 500 12px var(--f-sans);
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  section p {
+    margin: 0;
+    max-width: 62ch;
+  }
+  .lede {
+    font: 400 27px/1.32 var(--f-serif);
+    font-variation-settings: 'opsz' 36;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+
+  .jobs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .job {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 20px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .job:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .job-dates {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+  .job h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .job p {
+    font-size: 15px;
+  }
+
+  .contact .email {
+    font: 400 30px/1.2 var(--f-serif);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .contact .email:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+  .contact .links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .contact .links a {
+    text-decoration: none;
+    color: var(--muted);
+  }
+  .contact .links a:hover {
+    color: var(--fg);
+  }
+
+  @media (max-width: 860px) {
+    .page {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+    .side {
+      position: static;
+      height: auto;
+      padding-block: calc(56px + env(safe-area-inset-top, 0px)) 0;
+    }
+    h1 {
+      font-size: 46px;
+    }
+    .nav {
+      display: none;
+    }
+    .foot {
+      margin-top: 18px;
+    }
+    main {
+      padding-block: 56px 120px;
+      gap: 72px;
+    }
+    .job {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>
+
+<script>
+  // Nav marks follow the section in view.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.nav a')];
+  const setOn = (id: string) => links.forEach((a) => a.classList.toggle('on', a.dataset.sec === id));
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((en) => en.isIntersecting && setOn(en.target.id)),
+    { rootMargin: '-25% 0px -60% 0px' },
+  );
+  document.querySelectorAll('main section').forEach((s) => io.observe(s));
+  setOn(location.hash.slice(1) || 'about');
+</script>

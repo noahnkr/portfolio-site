@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found">
+  <main id="content" class="nf">
+    <span class="eyebrow">404</span>
+    <h1>This page doesn't exist.</h1>
+    <p class="muted">It may have moved when the site was rebuilt.</p>
+    <p><a href="/">Back to the home page →</a></p>
+  </main>
+</Base>
+
+<style>
+  .nf {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    gap: 14px;
+    max-width: calc(640px + var(--gutter) + var(--gutter-r));
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter-r);
+  }
+  h1 {
+    margin: 0;
+    font: 400 clamp(36px, 7vw, 56px)/1.05 var(--f-serif);
+    font-variation-settings: 'opsz' 72;
+  }
+  p {
+    margin: 0;
+  }
+  a {
+    text-underline-offset: 4px;
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+/**
+ * Two soft background glows.
+ * - Hue walks the spectrum with scroll progress (teal at the top → +300° at the bottom).
+ * - Position follows a smooth curve through "anchors": elements marked [data-glow]
+ *   (home page sections), else the <h2>s in an article, else the page top and bottom.
+ * - Movement uses a critically damped spring with a speed cap, so slow scrolling,
+ *   fast flicks and jump links all produce the same slow, even glide.
+ */
+---
+
+<div class="glow" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+</div>
+
+<style>
+  .glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    width: min(760px, 110vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    translate: -50% -50%;
+    will-change: left, top;
+    animation: drift 24s ease-in-out infinite alternate;
+  }
+  .b1 {
+    left: 16%;
+    top: 16%;
+    background: radial-gradient(
+      circle,
+      oklch(var(--glow-l) var(--glow-c) var(--h) / var(--glow-a)),
+      transparent 64%
+    );
+  }
+  .b2 {
+    left: 84%;
+    top: 74%;
+    animation-duration: 31s;
+    animation-direction: alternate-reverse;
+    background: radial-gradient(
+      circle,
+      oklch(var(--glow-l) var(--glow-c) calc(var(--h) + 70) / var(--glow-a2)),
+      transparent 64%
+    );
+  }
+  @keyframes drift {
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(4%, 7%) scale(1.08);
+    }
+  }
+</style>
+
+<script>
+  const HUE_START = 170;
+  const HUE_RANGE = 300;
+  const SMOOTH_TIME = 0.55; // seconds; higher = floatier
+  const MAX_SPEED = 0.35; // page-lengths per second; caps how fast a big jump can travel
+
+  // Resting spots for the two glows, as [left%, top%] pairs; cycled across anchors.
+  const SPOTS: [number, number][][] = [
+    [[16, 16], [84, 74]],
+    [[30, 32], [88, 40]],
+    [[52, 38], [22, 78]],
+    [[42, 62], [80, 36]],
+    [[26, 76], [74, 24]],
+  ];
+
+  const root = document.documentElement;
+  const blobs = [...document.querySelectorAll<HTMLElement>('.glow .blob')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  type Anchor = { p: number; pos: [number, number][] };
+  let anchors: Anchor[] = [];
+  let target = 0;
+  let cur = 0;
+  let vel = 0;
+  let raf = 0;
+  let last = 0;
+
+  const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+  const maxScroll = () => Math.max(1, root.scrollHeight - innerHeight);
+  const progress = () => clamp01(scrollY / maxScroll());
+
+  function anchorElements(): Element[] {
+    const marked = [...document.querySelectorAll('[data-glow]')];
+    if (marked.length >= 2) return marked;
+    const heads = [...document.querySelectorAll('main h2')];
+    return heads.length >= 2 ? heads : [];
+  }
+
+  function measure() {
+    const els = anchorElements();
+    const max = maxScroll();
+    if (els.length < 2) {
+      anchors = [
+        { p: 0, pos: SPOTS[0] },
+        { p: 1, pos: SPOTS[2] },
+      ];
+      return;
+    }
+    anchors = els.map((el, i) => ({
+      p: clamp01((el.getBoundingClientRect().top + scrollY - innerHeight * 0.25) / max),
+      pos: SPOTS[i % SPOTS.length],
+    }));
+    anchors[0].p = 0;
+    anchors[anchors.length - 1].p = 1;
+  }
+
+  // Catmull-Rom spline through the anchors: continuous speed, no sudden turns.
+  const cr = (p0: number, p1: number, p2: number, p3: number, t: number) =>
+    0.5 *
+    (2 * p1 +
+      (-p0 + p2) * t +
+      (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t +
+      (-p0 + 3 * p1 - 3 * p2 + p3) * t * t * t);
+
+  function positionAt(p: number) {
+    const n = anchors.length;
+    let i = 0;
+    while (i < n - 2 && p > anchors[i + 1].p) i++;
+    const a = anchors[i];
+    const b = anchors[i + 1];
+    const t = clamp01((p - a.p) / (b.p - a.p || 1));
+    const P = (j: number) => anchors[Math.min(n - 1, Math.max(0, j))].pos;
+    return [0, 1].map((k) =>
+      [0, 1].map((axis) => cr(P(i - 1)[k][axis], P(i)[k][axis], P(i + 1)[k][axis], P(i + 2)[k][axis], t)),
+    );
+  }
+
+  // Critically damped spring with a speed cap (after Unity's SmoothDamp).
+  function smoothDamp(c: number, t: number, v: number, dt: number): [number, number] {
+    const omega = 2 / SMOOTH_TIME;
+    const x = omega * dt;
+    const e = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
+    const maxChange = MAX_SPEED * SMOOTH_TIME;
+    const change = Math.max(-maxChange, Math.min(maxChange, c - t));
+    const tt = c - change;
+    const temp = (v + omega * change) * dt;
+    let nv = (v - omega * temp) * e;
+    let out = tt + (change + temp) * e;
+    if (t - c > 0 === out > t) {
+      out = t;
+      nv = 0;
+    }
+    return [out, nv];
+  }
+
+  function paint(now: number) {
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
+    last = now;
+    if (reduced) {
+      cur = target;
+      vel = 0;
+    } else {
+      [cur, vel] = smoothDamp(cur, target, vel, dt);
+    }
+    if (Math.abs(target - cur) < 0.0001 && Math.abs(vel) < 0.001) {
+      cur = target;
+      vel = 0;
+    }
+
+    root.style.setProperty('--h', (HUE_START + cur * HUE_RANGE).toFixed(1));
+    positionAt(cur).forEach(([left, top], i) => {
+      blobs[i].style.left = `${left}%`;
+      blobs[i].style.top = `${top}%`;
+    });
+
+    if (cur === target) {
+      raf = 0;
+      last = 0;
+    } else {
+      raf = requestAnimationFrame(paint);
+    }
+  }
+
+  function onScroll() {
+    target = progress();
+    if (!raf) raf = requestAnimationFrame(paint);
+  }
+
+  measure();
+  target = cur = progress();
+  paint(performance.now());
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => {
+    measure();
+    onScroll();
+  });
+  // Fonts and images change the page height; re-measure once they settle.
+  document.fonts?.ready.then(() => {
+    measure();
+    onScroll();
+  });
+  addEventListener('load', () => {
+    measure();
+    onScroll();
+  });
+</script>

@@ -1,0 +1,49 @@
+---
+/** Switches between light and dark. Follows the system setting until the visitor picks one. */
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle>Theme</button>
+
+<style>
+  .theme-toggle {
+    font: 500 12px var(--f-sans);
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .theme-toggle:hover {
+    color: var(--fg);
+    border-color: var(--muted);
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : media.matches);
+
+  function label() {
+    const next = isDark() ? 'Light' : 'Dark';
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+      btn.textContent = next;
+      btn.setAttribute('aria-label', `Switch to ${next.toLowerCase()} theme`);
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch (e) {}
+      label();
+    }),
+  );
+  media.addEventListener('change', label);
+  label();
+</script>

@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => (a.data.part ?? 0) - (b.data.part ?? 0) || a.data.date.valueOf() - b.data.date.valueOf(),
+  );
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, prev: posts[i - 1] ?? null, next: posts[i + 1] ?? null },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+const date = post.data.date.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const eyebrow = post.data.series
+  ? `${post.data.series}${post.data.part ? ` · Part ${post.data.part}` : ''}`
+  : 'Writing';
+const link = (p: typeof post | null) => (p ? { href: `/blog/${p.id}/`, title: p.data.title } : null);
+---
+
+<Article
+  title={post.data.title}
+  description={post.data.description}
+  eyebrow={eyebrow}
+  meta={[date, post.data.readTime]}
+  prev={link(prev)}
+  next={link(next)}
+  back={{ href: '/blog/', label: 'All writing' }}
+>
+  <Content />
+</Article>
