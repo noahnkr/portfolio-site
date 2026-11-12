@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, prev: projects[i - 1] ?? null, next: projects[i + 1] ?? null },
+  }));
+}
+
+const { project, prev, next } = Astro.props;
+const { Content } = await render(project);
+const { data } = project;
+const link = (p: typeof project | null) => (p ? { href: `/projects/${p.id}/`, title: p.data.title } : null);
+---
+
+<Article
+  title={data.title}
+  description={data.summary}
+  eyebrow={data.kind}
+  meta={data.stack}
+  links={data.links}
+  prev={link(prev)}
+  next={link(next)}
+  back={{ href: '/#projects', label: 'All projects' }}
+>
+  {
+    data.image && (
+      <figure slot="figure" class="shot">
+        <Image src={data.image} alt={data.imageAlt ?? ''} widths={[700, 1400]} sizes="(max-width: 760px) 100vw, 700px" />
+      </figure>
+    )
+  }
+  <Content />
+</Article>
+
+<style>
+  .shot {
+    margin: 0 0 48px;
+  }
+  .shot :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+</style>
