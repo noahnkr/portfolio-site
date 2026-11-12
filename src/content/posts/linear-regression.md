@@ -30,6 +30,7 @@ For example, let's say we want to predict the price of a house given its size. W
 <div class="inline-display-child">
 
 ![House Pricing Graph](/blog-images/linear-regression/house-price-graph.png)
+House price against size, with the line of best fit.
 
 </div>
 
@@ -145,12 +146,14 @@ This is where more advanced models like [neural networks](/blog/neural-networks)
 <div class="inline-display-child">
 
 ![linear](/blog-images/linear-regression/linear.png)
+A linear relationship: a straight line fits the trend.
 
 </div>
 
 <div class="inline-display-child">
 
 ![nonlinear](/blog-images/linear-regression/nonlinear.png)
+A non-linear relationship: no straight line fits the curve.
 
 </div>
 
@@ -169,12 +172,14 @@ The last assumption we are making is that the residuals follow the same, normal 
 <div class="inline-display-child">
 
 ![homoscedasticity](/blog-images/linear-regression/homoscedasticity.png)
+Homoscedasticity: the spread around the trend stays constant.
 
 </div>
 
 <div class="inline-display-child">
 
 ![heteroscedasticity](/blog-images/linear-regression/heteroscedasticity.png)
+Heteroscedasticity: the spread grows as $x$ increases.
 
 </div>
 
@@ -189,6 +194,7 @@ _Training_ simply means finding the best weights that allow the model to make ac
 **Gradient Descent** is an _optimization algorithm_, which is a method that iteratively adjusts the weights in order to reduce the error of a loss function. You can think of gradient descent as slowly traversing down a foggy mountain. You can't see the entire landscape, but you can see the slope beneath you and can take small steps downhill, eventually reaching flat ground.
 
 ![Gradient](/blog-images/linear-regression/gradient.png)
+Gradient descent moves the weight against the gradient, toward minimum loss.
 
 ## How It Works
 

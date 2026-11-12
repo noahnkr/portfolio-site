@@ -82,6 +82,45 @@
   border-radius: 6px;
 }
 
+/* Figures: an image with a caption line under it (see src/lib/rehype-figures.mjs) */
+.prose figure {
+  margin-inline: 0;
+}
+.prose figcaption {
+  margin-top: 0.6em;
+  text-align: center;
+  font: 13px/1.5 var(--f-sans);
+  color: var(--muted);
+}
+.prose figcaption .fig-label {
+  font-weight: 600;
+  color: var(--fg);
+}
+.prose figcaption a {
+  color: inherit;
+  text-decoration-color: var(--line);
+}
+.prose figcaption a:hover {
+  color: var(--fg);
+  text-decoration-color: currentColor;
+}
+
+/* Theme-aware diagrams (see src/lib/rehype-theme-images.mjs): show the variant for the active theme. */
+:root[data-theme='light'] .theme-img-dark,
+:root[data-theme='dark'] .theme-img-light {
+  display: none !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-img-light {
+    display: none !important;
+  }
+}
+@media not (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-img-dark {
+    display: none !important;
+  }
+}
+
 /* Inline code and code blocks */
 .prose :not(pre) > code {
   font: 0.84em var(--f-mono);
@@ -120,13 +159,15 @@
 }
 
 /* Tables */
+/* Tables size columns to their content (no mid-word breaks); a wrapper added by
+   rehype-figures.mjs scrolls sideways if a table is wider than the column. */
+.prose .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
 .prose table {
   width: 100%;
-  max-width: 100%;
-  table-layout: fixed;
   border-collapse: collapse;
-  word-wrap: break-word;
-  white-space: normal;
   font: 15px/1.5 var(--f-sans);
 }
 .prose th,

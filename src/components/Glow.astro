@@ -1,11 +1,15 @@
 ---
 /**
  * Two soft background glows.
- * - Hue walks the spectrum with scroll progress (teal at the top → +300° at the bottom).
- * - Position follows a smooth curve through "anchors": elements marked [data-glow]
+ * - Each scroll position maps to a destination: a hue (teal at the top → +300° at the bottom)
+ *   and two glow spots, read off a smooth curve through "anchors" — elements marked [data-glow]
  *   (home page sections), else the <h2>s in an article, else the page top and bottom.
- * - Movement uses a critically damped spring with a speed cap, so slow scrolling,
- *   fast flicks and jump links all produce the same slow, even glide.
+ * - The glows spring straight from where they are to that destination (2D for position,
+ *   shortest way round the color wheel for hue). Slow scrolling still traces the curve because
+ *   the destination moves gradually; a jump moves the destination at once, so the glow glides
+ *   directly there instead of replaying every section in between.
+ * - Critically damped springs with speed caps: starts gently, never overshoots, and a new
+ *   jump mid-glide bends the path smoothly using the current velocity.
  */
 ---
 
@@ -64,8 +68,9 @@
 <script>
   const HUE_START = 170;
   const HUE_RANGE = 300;
-  const SMOOTH_TIME = 0.55; // seconds; higher = floatier
-  const MAX_SPEED = 0.35; // page-lengths per second; caps how fast a big jump can travel
+  const SMOOTH_TIME = 0.6; // seconds; higher = floatier
+  const MAX_MOVE_SPEED = 32; // % of the viewport per second; caps how fast a glow can travel
+  const MAX_HUE_SPEED = 90; // degrees per second; caps how fast the color can change
 
   // Resting spots for the two glows, as [left%, top%] pairs; cycled across anchors.
   const SPOTS: [number, number][][] = [
@@ -81,12 +86,16 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   type Anchor = { p: number; pos: [number, number][] };
+  type Vec = { x: number; y: number };
   let anchors: Anchor[] = [];
-  let target = 0;
-  let cur = 0;
-  let vel = 0;
   let raf = 0;
   let last = 0;
+
+  // Live state: where each glow is, how fast it's moving, and the current hue.
+  let spots: Vec[] = [];
+  let spotVel: Vec[] = [];
+  let hue = HUE_START;
+  let hueVel = 0;
 
   const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
   const maxScroll = () => Math.max(1, root.scrollHeight - innerHeight);
@@ -138,45 +147,115 @@
     );
   }
 
-  // Critically damped spring with a speed cap (after Unity's SmoothDamp).
-  function smoothDamp(c: number, t: number, v: number, dt: number): [number, number] {
+  // Critically damped spring toward a target with a speed cap (after Unity's SmoothDamp),
+  // in 2D so a capped move still travels in a straight line.
+  function smoothDamp(c: Vec, t: Vec, v: Vec, maxSpeed: number, dt: number): [Vec, Vec] {
     const omega = 2 / SMOOTH_TIME;
     const x = omega * dt;
     const e = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x);
-    const maxChange = MAX_SPEED * SMOOTH_TIME;
-    const change = Math.max(-maxChange, Math.min(maxChange, c - t));
-    const tt = c - change;
-    const temp = (v + omega * change) * dt;
-    let nv = (v - omega * temp) * e;
-    let out = tt + (change + temp) * e;
-    if (t - c > 0 === out > t) {
-      out = t;
-      nv = 0;
+    let cx = c.x - t.x;
+    let cy = c.y - t.y;
+    const maxChange = maxSpeed * SMOOTH_TIME;
+    const len = Math.hypot(cx, cy);
+    if (len > maxChange) {
+      cx *= maxChange / len;
+      cy *= maxChange / len;
+    }
+    const tx = c.x - cx;
+    const ty = c.y - cy;
+    const tempX = (v.x + omega * cx) * dt;
+    const tempY = (v.y + omega * cy) * dt;
+    let out = { x: tx + (cx + tempX) * e, y: ty + (cy + tempY) * e };
+    let nv = { x: (v.x - omega * tempX) * e, y: (v.y - omega * tempY) * e };
+    // Never overshoot the target.
+    if ((t.x - c.x) * (out.x - t.x) + (t.y - c.y) * (out.y - t.y) > 0) {
+      out = { ...t };
+      nv = { x: 0, y: 0 };
     }
     return [out, nv];
+  }
+
+  // While an in-page link's smooth scroll is running, aim straight at where it will land
+  // instead of at each section it scrolls past.
+  let lockedP: number | null = null;
+  let lockTimer = 0;
+  function unlock() {
+    lockedP = null;
+    clearTimeout(lockTimer);
+    if (!raf) raf = requestAnimationFrame(paint);
+  }
+  function lockTo(el: Element) {
+    const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    const landing = el.getBoundingClientRect().top + scrollY - margin;
+    lockedP = clamp01(landing / maxScroll());
+    clearTimeout(lockTimer);
+    lockTimer = window.setTimeout(unlock, 2000); // fallback where `scrollend` isn't supported
+    if (!raf) raf = requestAnimationFrame(paint);
+  }
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest?.('a[href*="#"]') as HTMLAnchorElement | null;
+    if (!a || a.pathname !== location.pathname || !a.hash) return;
+    const el = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+    if (el) lockTo(el);
+  });
+  addEventListener('scrollend', unlock);
+  // Any manual scrolling takes back control immediately.
+  for (const type of ['wheel', 'touchstart', 'keydown'] as const) {
+    addEventListener(type, () => lockedP !== null && unlock(), { passive: true });
+  }
+
+  // Destination for the current scroll position (or the pending jump's landing spot).
+  function destination() {
+    const p = lockedP ?? progress();
+    const rawHue = HUE_START + p * HUE_RANGE;
+    // Pick the equivalent hue nearest the current one, so color takes the short way round.
+    const hueTarget = rawHue + 360 * Math.round((hue - rawHue) / 360);
+    const pos = positionAt(p).map(([x, y]) => ({ x, y }));
+    return { hueTarget, pos };
+  }
+
+  function apply() {
+    root.style.setProperty('--h', hue.toFixed(1));
+    spots.forEach((s, i) => {
+      blobs[i].style.left = `${s.x}%`;
+      blobs[i].style.top = `${s.y}%`;
+    });
   }
 
   function paint(now: number) {
     const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
     last = now;
+    const { hueTarget, pos } = destination();
+
     if (reduced) {
-      cur = target;
-      vel = 0;
+      hue = hueTarget;
+      hueVel = 0;
+      spots = pos;
+      spotVel = pos.map(() => ({ x: 0, y: 0 }));
     } else {
-      [cur, vel] = smoothDamp(cur, target, vel, dt);
-    }
-    if (Math.abs(target - cur) < 0.0001 && Math.abs(vel) < 0.001) {
-      cur = target;
-      vel = 0;
+      const [h, hv] = smoothDamp({ x: hue, y: 0 }, { x: hueTarget, y: 0 }, { x: hueVel, y: 0 }, MAX_HUE_SPEED, dt);
+      hue = h.x;
+      hueVel = hv.x;
+      spots.forEach((s, i) => {
+        [spots[i], spotVel[i]] = smoothDamp(s, pos[i], spotVel[i], MAX_MOVE_SPEED, dt);
+      });
     }
 
-    root.style.setProperty('--h', (HUE_START + cur * HUE_RANGE).toFixed(1));
-    positionAt(cur).forEach(([left, top], i) => {
-      blobs[i].style.left = `${left}%`;
-      blobs[i].style.top = `${top}%`;
-    });
+    const settled =
+      Math.abs(hue - hueTarget) < 0.05 &&
+      Math.abs(hueVel) < 0.05 &&
+      spots.every(
+        (s, i) => Math.hypot(s.x - pos[i].x, s.y - pos[i].y) < 0.02 && Math.hypot(spotVel[i].x, spotVel[i].y) < 0.02,
+      );
+    if (settled) {
+      hue = hueTarget;
+      hueVel = 0;
+      spots = pos;
+      spotVel = pos.map(() => ({ x: 0, y: 0 }));
+    }
+    apply();
 
-    if (cur === target) {
+    if (settled) {
       raf = 0;
       last = 0;
     } else {
@@ -185,13 +264,18 @@
   }
 
   function onScroll() {
-    target = progress();
     if (!raf) raf = requestAnimationFrame(paint);
   }
 
+  // Start at rest on the destination for wherever the page loaded.
   measure();
-  target = cur = progress();
-  paint(performance.now());
+  {
+    const p = progress();
+    hue = HUE_START + p * HUE_RANGE;
+    spots = positionAt(p).map(([x, y]) => ({ x, y }));
+    spotVel = spots.map(() => ({ x: 0, y: 0 }));
+    apply();
+  }
 
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', () => {

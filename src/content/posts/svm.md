@@ -10,6 +10,7 @@ part: 6
 We have seen in previous machine learning models that **classification** often comes down to finding the right **decision boundary**. But what makes one boundary better than another? **SVMs** (Support Vector Machines) answer this question geometrically: an optimal decision boundary is the one that _maximizes_ the distance between the closest points of different classes, allowing us to better distinguish between the two and make better, more confident predictions. This geometric approach makes SVMs an elegant solution to finding an optimal decision boundary and is intuitive to visualize. With the help of **kernels**, it allows SVMs to handle complex problems that aren't linearly separable.
 
 ![Optimal Decision Boundary](/blog-images/svm/optimal-boundary.png)
+All three boundaries separate the data, but only the middle one leaves room on both sides.
 
 # Intuition of Margin
 
@@ -43,7 +44,8 @@ The signed distance alone doesn’t account for which class the point _should_ b
 
 In other words, multiplying by $y_i$ “flips” the sign when needed so that the margin is always **positive for correct predictions** and **negative for incorrect ones**.
 
-![Margin Intuition](/blog-images/svm/margin-intuition.gif)
+![Margin Intuition](/blog-images/svm/margin-intuition.webp)
+Multiplying by $y_i$ makes a point's margin positive when it is classified correctly.
 
 ### Margin of the Dataset
 
@@ -54,6 +56,7 @@ $$
 $$
 
 ![Margins](/blog-images/svm/margin.png)
+Point A sits close to the boundary (small $\gamma_A$); point B sits far from it (large $\gamma_B$).
 
 - Point **A** has a **small margin**, so we are less confident in its classification.
 - Point **B** has a **large margin**, so we are more confident in its classification.
@@ -67,6 +70,7 @@ The points from either class that lie closest to the decision boundary are speci
 - If you removed all other points and kept only the support vectors, the SVM would learn the exact same boundary.
 
 ![Support Vectors](/blog-images/svm/support-vectors.png)
+The circled support vectors lie on the margin and alone determine the boundary.
 
 # From Margins to Optimization
 
@@ -91,6 +95,7 @@ y_i (w^Tx_i) = 1
 $$
 
 ![Decision Boundaries](/blog-images/svm/boundaries.png)
+The decision boundary between the margin boundaries $w^Tx = 1$ and $w^Tx = -1$.
 
 Under this normalization, the margin becomes:
 
@@ -163,6 +168,7 @@ $$
 $$
 
 ![Saddle Point](/blog-images/svm/saddle.png)
+The optimum $(x^*, \lambda^*)$ is a saddle point of the Lagrangian.
 
 ## Finding the Optimal Solution
 
@@ -239,7 +245,7 @@ $$
 Notice that only the training points where $\lambda_i > 0$ contribute to $w^*$. These points are our **support vectors**!
 
 ![Convex vs Concave](/blog-images/svm/convex-concave.png)
-[Image Credit](https://studywell.com/differentiation/convex-concave/)
+A convex curve bends upward; a concave curve bends downward. Source: [StudyWell](https://studywell.com/differentiation/convex-concave/)
 
 ## Step 2. Substituting Back into Lagrangian
 
@@ -314,6 +320,7 @@ Here, $C > 0$ is a [hyperparameter](/blog/tuning-hyperparameters) that controls 
 - Small $C$: more violations allowed (looser fit, better generalization).
 
 ![Soft Margin Intuition](/blog-images/svm/soft-margin.png)
+A soft margin tolerates a few points (circled) on the wrong side.
 
 # Kernel Functions
 
@@ -332,6 +339,7 @@ $$
 For example, we can transform a 1D input $x$ into 2D: $\phi(x) = (x, \; x^2)$. In this new space, a line _might_ separate the data mapped into two-dimensional space where it was otherwise impossible before.
 
 ![Feature Mapping](/blog-images/svm/mapping.png)
+Mapping 1-D points with $\phi(x) = (x, x^2)$ makes them separable by a line.
 
 The problem is some feature mappings expand into _millions_ of new features, and others can be _infinite-dimensional_. Computing all these features is **expensive** and **impractical**.
 
@@ -358,6 +366,7 @@ $$
 This lets us work as if we had mapped the data into the higher-dimensional space, without ever computing the coordinates. This is why kernels are sometimes called a _trick_. It's a workaround to avoid expensive calculations by performing the dot product in the original low-dimensional space, then using the kernel to find its equivalent feature mapping in the higher-dimensional space.
 
 ![Kernel](/blog-images/svm/kernel.png)
+A kernel lifts the center cluster above the ring, where a plane separates them.
 
 ## Polynomial Example
 
