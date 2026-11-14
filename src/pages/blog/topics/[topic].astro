@@ -1,0 +1,12 @@
+---
+import PostIndex from '../../../components/PostIndex.astro';
+import { getPosts, getTopics } from '../../../lib/posts';
+
+export async function getStaticPaths() {
+  return getTopics(await getPosts()).map((t) => ({ params: { topic: t.slug }, props: { name: t.name } }));
+}
+
+const { name } = Astro.props;
+---
+
+<PostIndex topic={name} />

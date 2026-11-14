@@ -3,8 +3,7 @@ title: "Logistic Regression: Turning Probabilities into Predictions"
 description: "How logistic regression turns inputs into probabilities and predictions, how it differs from the linear perceptron, and how it powers real-world decisions like sports predictions."
 date: 2025-08-07
 readTime: "20 min read"
-series: "Machine Learning from Scratch"
-part: 5
+topic: "Machine Learning"
 ---
 
 _This post builds off the ideas and notation introuced in the previous two posts:_

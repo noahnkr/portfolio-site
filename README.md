@@ -35,11 +35,14 @@ title: "Post title"
 description: "One or two sentences shown under the title and in the list."
 date: 2026-01-15
 readTime: "10 min read"
-series: "Machine Learning from Scratch"   # optional
-part: 7                                    # optional, controls order
+topic: "Machine Learning"                  # required; one per post
 draft: true                                # optional, hides the post
 ---
 ```
+
+Posts are listed newest first. Each topic gets a filter at `/blog/topics/<topic-slug>/`, created
+automatically from the posts' `topic` values. Previous/next links on a post stay within its topic,
+oldest to newest.
 
 Write sections with `#` or `##`; headings are normalized so the page title stays the only `<h1>`.
 Math uses `$inline$` and `$$display$$`.
