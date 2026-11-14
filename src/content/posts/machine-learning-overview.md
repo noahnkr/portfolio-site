@@ -3,8 +3,7 @@ title: "Machine Learning: A High-Level Overview"
 description: "A brief orientation for complete novices in the field of machine learning: what machine learning is, how it is used, and the general framework for how it works."
 date: 2025-07-19
 readTime: "5 min read"
-series: "Machine Learning from Scratch"
-part: 1
+topic: "Machine Learning"
 ---
 
 I started this blog, and this site as a whole not just to show off projects or list out skills for a resume, but to give myself a space to think out loud, document my ideas, and clarify topics not only for others, but myself.

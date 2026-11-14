@@ -3,8 +3,7 @@ title: "How Linear Regression Works (and Why it's the Foundation of Machine Lear
 description: "What linear regression is, how it makes predictions, and how it learns from data. This one model introduces feature vectors, model parameters, loss functions, and gradient descent."
 date: 2025-07-21
 readTime: "15 min read"
-series: "Machine Learning from Scratch"
-part: 3
+topic: "Machine Learning"
 ---
 
 If you're just starting to explore machine learning, it can be tempting to jump straight into complex models like neural networks or decision trees. But beneath all of that complexity is a surprisingly simple and powerful idea: **linear regression**.

@@ -9,7 +9,7 @@ export const site = {
     author: 'Richard Feynman',
   },
   description:
-    'Noah Roberts is a software engineer. Projects, experience, and a from-scratch series on machine learning.',
+    'Noah Roberts is a software engineer. Projects, experience, and writing on machine learning and more.',
   /** Path to a résumé PDF placed in /public. Leave null to hide the link. */
   resume: '/Noah-Roberts-Resume.pdf' as string | null,
   /** Text links in the sidebar. */

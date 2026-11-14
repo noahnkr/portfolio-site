@@ -3,8 +3,7 @@ title: "From Lines to Layers: The Linear Perceptron and the Rise of Neural Netwo
 description: "At the heart of today's neural networks lies a surprisingly simple idea: the perceptron. How it works, how it learns to separate data, and how stacking these units leads to powerful models."
 date: 2025-07-30
 readTime: "12 min read"
-series: "Machine Learning from Scratch"
-part: 4
+topic: "Machine Learning"
 ---
 
 At its core, the linear perceptron is like a tiny **decision maker**. It takes a set of inputs, weighs how important each input is, and produces one of two outputs: _yes_ or _no_, 1 or 0, _apples_ or _oranges_. Imagine a straight line cutting through a 2D space: everything on one side is classified as one thing, everything on the other side is classified as something else. Each example we test becomes a data point in that space, and the perceptron decides which side of the line it belongs on.

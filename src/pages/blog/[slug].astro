@@ -1,36 +1,32 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import Article from '../../layouts/Article.astro';
+import { getPosts, topicHref, formatDate, type Post } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
-    (a, b) => (a.data.part ?? 0) - (b.data.part ?? 0) || a.data.date.valueOf() - b.data.date.valueOf(),
-  );
-  return posts.map((post, i) => ({
-    params: { slug: post.id },
-    props: { post, prev: posts[i - 1] ?? null, next: posts[i + 1] ?? null },
-  }));
+  const posts = await getPosts();
+  return posts.map((post) => {
+    // Previous/next walk the post's own topic in reading order (oldest to newest).
+    const thread = posts.filter((p) => p.data.topic === post.data.topic).reverse();
+    const i = thread.indexOf(post);
+    return {
+      params: { slug: post.id },
+      props: { post, prev: thread[i - 1] ?? null, next: thread[i + 1] ?? null },
+    };
+  });
 }
 
 const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
-const date = post.data.date.toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-});
-const eyebrow = post.data.series
-  ? `${post.data.series}${post.data.part ? ` · Part ${post.data.part}` : ''}`
-  : 'Writing';
-const link = (p: typeof post | null) => (p ? { href: `/blog/${p.id}/`, title: p.data.title } : null);
+const link = (p: Post | null) => (p ? { href: `/blog/${p.id}/`, title: p.data.title } : null);
 ---
 
 <Article
   title={post.data.title}
   description={post.data.description}
-  eyebrow={eyebrow}
-  meta={[date, post.data.readTime]}
+  eyebrow={post.data.topic}
+  eyebrowHref={topicHref(post.data.topic)}
+  meta={[formatDate(post.data.date, 'long'), post.data.readTime]}
   prev={link(prev)}
   next={link(next)}
   back={{ href: '/blog/', label: 'All writing' }}

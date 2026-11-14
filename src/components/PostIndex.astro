@@ -1,0 +1,139 @@
+---
+import Base from '../layouts/Base.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { site } from '../data/site';
+import { getPosts, getTopics, topicHref, formatDate } from '../lib/posts';
+
+interface Props {
+  /** Topic name to filter by; omit for every post. */
+  topic?: string;
+}
+
+const { topic } = Astro.props;
+const all = await getPosts();
+const topics = getTopics(all);
+const posts = topic ? all.filter((p) => p.data.topic === topic) : all;
+// Tag each row with its topic only when the list mixes several.
+const showTopic = !topic && topics.length > 1;
+---
+
+<Base
+  title={topic ? `${topic} · Writing` : 'Writing'}
+  description={topic ? `Posts on ${topic.toLowerCase()}, newest first.` : 'Notes and long-form posts, newest first.'}
+>
+  <header class="topbar">
+    <a class="home" href="/">{site.name}</a>
+    <ThemeToggle />
+  </header>
+  <main id="content" class="wrap">
+    <span class="eyebrow">Writing</span>
+    <h1>{topic ?? 'Thinking out loud'}</h1>
+    <p class="intro muted">
+      {topic ? `${posts.length} ${posts.length === 1 ? 'post' : 'posts'}, newest first.` : 'Notes and long-form posts, newest first.'}
+    </p>
+
+    <nav class="topics" aria-label="Filter by topic">
+      <a href="/blog/" aria-current={topic ? undefined : 'page'}>All <span>{all.length}</span></a>
+      {
+        topics.map((t) => (
+          <a href={topicHref(t.name)} aria-current={t.name === topic ? 'page' : undefined}>
+            {t.name} <span>{t.count}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="list">
+      {
+        posts.map((p) => (
+          <a class="row post" href={`/blog/${p.id}/`}>
+            <span class="row-title">{p.data.title}</span>
+            <time class="row-meta" datetime={p.data.date.toISOString().slice(0, 10)}>
+              {formatDate(p.data.date)}
+            </time>
+            <span class="row-desc">{p.data.description}</span>
+            {showTopic && (
+              <ul class="row-tags">
+                <li>{p.data.topic}</li>
+              </ul>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Base>
+
+<style>
+  .topbar {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter-r);
+    padding-block: calc(28px + env(safe-area-inset-top, 0px)) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .home {
+    font: 400 22px/1 var(--f-serif);
+    text-decoration: none;
+  }
+  .wrap {
+    max-width: calc(760px + var(--gutter) + var(--gutter-r));
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter-r);
+    padding-block: 88px 120px;
+    display: grid;
+    gap: 14px;
+  }
+  h1 {
+    margin: 0;
+    font: 400 clamp(36px, 6vw, 52px)/1.08 var(--f-serif);
+    font-variation-settings: 'opsz' 72;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  .intro {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 17px;
+  }
+
+  /* Topic filter: plain links, so each filter is a shareable URL and works without JS */
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 24px;
+  }
+  .topics a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 7px;
+    padding: 6px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  }
+  .topics a span {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+  .topics a:hover {
+    color: var(--fg);
+    border-color: var(--muted);
+  }
+  .topics a[aria-current='page'] {
+    color: var(--fg);
+    background: var(--surface);
+    border-color: var(--muted);
+  }
+  .row-meta {
+    white-space: nowrap;
+  }
+</style>

@@ -9,8 +9,8 @@ const posts = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     readTime: z.string(),
-    series: z.string().optional(),
-    part: z.number().optional(),
+    /** One topic per post, e.g. "Machine Learning". Posts are filtered by it on /blog/. */
+    topic: z.string(),
     draft: z.boolean().default(false),
   }),
 });

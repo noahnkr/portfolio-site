@@ -4,11 +4,10 @@ import Base from '../layouts/Base.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import Icon from '../components/Icon.astro';
 import { site, about, experience, contacts } from '../data/site';
+import { getPosts, formatDate } from '../lib/posts';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
-  (a, b) => (a.data.part ?? 0) - (b.data.part ?? 0) || a.data.date.valueOf() - b.data.date.valueOf(),
-);
+const posts = await getPosts();
 
 const sections = [
   { id: 'about', label: 'About' },
@@ -112,17 +111,20 @@ const introHtml = inlineEm(about.intro).replace(
       </section>
 
       <section id="writing" data-glow aria-labelledby="writing-h">
-        <h2 id="writing-h">Writing <small>{posts[0]?.data.series ?? 'Notes'}</small></h2>
+        <h2 id="writing-h">Writing <small>{posts.length}</small></h2>
         <div class="list">
           {
             posts.map((p) => (
               <a class="row post" href={`/blog/${p.id}/`}>
                 <span class="row-title">{p.data.title}</span>
-                <span class="row-meta">{p.data.readTime.replace(' read', '')}</span>
+                <time class="row-meta" datetime={p.data.date.toISOString().slice(0, 10)}>
+                  {formatDate(p.data.date)}
+                </time>
               </a>
             ))
           }
         </div>
+        <a class="more" href="/blog/">Browse by topic →</a>
       </section>
 
       <section id="contact" data-glow aria-labelledby="contact-h" class="contact">
@@ -332,6 +334,21 @@ const introHtml = inlineEm(about.intro).replace(
     font-variation-settings: 'opsz' 36;
     max-width: 30ch;
     text-wrap: balance;
+  }
+
+  #writing .row-meta {
+    white-space: nowrap;
+    padding-top: 6px; /* sit on the serif title's first line */
+  }
+  .more {
+    width: max-content;
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .more:hover {
+    color: var(--fg);
   }
 
   .jobs {

@@ -3,8 +3,7 @@ title: "The Math Behind Machine Learning"
 description: "If terms like gradients, dot products, or partial derivatives feel a little rusty, this post walks through the key math behind machine learning: linear algebra, calculus, and probability, without diving too deep."
 date: 2025-07-19
 readTime: "10 min read"
-series: "Machine Learning from Scratch"
-part: 2
+topic: "Machine Learning"
 ---
 
 Machine learning is about teaching computers to find patterns in data. While many frameworks let you build models without diving into the math, understanding the underlying concepts, especially in **linear algebra** and **calculus**, can give you a much deeper intuition for how these systems work and why they behave the way they do.

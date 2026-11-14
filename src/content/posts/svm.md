@@ -3,8 +3,7 @@ title: "Margins, Kernels, and Support Vectors: An Intuitive Guide to SVMs"
 description: "What makes a good decision boundary? SVMs maximize the distance from it, and with the help of kernels they can reshape the coordinate space to handle complex data."
 date: 2025-08-25
 readTime: "25 min read"
-series: "Machine Learning from Scratch"
-part: 6
+topic: "Machine Learning"
 ---
 
 We have seen in previous machine learning models that **classification** often comes down to finding the right **decision boundary**. But what makes one boundary better than another? **SVMs** (Support Vector Machines) answer this question geometrically: an optimal decision boundary is the one that _maximizes_ the distance between the closest points of different classes, allowing us to better distinguish between the two and make better, more confident predictions. This geometric approach makes SVMs an elegant solution to finding an optimal decision boundary and is intuitive to visualize. With the help of **kernels**, it allows SVMs to handle complex problems that aren't linearly separable.

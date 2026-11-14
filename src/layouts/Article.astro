@@ -9,6 +9,8 @@ interface Props {
   title: string;
   description: string;
   eyebrow?: string;
+  /** Makes the eyebrow a link, e.g. to the post's topic. */
+  eyebrowHref?: string;
   meta?: string[];
   links?: { label: string; href: string }[];
   prev?: { href: string; title: string } | null;
@@ -16,7 +18,7 @@ interface Props {
   back: { href: string; label: string };
 }
 
-const { title, description, eyebrow, meta = [], links = [], prev, next, back } = Astro.props;
+const { title, description, eyebrow, eyebrowHref, meta = [], links = [], prev, next, back } = Astro.props;
 ---
 
 <Base title={title} description={description} type="article">
@@ -31,7 +33,16 @@ const { title, description, eyebrow, meta = [], links = [], prev, next, back } =
 
   <main id="content" class="article">
     <header class="head">
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      {
+        eyebrow &&
+          (eyebrowHref ? (
+            <a class="eyebrow eyebrow-link" href={eyebrowHref}>
+              {eyebrow}
+            </a>
+          ) : (
+            <span class="eyebrow">{eyebrow}</span>
+          ))
+      }
       <h1>{title}</h1>
       <p class="lede">{description}</p>
       {meta.length > 0 && <p class="meta">{meta.join(' · ')}</p>}
@@ -131,6 +142,14 @@ const { title, description, eyebrow, meta = [], links = [], prev, next, back } =
     font-variation-settings: 'opsz' 72;
     letter-spacing: -0.015em;
     text-wrap: balance;
+  }
+  .eyebrow-link {
+    width: max-content;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .eyebrow-link:hover {
+    color: var(--fg);
   }
   .lede {
     margin: 0;
