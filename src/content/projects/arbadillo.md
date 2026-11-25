@@ -3,7 +3,7 @@ title: Arbadillo
 kind: Data platform
 summary: Distributed pipeline that collects, normalizes and stores live and historical sportsbook odds.
 stack: [Python, Celery, Redis, PostgreSQL, Scrapy, Playwright]
-order: 1
+order: 2
 links:
   - { label: Source, href: "https://github.com/noahnkr/arbadillo/" }
 ---

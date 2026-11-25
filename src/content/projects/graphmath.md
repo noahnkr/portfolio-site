@@ -3,7 +3,7 @@ title: GraphMath
 kind: Graphics
 summary: Graphing calculator with a hand-written expression parser.
 stack: [JavaScript, Canvas API]
-order: 4
+order: 5
 image: ../../assets/projects/graphmath.png
 imageAlt: GraphMath plotting several functions on a grid
 links:

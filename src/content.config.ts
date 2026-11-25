@@ -25,6 +25,8 @@ const projects = defineCollection({
       stack: z.array(z.string()),
       order: z.number(),
       image: image().optional(),
+      /** Light-theme variant of `image`; when set, `image` is shown in dark mode only. */
+      imageLight: image().optional(),
       imageAlt: z.string().optional(),
       links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     }),

@@ -3,7 +3,7 @@ title: March Madness Predictions
 kind: Machine learning
 summary: Five classifiers compared by simulating full NCAA tournament brackets, 2012–2025.
 stack: [Python, scikit-learn, Web scraping]
-order: 2
+order: 3
 image: ../../assets/projects/march-madness.png
 imageAlt: Simulated NCAA tournament bracket produced from model predictions
 links:

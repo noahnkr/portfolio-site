@@ -30,7 +30,22 @@ const link = (p: typeof project | null) => (p ? { href: `/projects/${p.id}/`, ti
   {
     data.image && (
       <figure slot="figure" class="shot">
-        <Image src={data.image} alt={data.imageAlt ?? ''} widths={[700, 1400]} sizes="(max-width: 760px) 100vw, 700px" />
+        <Image
+          src={data.image}
+          alt={data.imageAlt ?? ''}
+          widths={[700, 1400]}
+          sizes="(max-width: 760px) 100vw, 700px"
+          class={data.imageLight && 'theme-img theme-img-dark'}
+        />
+        {data.imageLight && (
+          <Image
+            src={data.imageLight}
+            alt={data.imageAlt ?? ''}
+            widths={[700, 1400]}
+            sizes="(max-width: 760px) 100vw, 700px"
+            class="theme-img theme-img-light"
+          />
+        )}
       </figure>
     )
   }
