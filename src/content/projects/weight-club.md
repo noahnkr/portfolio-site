@@ -3,7 +3,7 @@ title: Weight Club
 kind: Web app
 summary: Gym check-in app the Iowa State Weight Club still runs on.
 stack: [Node.js, Firebase, Chart.js]
-order: 3
+order: 4
 image: ../../assets/projects/weightclub.png
 imageAlt: Chart of member check-ins across the day in 15-minute intervals
 links:

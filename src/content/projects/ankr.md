@@ -3,7 +3,7 @@ title: Ankr
 kind: Languages
 summary: Dynamically typed toy language with a recursive-descent interpreter.
 stack: [C++]
-order: 6
+order: 7
 links:
   - { label: Source, href: "https://github.com/noahnkr/ankr/" }
 ---

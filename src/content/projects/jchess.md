@@ -3,7 +3,7 @@ title: JChess
 kind: Game AI
 summary: Chess engine with alpha-beta search, Zobrist hashing and quiescence search.
 stack: [Java, Swing]
-order: 5
+order: 6
 image: ../../assets/projects/jchess.png
 imageAlt: JChess board mid-game
 links:
